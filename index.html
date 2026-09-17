@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pombe Lab</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #e5e5e5;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000000;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        /* ---------- TOP SECTION ---------- */
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 420px;
+        }
+
+        .hero-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            border-bottom: 1px solid black;
+        }
+
+        .hero-text h1 {
+            font-family: Georgia, serif;
+            font-size: clamp(60px, 8vw, 105px);
+            line-height: 0.9;
+            margin: 0 0 40px 0;
+            letter-spacing: 2px;
+        }
+
+        .hero-text p {
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            min-height: 420px;
+            object-fit: cover;
+        }
+
+        /* ---------- NAVIGATION ---------- */
+
+        .navigation {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 25px 5px;
+        }
+
+        .nav-button {
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            text-decoration: none;
+            color: black;
+
+            box-shadow: 0 4px 7px rgba(0,0,0,0.35);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+        }
+
+        .research {
+            background: #f5c8f5;
+        }
+
+        .publications {
+            background: #dfb0e8;
+        }
+
+        .protocols {
+            background: #ee91c3;
+        }
+
+        .calculations {
+            background: #c88edb;
+        }
+
+        /* ---------- MOBILE ---------- */
+
+        @media (max-width: 700px) {
+
+            .page {
+                margin: 10px;
+                padding: 10px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                min-height: 300px;
+                order: -1;
+            }
+
+            .hero-text {
+                min-height: 350px;
+            }
+
+            .navigation {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="page">
+
+        <section class="hero">
+
+            <div class="hero-text">
+
+                <h1>
+                    POMBE<br>
+                    LAB
+                </h1>
+
+                <p>
+                    DNA repair<br>
+                    Meiosis<br>
+                    Cell cycle
+                </p>
+
+            </div>
+
+            <img
+                class="hero-image"
+                src="lab-photo.jpg"
+                alt="Pombe laboratory"
+            >
+
+        </section>
+
+
+        <nav class="navigation">
+
+            <a href="#" class="nav-button research">
+                Our research
+            </a>
+
+            <a href="#" class="nav-button publications">
+                Publications
+            </a>
+
+            <a href="#" class="nav-button protocols">
+                Protocols
+            </a>
+
+            <a href="#" class="nav-button calculations">
+                Calculations
+            </a>
+
+        </nav>
+
+    </main>
+
+</body>
+</html>
