@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OD600 Culture Dilution – Pombe Lab</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #e5e5e5;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #333;
+        }
+
+        .page {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #444;
+            margin: 0 auto 40px;
+            max-width: 760px;
+        }
+
+        .description h2 {
+            font-family: Georgia, serif;
+            font-size: 25px;
+            margin-top: 35px;
+            margin-bottom: 12px;
+            color: #52705d;
+        }
+
+        .description p {
+            margin-bottom: 18px;
+        }
+
+        .calculator {
+            background: #f4f4f4;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .calculator h2 {
+            font-family: Georgia, serif;
+            font-size: 27px;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 30px;
+            color: #52705d;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 22px;
+            margin-bottom: 8px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #bbb;
+            border-radius: 8px;
+            background: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        textarea {
+            min-height: 180px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .input-help {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        button {
+            display: block;
+            margin: 30px auto 0;
+            padding: 14px 30px;
+            font-size: 17px;
+            font-family: Georgia, serif;
+            border: none;
+            border-radius: 10px;
+            background: #78AA8A;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background: #5F8069;
+            transform: translateY(-2px);
+        }
+
+        #error {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f0d7d7;
+            color: #7a3333;
+            display: none;
+        }
+
+        #results {
+            margin-top: 35px;
+            display: none;
+        }
+
+        #results h2 {
+            font-family: Georgia, serif;
+            color: #52705d;
+            font-size: 25px;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .results-table th {
+            background: #B8D8C0;
+            font-weight: bold;
+        }
+
+        .results-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .cannot-do {
+            color: #8a4545;
+            font-weight: bold;
+        }
+
+        .formula {
+            margin-top: 35px;
+            padding: 25px;
+            background: #e8eeee;
+            border-radius: 12px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .formula h2 {
+            font-family: Georgia, serif;
+            font-size: 23px;
+            margin-top: 0;
+            color: #52705d;
+        }
+
+        .formula-equation {
+            text-align: center;
+            font-size: 20px;
+            margin: 20px 0;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 35px;
+            color: #52705d;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <h1>OD600 Culture Dilution</h1>
+
+
+    <!-- THEORETICAL DESCRIPTION -->
+
+    <div class="description">
+
+        <p>
+            Optical density at 600 nm (OD600) can be used as a convenient
+            measure of the amount of cells in a culture. When preparing a
+            culture with a desired final OD600, the volume of an existing
+            culture required to reach that target can be calculated using
+            the measured OD600 of the starting culture and the desired final
+            volume.
+        </p>
+
+
+        <h2>How does the calculation work?</h2>
+
+        <p>
+            The calculation is based on the relationship between the
+            concentration of the starting culture and the concentration
+            desired in the final culture.
+        </p>
+
+        <p class="formula-equation">
+            <strong>OD₁ × V₁ = OD₂ × V₂</strong>
+        </p>
+
+        <p>
+            Where:
+        </p>
+
+        <ul>
+            <li><strong>OD₁</strong> = measured OD600 of the starting culture</li>
+            <li><strong>V₁</strong> = volume of starting culture required</li>
+            <li><strong>OD₂</strong> = desired final OD600</li>
+            <li><strong>V₂</strong> = desired final culture volume</li>
+        </ul>
+
+        <p>
+            Rearranging the equation gives the volume of starting culture
+            required:
+        </p>
+
+        <p class="formula-equation">
+            <strong>V₁ = (OD₂ × V₂) ÷ OD₁</strong>
+        </p>
+
+        <p>
+            The remaining volume is then made up with fresh medium:
+        </p>
+
+        <p class="formula-equation">
+            <strong>V<sub>medium</sub> = V₂ − V₁</strong>
+        </p>
+
+
+        <h2>Multiple measurements</h2>
+
+        <p>
+            If several OD600 measurements are available, they can all be
+            entered at once. The calculator will determine the required
+            culture volume and fresh medium volume separately for each
+            measurement.
+        </p>
+
+        <p>
+            This is useful when several cultures or replicate measurements
+            need to be prepared to the same final OD600 and volume.
+        </p>
+
+
+        <h2>When is the dilution possible?</h2>
+
+        <p>
+            Dilution with fresh medium can only decrease the OD600. Therefore,
+            the measured OD600 of the starting culture must be equal to or
+            higher than the desired final OD600.
+        </p>
+
+        <p>
+            If the measured OD600 is lower than the target OD600, the required
+            volume of starting culture would be greater than the final
+            culture volume. In this case, the desired OD600 cannot be achieved
+            by dilution alone.
+        </p>
+
+    </div>
+
+
+    <!-- CALCULATOR -->
+
+    <div class="calculator">
+
+        <h2>Calculate culture volumes</h2>
+
+
+        <label for="target-od">
+            Target OD600
+        </label>
+
+        <input
+            type="number"
+            id="target-od"
+            min="0"
+            step="any"
+            placeholder="e.g. 0.5"
+        >
+
+
+        <label for="target-volume">
+            Target final volume (mL)
+        </label>
+
+        <input
+            type="number"
+            id="target-volume"
+            min="0"
+            step="any"
+            placeholder="e.g. 10"
+        >
+
+
+        <label for="measurements">
+            Measured OD600 values
+        </label>
+
+        <textarea
+            id="measurements"
+            placeholder="Enter one OD600 value per line:
+
+0.82
+1.15
+0.67
+0.94"
+        ></textarea>
+
+        <p class="input-help">
+            Enter up to 20 measurements, one per line.
+        </p>
+
+
+        <button onclick="calculateDilution()">
+            Calculate volumes
+        </button>
+
+
+        <div id="error"></div>
+
+
+        <!-- RESULTS -->
+
+        <div id="results">
+
+            <h2>Results</h2>
+
+            <table class="results-table">
+
+                <thead>
+                    <tr>
+                        <th>Measured OD600</th>
+                        <th>Culture volume (mL)</th>
+                        <th>Fresh medium (mL)</th>
+                    </tr>
+                </thead>
+
+                <tbody id="results-body">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- FORMULA -->
+
+    <div class="formula">
+
+        <h2>Calculation</h2>
+
+        <p>
+            For each measured OD600 value, the calculator determines:
+        </p>
+
+        <p class="formula-equation">
+            <strong>
+                Culture volume = (Target OD600 × Target volume) ÷ Measured OD600
+            </strong>
+        </p>
+
+        <p class="formula-equation">
+            <strong>
+                Fresh medium = Target volume − Culture volume
+            </strong>
+        </p>
+
+        <p>
+            All volumes are reported in millilitres (mL).
+        </p>
+
+    </div>
+
+
+    <a href="calculations.html" class="back">
+        ← Back to calculations
+    </a>
+
+</div>
+
+
+<script>
+
+function calculateDilution() {
+
+    const targetOD = parseFloat(
+        document.getElementById("target-od").value
+    );
+
+    const targetVolume = parseFloat(
+        document.getElementById("target-volume").value
+    );
+
+    const input = document.getElementById("measurements").value.trim();
+
+    const error = document.getElementById("error");
+
+    const results = document.getElementById("results");
+
+    const resultsBody = document.getElementById("results-body");
+
+
+    // Hide previous error and results
+
+    error.style.display = "none";
+
+    results.style.display = "none";
+
+    resultsBody.innerHTML = "";
+
+
+    // Check target OD and volume
+
+    if (
+        isNaN(targetOD) ||
+        isNaN(targetVolume) ||
+        targetOD <= 0 ||
+        targetVolume <= 0
+    ) {
+        error.innerHTML =
+            "Please enter a valid target OD600 and target volume.";
+
+        error.style.display = "block";
+
+        return;
+    }
+
+
+    // Check that measurements were entered
+
+    if (input === "") {
+
+        error.innerHTML =
+            "Please enter at least one measured OD600 value.";
+
+        error.style.display = "block";
+
+        return;
+    }
+
+
+    // Split measurements by lines, commas, or semicolons
+
+    const values = input
+        .split(/[\n,;]+/)
+        .map(value => value.trim())
+        .filter(value => value !== "");
+
+
+    // Maximum of 20 measurements
+
+    if (values.length > 20) {
+
+        error.innerHTML =
+            "Please enter no more than 20 OD600 measurements.";
+
+        error.style.display = "block";
+
+        return;
+    }
+
+
+    // Convert measurements to numbers
+
+    const measurements = values.map(value => Number(value));
+
+
+    // Check that every measurement is valid
+
+    for (const measurement of measurements) {
+
+        if (
+            !Number.isFinite(measurement) ||
+            measurement <= 0
+        ) {
+
+            error.innerHTML =
+                "All OD600 measurements must be valid numbers greater than 0.";
+
+            error.style.display = "block";
+
+            return;
+        }
+    }
+
+
+    // Calculate results for each measurement
+
+    measurements.forEach(measuredOD => {
+
+        const neededVolume =
+            (targetOD * targetVolume) / measuredOD;
+
+
+        const row =
+            document.createElement("tr");
+
+
+        // If the culture is too dilute,
+        // the target OD cannot be reached by dilution
+
+        if (neededVolume > targetVolume) {
+
+            row.innerHTML = `
+                <td>${measuredOD}</td>
+                <td colspan="2" class="cannot-do">
+                    Cannot achieve target OD by dilution
+                </td>
+            `;
+
+        }
+
+        else {
+
+            const roundedCultureVolume =
+                neededVolume.toFixed(3);
+
+            const mediumVolume =
+                targetVolume - neededVolume;
+
+            const roundedMediumVolume =
+                mediumVolume.toFixed(3);
+
+
+            row.innerHTML = `
+                <td>${measuredOD}</td>
+                <td>${roundedCultureVolume}</td>
+                <td>${roundedMediumVolume}</td>
+            `;
+
+        }
+
+
+        resultsBody.appendChild(row);
+
+    });
+
+
+    // Show results
+
+    results.style.display = "block";
+
+}
+
+</script>
+
+</body>
+</html>
