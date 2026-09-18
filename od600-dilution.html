@@ -582,13 +582,13 @@ function calculateDilution() {
         else {
 
             const roundedCultureVolume =
-                neededVolume.toFixed(3);
+                neededVolume.toFixed(2);
 
             const mediumVolume =
                 targetVolume - neededVolume;
 
             const roundedMediumVolume =
-                mediumVolume.toFixed(3);
+                mediumVolume.toFixed(2);
 
 
             row.innerHTML = `
