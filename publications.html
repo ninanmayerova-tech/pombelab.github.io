@@ -25,20 +25,36 @@
             padding: 30px;
         }
 
+
         /* ---------- HEADER ---------- */
 
         h1 {
             font-family: Georgia, serif;
             font-size: 64px;
             text-align: center;
-            margin: 20px 0 50px 0;
+            margin: 20px 0 60px 0;
             letter-spacing: 2px;
         }
+
+
+        /* ---------- SECTION HEADERS ---------- */
+
+        .section-title {
+            font-family: Georgia, serif;
+            font-size: 30px;
+            text-align: center;
+
+            margin: 50px 0 30px 0;
+            padding-bottom: 12px;
+
+            border-bottom: 2px solid #999999;
+        }
+
 
         /* ---------- PUBLICATIONS ---------- */
 
         .publication {
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
         .publication-button {
@@ -49,13 +65,13 @@
             color: black;
 
             text-decoration: none;
-            font-size: 21px;
+            font-size: 20px;
             font-weight: bold;
 
             padding: 18px 25px;
             border-radius: 12px;
 
-            box-shadow: 0 4px 7px rgba(0,0,0,0.25);
+            box-shadow: 0 4px 7px rgba(0,0,0,0.20);
 
             transition:
                 transform 0.25s ease,
@@ -65,27 +81,116 @@
 
         .publication-button:hover {
             background: #8FBEA1;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 12px rgba(0,0,0,0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 11px rgba(0,0,0,0.22);
         }
 
         .authors {
-            margin: 12px 10px 0 10px;
-            font-size: 16px;
+            margin: 10px 10px 0 10px;
+            font-size: 15px;
             line-height: 1.5;
         }
 
         .journal {
-            margin: 5px 10px 0 10px;
-            font-size: 15px;
+            margin: 4px 10px 0 10px;
+            font-size: 14px;
             font-style: italic;
         }
+
+
+        /* ---------- MEMBER SECTIONS ---------- */
+
+        .member {
+            margin-bottom: 18px;
+        }
+
+        .member summary {
+            cursor: pointer;
+
+            list-style: none;
+
+            padding: 16px 22px;
+
+            border-radius: 12px;
+
+            font-family: Georgia, serif;
+            font-size: 21px;
+            font-weight: bold;
+
+            box-shadow: 0 3px 6px rgba(0,0,0,0.18);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        /* Hide default triangle */
+
+        .member summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .member summary::after {
+            content: "＋";
+            float: right;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+        }
+
+        .member[open] summary::after {
+            content: "−";
+        }
+
+        .member summary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.20);
+        }
+
+
+        /* Main Pombe Lab members */
+
+        .main-member summary {
+            background: #B8D8C0;
+        }
+
+        .main-member summary:hover {
+            background: #A5CDB1;
+        }
+
+
+        /* Lab subsection members */
+
+        .subsection-member summary {
+            background: #C4DDE5;
+        }
+
+        .subsection-member summary:hover {
+            background: #AFCFD9;
+        }
+
+
+        /* Publications inside member sections */
+
+        .member-publications {
+            padding: 20px 10px 5px 10px;
+        }
+
+
+        /* No publications message */
+
+        .no-publications {
+            margin: 5px 10px 15px 10px;
+            font-style: italic;
+            color: #555555;
+        }
+
 
         /* ---------- BACK BUTTON ---------- */
 
         .back {
             display: inline-block;
-            margin-top: 30px;
+
+            margin-top: 45px;
 
             color: black;
             text-decoration: none;
@@ -98,6 +203,7 @@
             text-decoration: underline;
         }
 
+
         /* ---------- MOBILE ---------- */
 
         @media (max-width: 700px) {
@@ -109,16 +215,25 @@
 
             h1 {
                 font-size: 45px;
-                margin-bottom: 35px;
+                margin-bottom: 40px;
+            }
+
+            .section-title {
+                font-size: 25px;
             }
 
             .publication-button {
-                font-size: 18px;
+                font-size: 17px;
                 padding: 16px 18px;
             }
 
             .authors {
                 font-size: 14px;
+            }
+
+            .member summary {
+                font-size: 18px;
+                padding: 15px 18px;
             }
         }
 
@@ -133,131 +248,26 @@
     <h1>PUBLICATIONS</h1>
 
 
-    <!-- 2025 -->
+    <!-- ================================================= -->
+    <!-- ALL PUBLICATIONS -->
+    <!-- ================================================= -->
 
-    <article class="publication">
+    <h2 class="section-title">
+        All publications
+    </h2>
 
-        <a
-            class="publication-button"
-            href="https://doi.org/10.1038/s41598-025-08626-7"
-            target="_blank"
-        >
-            Dbl2 interacts with helicases and an endonuclease to maintain the integrity of repetitive regions
-        </a>
-
-        <p class="authors">
-            Bakosova, A.; Cipak, L.; Mayerova, N.; Krol, K.; Benko, Z.;
-            Pitelova, A.; Kolesar, P.; Piatrova, D.; Smondrkova, M.;
-            Maresova, A.; Molnarova, L.; Cipakova, I.; Altmannova, V.;
-            Bellova, J.; Barath, P.; Prevorovsky, M.; Palecek, J.;
-            Krejci, L.; Gregan, J.; Skoneczna, A.; Bagelova Polakova, S.
-        </p>
-
-        <p class="journal">
-            Scientific Reports · 2025
-        </p>
-
-    </article>
+    <div id="all-publications"></div>
 
 
-    <!-- 2024 -->
+    <!-- ================================================= -->
+    <!-- PUBLICATIONS BY MEMBER -->
+    <!-- ================================================= -->
 
-    <article class="publication">
+    <h2 class="section-title">
+        Publications by member
+    </h2>
 
-        <a
-            class="publication-button"
-            href="https://doi.org/10.1038/s44318-024-00205-2"
-            target="_blank"
-        >
-            CDK phosphorylation of Sfr1 downregulates Rad51 function in late-meiotic homolog invasions
-        </a>
-
-        <p class="authors">
-            Palacios-Blanco, I.; Gómez, L.; Bort, M.; Mayerová, N.;
-            Bágeľová Poláková, S.
-        </p>
-
-        <p class="journal">
-            The EMBO Journal · 2024
-        </p>
-
-    </article>
-
-
-    <!-- 2022 -->
-
-    <article class="publication">
-
-        <a
-            class="publication-button"
-            href="https://doi.org/10.3390/ijms232112800"
-            target="_blank"
-        >
-            Defining the Functional Interactome of Spliceosome-Associated G-Patch Protein Gpl1 in the Fission Yeast Schizosaccharomyces pombe
-        </a>
-
-        <p class="authors">
-            Selicky, T.; Jurcik, M.; Mikolaskova, B.; Pitelova, A.;
-            Mayerová, N.; Kretova, M.; Osadska, M.; Jurcik, J.;
-            Holic, R.; Kohutova, L.; Bellova, J.; Benko, Z.;
-            Gregan, J.; Bagelova Polakova, S.; Barath, P.;
-            Cipak, L.; Cipakova, I.
-        </p>
-
-        <p class="journal">
-            International Journal of Molecular Sciences · 2022
-        </p>
-
-    </article>
-
-
-    <!-- 2021 -->
-
-    <article class="publication">
-
-        <a
-            class="publication-button"
-            href="https://doi.org/10.1093/nar/gkab027"
-            target="_blank"
-        >
-            Repression of a large number of genes requires interplay between homologous recombination and HIRA
-        </a>
-
-        <p class="authors">
-            Misova, I.; Pitelova, A.; Budis, J.; Gazdarica, J.;
-            Sedlackova, T.; Jordakova, A.; Benko, Z.; Smondrkova, M.;
-            Mayerová, N.; Pichlerova, K.; Strieskova, L.; Prevorovsky, M.;
-            Gregan, J.; Cipak, L.; Szemes, T.; Bagelova Polakova, S.
-        </p>
-
-        <p class="journal">
-            Nucleic Acids Research · 2021
-        </p>
-
-    </article>
-
-
-    <!-- 2020 -->
-
-    <article class="publication">
-
-        <a
-            class="publication-button"
-            href="https://doi.org/10.1016/j.tig.2020.03.001"
-            target="_blank"
-        >
-            Cohesin Biology: From Passive Rings to Molecular Motors
-        </a>
-
-        <p class="authors">
-            Mayerova, N.; Cipak, L.; Gregan, J.
-        </p>
-
-        <p class="journal">
-            Trends in Genetics · 2020
-        </p>
-
-    </article>
+    <div id="members"></div>
 
 
     <a class="back" href="index.html">
@@ -265,6 +275,314 @@
     </a>
 
 </main>
+
+
+<script>
+
+
+/* =====================================================
+   PUBLICATION DATA
+
+   Add new publications HERE in the future.
+   ===================================================== */
+
+const publications = [
+
+    {
+        title: "Dbl2 interacts with helicases and an endonuclease to maintain the integrity of repetitive regions",
+        year: 2025,
+        journal: "Scientific Reports",
+        link: "https://doi.org/10.1038/s41598-025-08626-7",
+
+        authors: [
+            "Bakošová, A.",
+            "Čipák, Ľ.",
+            "Mayerová, N.",
+            "Król, K.",
+            "Benkő, Z.",
+            "Piteľová, A.",
+            "Piatrová, D.",
+            "Šmondrková, M.",
+            "Marešová, A.",
+            "Molnárová, L.",
+            "Čipáková, I.",
+            "Altmannová, V.",
+            "Bellová, J.",
+            "Baráth, P.",
+            "Prevorovský, M.",
+            "Paleček, J.",
+            "Krejčí, Ľ.",
+            "Gregan, J.",
+            "Skoneczna, A.",
+            "Bágeľová Poláková, S."
+        ]
+    },
+
+
+    {
+        title: "CDK phosphorylation of Sfr1 downregulates Rad51 function in late-meiotic homolog invasions",
+        year: 2024,
+        journal: "The EMBO Journal",
+        link: "https://doi.org/10.1038/s44318-024-00205-2",
+
+        authors: [
+            "Palacios-Blanco, I.",
+            "Gómez, L.",
+            "Bort, M.",
+            "Mayerová, N.",
+            "Bágeľová Poláková, S."
+        ]
+    },
+
+
+    {
+        title: "Defining the Functional Interactome of Spliceosome-Associated G-Patch Protein Gpl1 in the Fission Yeast Schizosaccharomyces pombe",
+        year: 2022,
+        journal: "International Journal of Molecular Sciences",
+        link: "https://doi.org/10.3390/ijms232112800",
+
+        authors: [
+            "Selický, T.",
+            "Jurčík, M.",
+            "Mikolášková, B.",
+            "Piteľová, A.",
+            "Mayerová, N.",
+            "Kretová, M.",
+            "Osadská, M.",
+            "Jurčík, J.",
+            "Holič, R.",
+            "Kohútová, L.",
+            "Bellová, J.",
+            "Benkő, Z.",
+            "Gregan, J.",
+            "Bágeľová Poláková, S.",
+            "Baráth, P.",
+            "Čipák, Ľ.",
+            "Čipáková, I."
+        ]
+    },
+
+
+    {
+        title: "Repression of a large number of genes requires interplay between homologous recombination and HIRA",
+        year: 2021,
+        journal: "Nucleic Acids Research",
+        link: "https://doi.org/10.1093/nar/gkab027",
+
+        authors: [
+            "Mišová, I.",
+            "Piteľová, A.",
+            "Budiš, J.",
+            "Gaždárica, J.",
+            "Sedláčková, T.",
+            "Jordáková, A.",
+            "Benkő, Z.",
+            "Šmondrková, M.",
+            "Mayerová, N.",
+            "Pichlerová, K.",
+            "Striešková, L.",
+            "Prevorovský, M.",
+            "Gregan, J.",
+            "Čipák, Ľ.",
+            "Szemeš, T.",
+            "Bágeľová Poláková, S."
+        ]
+    },
+
+
+    {
+        title: "Cohesin Biology: From Passive Rings to Molecular Motors",
+        year: 2020,
+        journal: "Trends in Genetics",
+        link: "https://doi.org/10.1016/j.tig.2020.03.001",
+
+        authors: [
+            "Mayerová, N.",
+            "Čipák, Ľ.",
+            "Gregan, J."
+        ]
+    }
+
+];
+
+
+/* =====================================================
+   MEMBER DATA
+
+   Add/remove members HERE.
+   ===================================================== */
+
+const members = [
+
+    {
+        name: "Silvia Bágeľová Poláková",
+        group: "main"
+    },
+
+    {
+        name: "Anetta Bakošová",
+        group: "main"
+    },
+
+    {
+        name: "Nina Mayerová",
+        group: "main"
+    },
+
+    {
+        name: "Veronika Novysedláková",
+        group: "main"
+    },
+
+    {
+        name: "Dominika Piatrová",
+        group: "main"
+    },
+
+    {
+        name: "Katarína Gáplovská",
+        group: "subsection"
+    },
+
+    {
+        name: "Anna Martyrosian",
+        group: "subsection"
+    }
+
+];
+
+
+/* =====================================================
+   FUNCTION: CREATE PUBLICATION
+   ===================================================== */
+
+function createPublication(publication) {
+
+    const container = document.createElement("article");
+
+    container.className = "publication";
+
+    container.innerHTML = `
+
+        <a
+            class="publication-button"
+            href="${publication.link}"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            ${publication.title}
+        </a>
+
+        <p class="authors">
+            ${publication.authors.join("; ")}
+        </p>
+
+        <p class="journal">
+            ${publication.journal} · ${publication.year}
+        </p>
+
+    `;
+
+    return container;
+}
+
+
+/* =====================================================
+   ALL PUBLICATIONS
+   ===================================================== */
+
+const allPublicationsContainer =
+    document.getElementById("all-publications");
+
+
+/* Newest publications first */
+
+publications
+    .sort((a, b) => b.year - a.year)
+    .forEach(publication => {
+
+        allPublicationsContainer.appendChild(
+            createPublication(publication)
+        );
+
+    });
+
+
+/* =====================================================
+   MEMBER SECTIONS
+   ===================================================== */
+
+const membersContainer =
+    document.getElementById("members");
+
+
+members.forEach(member => {
+
+    const details = document.createElement("details");
+
+    details.className =
+        member.group === "subsection"
+            ? "member subsection-member"
+            : "member main-member";
+
+
+    const summary = document.createElement("summary");
+
+    summary.textContent = member.name;
+
+
+    const publicationContainer =
+        document.createElement("div");
+
+    publicationContainer.className =
+        "member-publications";
+
+
+    /* Find publications containing this member */
+
+    const memberPublications =
+        publications.filter(publication =>
+            publication.authors.some(author =>
+                author.toLowerCase().includes(
+                    member.name.split(" ").pop().toLowerCase()
+                )
+            )
+        );
+
+
+    if (memberPublications.length === 0) {
+
+        publicationContainer.innerHTML = `
+            <p class="no-publications">
+                No publications yet.
+            </p>
+        `;
+
+    } else {
+
+        memberPublications
+            .sort((a, b) => b.year - a.year)
+            .forEach(publication => {
+
+                publicationContainer.appendChild(
+                    createPublication(publication)
+                );
+
+            });
+
+    }
+
+
+    details.appendChild(summary);
+
+    details.appendChild(publicationContainer);
+
+    membersContainer.appendChild(details);
+
+});
+
+
+</script>
 
 </body>
 </html>
