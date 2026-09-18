@@ -365,15 +365,21 @@
 
         <textarea
             id="measurements"
-            placeholder="0.82
-1.15
-0.67
-0.94"
+            placeholder="0.82&#10;1.15&#10;0.67&#10;0.94"
         ></textarea>
+
+        <p id="measurement-count" class="input-help">
+            0 / 20 measurements
+        </p>
 
         <p class="input-help">
             Enter up to 20 OD600 measurements.
             You can enter them one per line or separated by commas.
+        </p>
+
+        <p id="measurement-limit" class="input-help"
+           style="display: none; color: #8a4545;">
+            Maximum 20 measurements allowed.
         </p>
 
 
@@ -449,6 +455,49 @@
 
 
 <script>
+
+const measurementsInput =
+    document.getElementById("measurements");
+
+const measurementCount =
+    document.getElementById("measurement-count");
+
+const measurementLimit =
+    document.getElementById("measurement-limit");
+
+
+measurementsInput.addEventListener("input", function() {
+
+    const values = this.value
+        .split(/[\n,;]+/)
+        .map(value => value.trim())
+        .filter(value => value !== "");
+
+    const count = values.length;
+
+
+    measurementCount.textContent =
+        count + " / 20 measurements";
+
+
+    if (count > 20) {
+
+        measurementLimit.style.display = "block";
+
+        measurementCount.style.color = "#8a4545";
+
+    }
+
+    else {
+
+        measurementLimit.style.display = "none";
+
+        measurementCount.style.color = "#666";
+
+    }
+
+});
+
 
 function calculateDilution() {
 
