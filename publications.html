@@ -57,6 +57,12 @@
             margin-bottom: 30px;
         }
 
+        #all-publications {
+           max-height: 900px;
+           overflow-y: auto;
+           padding: 5px 15px 10px 5px;
+        }
+
         .publication-button {
             display: block;
             width: 100%;
@@ -150,22 +156,24 @@
         /* Main Pombe Lab members */
 
         .main-member summary {
-            background: #B8D8C0;
+            background: #5F8069;
+            color: white;
         }
 
         .main-member summary:hover {
-            background: #A5CDB1;
+            background: #4F6F59;
         }
 
 
-        /* Lab subsection members */
+/* Lab subsection members */
 
         .subsection-member summary {
-            background: #C4DDE5;
+           background: #638A96;
+            color: white;
         }
 
         .subsection-member summary:hover {
-            background: #AFCFD9;
+            background: #527783;
         }
 
 
@@ -264,7 +272,7 @@
     <!-- ================================================= -->
 
     <h2 class="section-title">
-        Publications by member
+        By lab member
     </h2>
 
     <div id="members"></div>
