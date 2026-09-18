@@ -46,6 +46,10 @@
             margin-bottom: 18px;
         }
 
+        .description ul {
+            line-height: 1.8;
+        }
+
         .calculator {
             background: #f4f4f4;
             padding: 35px;
@@ -91,6 +95,7 @@
             font-size: 14px;
             color: #666;
             margin-top: 8px;
+            line-height: 1.5;
         }
 
         button {
@@ -236,10 +241,21 @@
         </p>
 
         <ul>
-            <li><strong>OD₁</strong> = measured OD600 of the starting culture</li>
-            <li><strong>V₁</strong> = volume of starting culture required</li>
-            <li><strong>OD₂</strong> = desired final OD600</li>
-            <li><strong>V₂</strong> = desired final culture volume</li>
+            <li>
+                <strong>OD₁</strong> = measured OD600 of the starting culture
+            </li>
+
+            <li>
+                <strong>V₁</strong> = volume of starting culture required (mL)
+            </li>
+
+            <li>
+                <strong>OD₂</strong> = desired final OD600
+            </li>
+
+            <li>
+                <strong>V₂</strong> = desired final culture volume (mL)
+            </li>
         </ul>
 
         <p>
@@ -270,8 +286,25 @@
         </p>
 
         <p>
-            This is useful when several cultures or replicate measurements
-            need to be prepared to the same final OD600 and volume.
+            You can enter the measurements either <strong>one per line</strong>
+            or <strong>separated by commas</strong>.
+        </p>
+
+        <p>
+            For example, both of the following formats are accepted:
+        </p>
+
+        <p>
+            <strong>One per line:</strong><br>
+            0.82<br>
+            1.15<br>
+            0.67<br>
+            0.94
+        </p>
+
+        <p>
+            <strong>Separated by commas:</strong><br>
+            0.82, 1.15, 0.67, 0.94
         </p>
 
 
@@ -332,16 +365,15 @@
 
         <textarea
             id="measurements"
-            placeholder="Enter one OD600 value per line:
-
-0.82
+            placeholder="0.82
 1.15
 0.67
 0.94"
         ></textarea>
 
         <p class="input-help">
-            Enter up to 20 measurements, one per line.
+            Enter up to 20 OD600 measurements.
+            You can enter them one per line or separated by commas.
         </p>
 
 
@@ -402,7 +434,8 @@
         </p>
 
         <p>
-            All volumes are reported in millilitres (mL).
+            The target volume, culture volume, and fresh medium volume are
+            all expressed in millilitres (mL).
         </p>
 
     </div>
