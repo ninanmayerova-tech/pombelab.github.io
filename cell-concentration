@@ -14,7 +14,7 @@
         }
 
         .page {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             padding: 50px 30px;
         }
@@ -27,10 +27,27 @@
         }
 
         .description {
-            text-align: center;
             font-size: 17px;
-            margin-bottom: 40px;
-            color: #555;
+            line-height: 1.7;
+            color: #444;
+            margin: 0 auto 40px;
+            max-width: 760px;
+        }
+
+        .description h2 {
+            font-family: Georgia, serif;
+            font-size: 25px;
+            margin-top: 35px;
+            margin-bottom: 12px;
+            color: #52705d;
+        }
+
+        .description p {
+            margin-bottom: 18px;
+        }
+
+        .description ul {
+            line-height: 1.8;
         }
 
         .calculator {
@@ -38,6 +55,15 @@
             padding: 35px;
             border-radius: 18px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .calculator h2 {
+            font-family: Georgia, serif;
+            font-size: 27px;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 30px;
+            color: #52705d;
         }
 
         label {
@@ -90,11 +116,55 @@
 
         .formula {
             margin-top: 35px;
-            padding: 20px;
+            padding: 25px;
             background: #e8eeee;
             border-radius: 12px;
             font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .formula h2 {
+            font-family: Georgia, serif;
+            font-size: 23px;
+            margin-top: 0;
+            color: #52705d;
+        }
+
+        .formula table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .formula th,
+        .formula td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #c8d1cc;
+        }
+
+        .formula th {
+            font-weight: bold;
+        }
+
+        .references {
+            margin-top: 35px;
+            padding: 25px;
+            background: #eeeeee;
+            border-radius: 12px;
+            font-size: 14px;
             line-height: 1.6;
+        }
+
+        .references h2 {
+            font-family: Georgia, serif;
+            font-size: 23px;
+            margin-top: 0;
+            color: #52705d;
+        }
+
+        .references a {
+            color: #52705d;
         }
 
         .back {
@@ -118,11 +188,135 @@
 
     <h1>Cell Concentration</h1>
 
-    <p class="description">
-        Calculate cell, spore, or particle concentration from counting in a Bürker chamber.
-    </p>
+
+    <!-- THEORETICAL DESCRIPTION -->
+
+    <div class="description">
+
+        <p>
+            A Bürker chamber is a counting chamber with a precisely defined
+            grid and chamber depth. It allows the concentration of cells,
+            spores, or other microscopic objects in a suspension to be
+            estimated by counting the objects present in a known volume.
+        </p>
+
+        <p>
+            The chamber has a defined depth of 0.1 mm. Because the dimensions
+            of the counting areas are known, each area corresponds to a
+            precisely defined volume of sample. Counting objects in several
+            areas of the same size therefore allows their concentration to be
+            calculated.
+        </p>
+
+
+        <h2>How does the calculation work?</h2>
+
+        <p>
+            First, the average number of objects per counted area is
+            calculated:
+        </p>
+
+        <p>
+            <strong>
+                Average = total number of counted objects ÷ number of counted areas
+            </strong>
+        </p>
+
+        <p>
+            The average is then converted according to the size of the area
+            counted. In this calculator, the final concentration is expressed
+            as <strong>× 10⁶ objects/mL</strong>.
+        </p>
+
+
+        <h2>Bürker chamber geometry</h2>
+
+        <p>
+            In the Bürker grid used for this calculation, the relevant
+            counting areas have the following dimensions:
+        </p>
+
+        <table>
+            <tr>
+                <th>Area</th>
+                <th>Dimensions</th>
+                <th>Relative conversion</th>
+            </tr>
+
+            <tr>
+                <td>Big square</td>
+                <td>1/5 × 1/5 mm</td>
+                <td>Average ÷ 4</td>
+            </tr>
+
+            <tr>
+                <td>Rectangle</td>
+                <td>1/5 × 1/20 mm</td>
+                <td>Average × 1</td>
+            </tr>
+
+            <tr>
+                <td>Small square</td>
+                <td>1/20 × 1/20 mm</td>
+                <td>Average × 4</td>
+            </tr>
+        </table>
+
+        <p>
+            These conversion factors arise from the different volumes
+            represented by the three areas while the chamber depth remains
+            constant. The big square contains four times the volume of the
+            rectangle, while the small square contains one quarter of the
+            volume of the rectangle. Therefore, the same number of objects
+            corresponds to a four-times lower or four-times higher
+            concentration, respectively.
+        </p>
+
+
+        <h2>What can be counted?</h2>
+
+        <p>
+            The same principle can be used for different types of samples,
+            including:
+        </p>
+
+        <ul>
+            <li>cells</li>
+            <li>yeast or fungal spores</li>
+            <li>other microscopic particles or objects</li>
+        </ul>
+
+        <p>
+            When several areas of the same size are counted, their total
+            number is divided by the number of areas to obtain the average
+            count per area.
+        </p>
+
+
+        <h2>Dilution factor</h2>
+
+        <p>
+            If the sample was diluted before counting, the concentration
+            calculated from the Bürker chamber represents the diluted sample.
+            To obtain the concentration in the original sample, the result
+            is multiplied by the dilution factor.
+        </p>
+
+        <p>
+            For example, if a sample was diluted 1:10 before counting, the
+            dilution factor is <strong>10</strong>. If no dilution was
+            performed, the dilution factor is <strong>1</strong>.
+        </p>
+
+    </div>
+
+
+    <!-- CALCULATOR -->
 
     <div class="calculator">
+
+        <h2>Calculate concentration</h2>
+
 
         <label for="total-count">
             Total number of counted objects
@@ -142,9 +336,19 @@
         </label>
 
         <select id="shape">
-            <option value="b">Big square</option>
-            <option value="r">Rectangle</option>
-            <option value="s">Small square</option>
+
+            <option value="b">
+                Big square
+            </option>
+
+            <option value="r">
+                Rectangle
+            </option>
+
+            <option value="s">
+                Small square
+            </option>
+
         </select>
 
 
@@ -161,6 +365,25 @@
         >
 
 
+        <label for="dilution-factor">
+            Dilution factor
+        </label>
+
+        <input
+            type="number"
+            id="dilution-factor"
+            min="0"
+            step="any"
+            value="1"
+            placeholder="e.g. 10"
+        >
+
+        <p style="font-size: 14px; color: #666; margin-top: 8px;">
+            Enter 1 if the sample was not diluted.
+            For a 1:10 dilution, enter 10.
+        </p>
+
+
         <button onclick="calculateConcentration()">
             Calculate concentration
         </button>
@@ -171,35 +394,94 @@
     </div>
 
 
+    <!-- FORMULA -->
+
     <div class="formula">
 
-        <strong>How it works</strong><br><br>
+        <h2>Calculation</h2>
 
-        First, the average number of objects per counted area is calculated:
+        <p>
+            The calculator performs the following steps:
+        </p>
 
-        <br><br>
+        <p>
+            <strong>1.</strong>
+            The total number of objects is divided by the number of counted
+            areas to obtain the average.
+        </p>
 
-        <strong>
-            average = total number of objects ÷ number of counted areas
-        </strong>
+        <p>
+            <strong>2.</strong>
+            The average is converted according to the selected area.
+        </p>
 
-        <br><br>
+        <p>
+            <strong>3.</strong>
+            The dilution factor is applied.
+        </p>
 
-        The chamber area then determines the conversion:
+        <p>
+            <strong>4.</strong>
+            The final concentration is reported as:
+        </p>
 
-        <br><br>
+        <p style="text-align: center; font-size: 19px;">
+            <strong>× 10⁶ objects/mL</strong>
+        </p>
 
-        Big square → average ÷ 4<br>
-        Rectangle → average<br>
-        Small square → average × 4
+    </div>
 
-        <br><br>
 
-        The result is expressed as:
+    <!-- REFERENCES -->
 
-        <br><br>
+    <div class="references">
 
-        <strong>× 10⁶ objects/mL</strong>
+        <h2>References</h2>
+
+        <p>
+            <strong>Practical Course on Advanced Microbiology.</strong>
+            University of Szeged. Description of Bürker chamber dimensions
+            and determination of spore concentration.
+        </p>
+
+        <p>
+            <a
+                href="https://eta.bibl.u-szeged.hu/2092/1/Jegyzet_final.pdf"
+                target="_blank"
+                rel="noopener noreferrer">
+                Practical Course on Advanced Microbiology – University of Szeged
+            </a>
+        </p>
+
+        <p>
+            <strong>Marienfeld Superior.</strong>
+            Counting grids – Bürker counting chamber geometry and dimensions.
+        </p>
+
+        <p>
+            <a
+                href="https://www.marienfeld-superior.com/counting-grids.html"
+                target="_blank"
+                rel="noopener noreferrer">
+                Marienfeld Superior – Counting grids
+            </a>
+        </p>
+
+        <p>
+            <strong>Ferrero et al.</strong>
+            Validation of analytical methods in GMP: the disposable Fast Read
+            102® device, an alternative practical approach for cell counting.
+            <em>Journal of Translational Medicine</em> (2012).
+        </p>
+
+        <p>
+            <a
+                href="https://pubmed.ncbi.nlm.nih.gov/22650233/"
+                target="_blank"
+                rel="noopener noreferrer">
+                PubMed – Ferrero et al. (2012)
+            </a>
+        </p>
 
     </div>
 
@@ -226,14 +508,20 @@ function calculateConcentration() {
         document.getElementById("shapes-count").value
     );
 
+    const dilutionFactor = parseFloat(
+        document.getElementById("dilution-factor").value
+    );
+
 
     // Check that the user entered valid numbers
 
     if (
         isNaN(totalCount) ||
         isNaN(shapesCount) ||
+        isNaN(dilutionFactor) ||
         totalCount < 0 ||
-        shapesCount <= 0
+        shapesCount <= 0 ||
+        dilutionFactor <= 0
     ) {
         alert("Please enter valid numbers.");
         return;
@@ -251,31 +539,44 @@ function calculateConcentration() {
 
 
     if (shape === "b") {
+
         concentration = average / 4;
+
     }
 
     else if (shape === "r") {
+
         concentration = average;
+
     }
 
     else if (shape === "s") {
+
         concentration = average * 4;
+
     }
 
 
-    // Round to three decimal places
+    // Apply dilution factor
+
+    concentration = concentration * dilutionFactor;
+
+
+    // Round final result to three decimal places
 
     concentration = concentration.toFixed(3);
 
 
     // Display result
 
-    const result = document.getElementById("result");
+    const result =
+        document.getElementById("result");
 
     result.innerHTML =
         concentration + " × 10⁶ objects/mL";
 
     result.style.display = "block";
+
 }
 
 </script>
