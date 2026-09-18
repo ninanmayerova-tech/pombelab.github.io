@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculations – Pombe Lab</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #e5e5e5;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #333;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 50px;
+        }
+
+        .calculation-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .calculation-button {
+            display: block;
+            background: #B8D8C0;
+            color: #333;
+            text-decoration: none;
+            font-family: Georgia, serif;
+            font-size: 22px;
+            padding: 22px 28px;
+            border-radius: 14px;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+        }
+
+        .calculation-button:hover {
+            background: #8FBEA1;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 45px;
+            color: #52705d;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <h1>CALCULATIONS</h1>
+
+    <div class="calculation-list">
+
+        <a href="cell-concentration.html" class="calculation-button">
+            Cell concentration from Bürker chamber counting
+        </a>
+
+    </div>
+
+    <a href="index.html" class="back">← Back to home</a>
+
+</div>
+
+</body>
+</html>
