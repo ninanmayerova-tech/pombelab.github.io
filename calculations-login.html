@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pombe Lab — Calculations</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #e5e5e5;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #333;
+    }
+
+    .page {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 50px 30px;
+    }
+
+    h1 {
+        font-family: Georgia, serif;
+        text-align: center;
+        font-size: 42px;
+        margin-bottom: 15px;
+    }
+
+    .login-box {
+        max-width: 500px;
+        margin: 70px auto 0;
+        background: #f4f4f4;
+        padding: 40px;
+        border-radius: 18px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        text-align: center;
+    }
+
+    .login-box h2 {
+        font-family: Georgia, serif;
+        font-size: 27px;
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #52705d;
+    }
+
+    .login-box p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        text-align: left;
+        margin-bottom: 8px;
+    }
+
+    input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #bbb;
+        border-radius: 8px;
+        background: white;
+    }
+
+    button {
+        display: block;
+        margin: 30px auto 0;
+        padding: 14px 30px;
+        font-size: 17px;
+        font-family: Georgia, serif;
+        border: none;
+        border-radius: 10px;
+        background: #78AA8A;
+        color: white;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    button:hover {
+        background: #5F8069;
+        transform: translateY(-2px);
+    }
+
+    #error {
+        margin-top: 20px;
+        color: #8a4a4a;
+        display: none;
+    }
+
+    .back {
+        display: block;
+        text-align: center;
+        margin-top: 35px;
+        color: #52705d;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .back:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <h1>CALCULATIONS</h1>
+
+    <div class="login-box">
+
+        <h2>🔬 Pombe Lab Tools</h2>
+
+        <p>
+            These calculation tools are intended for Pombe Lab use.
+            Please enter the lab password to continue.
+        </p>
+
+        <form onsubmit="checkPassword(event)">
+
+            <label for="password">Password</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password"
+                autocomplete="off"
+            >
+
+            <button type="submit">
+                Enter
+            </button>
+
+        </form>
+
+        <p id="error">
+            Incorrect password. Please try again.
+        </p>
+
+    </div>
+
+    <a href="index.html" class="back">
+        ← Back to Pombe Lab
+    </a>
+
+</div>
+
+<script>
+
+function checkPassword(event) {
+
+    event.preventDefault();
+
+    const password = document.getElementById("password").value;
+
+    if (password === "pombe-lab-2026") {
+
+        sessionStorage.setItem("calculationsAccess", "granted");
+
+        window.location.href = "calculations.html";
+
+    } else {
+
+        document.getElementById("error").style.display = "block";
+
+    }
+}
+
+</script>
+
+</body>
+</html>
