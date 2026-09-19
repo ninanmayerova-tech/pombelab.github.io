@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Spot Test Calculator | Pombe Lab</title>
+
+<style>
+
+body {
+    margin: 0;
+    background: #e5e5e5;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+p {
+    text-align: justify;
+    line-height: 1.6;
+}
+
+.page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 50px 30px;
+}
+
+h1 {
+    font-family: Georgia, serif;
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+
+/* =========================
+   DESCRIPTION
+   ========================= */
+
+.description {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #444;
+    margin: 0 auto 40px;
+    max-width: 900px;
+}
+
+.description h2 {
+    font-family: Georgia, serif;
+    font-size: 25px;
+    margin-top: 35px;
+    margin-bottom: 12px;
+    color: #52705d;
+}
+
+.description p {
+    margin-bottom: 18px;
+}
+
+
+/* =========================
+   METHOD SELECTOR
+   ========================= */
+
+.method-selector {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 35px 0;
+}
+
+.method-button {
+    padding: 13px 22px;
+    border: none;
+    border-radius: 10px;
+    background: #B8D8C0;
+    color: #333;
+    font-family: Georgia, serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.method-button:hover {
+    background: #8FBEA1;
+    transform: translateY(-2px);
+}
+
+.method-button.active {
+    background: #52705d;
+    color: white;
+}
+
+
+/* =========================
+   GENERAL BOX
+   ========================= */
+
+.box {
+    background: #f4f4f4;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+}
+
+.box h2 {
+    font-family: Georgia, serif;
+    font-size: 27px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: #52705d;
+}
+
+
+/* =========================
+   SETTINGS
+   ========================= */
+
+.settings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.setting {
+    background: #eeeeee;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.setting label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+input,
+textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    background: white;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.calculated-value {
+    margin-top: 25px;
+    padding: 15px;
+    background: #B8D8C0;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+/* =========================
+   BUTTON
+   ========================= */
+
+button {
+    display: block;
+    margin: 25px auto 0;
+    padding: 14px 30px;
+    font-size: 17px;
+    font-family: Georgia, serif;
+    border: none;
+    border-radius: 10px;
+    background: #78AA8A;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: #5F8069;
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   TABLE
+   ========================= */
+
+.table-wrapper {
+    overflow-x: auto;
+    margin-top: 25px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th {
+    background: #52705d;
+    color: white;
+    padding: 13px 10px;
+    font-family: Georgia, serif;
+    font-weight: normal;
+    text-align: center;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+td:first-child {
+    font-weight: bold;
+    text-align: left;
+    white-space: nowrap;
+}
+
+td input {
+    min-width: 100px;
+    padding: 9px;
+    text-align: center;
+}
+
+.result-cell {
+    background: #eef5f0;
+    font-weight: bold;
+}
+
+.good {
+    background: #B8D8C0 !important;
+}
+
+.error {
+    background: #e9b5b5 !important;
+}
+
+
+/* =========================
+   WARNING
+   ========================= */
+
+.warning-box {
+    margin-top: 25px;
+    padding: 18px 20px;
+    background: #f4d9a6;
+    border-radius: 12px;
+    line-height: 1.6;
+}
+
+.warning-box strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+/* =========================
+   FORMULA
+   ========================= */
+
+.formula {
+    margin-top: 35px;
+    padding: 25px;
+    background: #e8eeee;
+    border-radius: 12px;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.formula h2 {
+    font-family: Georgia, serif;
+    font-size: 23px;
+    margin-top: 0;
+    color: #52705d;
+}
+
+
+/* =========================
+   MULTICHANNEL
+   ========================= */
+
+.fixed-value {
+    background: #B8D8C0;
+    padding: 18px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.dilution-table th {
+    background: #52705d;
+}
+
+
+/* =========================
+   NOTES
+   ========================= */
+
+.references {
+    margin-top: 35px;
+    padding: 25px;
+    background: #eeeeee;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.references h2 {
+    font-family: Georgia, serif;
+    font-size: 23px;
+    margin-top: 0;
+    color: #52705d;
+}
+
+
+/* =========================
+   BACK LINK
+   ========================= */
+
+.back {
+    display: block;
+    text-align: center;
+    margin-top: 35px;
+    color: #52705d;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+
+    .page {
+        padding: 35px 15px;
+    }
+
+    h1 {
+        font-size: 34px;
+    }
+
+    .settings {
+        grid-template-columns: 1fr;
+    }
+
+    .box {
+        padding: 20px;
+    }
+
+    .method-selector {
+        flex-direction: column;
+    }
+
+    .method-button {
+        width: 100%;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+<h1>Spot Test Calculator</h1>
+
+
+<!-- =========================
+     INTRODUCTION
+     ========================= -->
+
+<div class="description">
+
+<h2>How does the preparation work?</h2>
+
+<p>
+The spot test preparation starts from an overnight culture.
+For all three methods, the culture is refreshed to a target
+OD<sub>600</sub> of <strong>0.2</strong> and grown for approximately
+<strong>4–5 hours</strong>. The expected OD<sub>600</sub> after growth
+is approximately <strong>0.8–1.0</strong>.
+</p>
+
+<p>
+Cells are then counted and the culture is normalized before preparing
+the spot dilution series.
+</p>
+
+<p>
+For the two liquidator methods, the required cell concentration depends
+on the number of cells required per spot and the volume used for each spot.
+The normalized suspension has a final volume of <strong>200 µL</strong>.
+</p>
+
+</div>
+
+
+<!-- =========================
+     METHOD SELECTOR
+     ========================= -->
+
+<div class="method-selector">
+
+<button
+    class="method-button active"
+    onclick="showMethod('sav', this)">
+    SAV – liquidator
+</button>
+
+<button
+    class="method-button"
+    onclick="showMethod('prifuk', this)">
+    PrifUK – liquidator
+</button>
+
+<button
+    class="method-button"
+    onclick="showMethod('multi', this)">
+    PrifUK – multichannel pipette
+</button>
+
+</div>
+
+
+<!-- =========================
+     SETTINGS FOR CURRENT METHODS
+     ========================= -->
+
+<div id="current-settings" class="box">
+
+<h2>Spot test settings</h2>
+
+
+<div class="settings">
+
+    <div class="setting">
+
+        <label for="cellsPerSpot">
+            Cells per spot
+        </label>
+
+        <input
+            type="number"
+            id="cellsPerSpot"
+            value="10000"
+            min="1"
+            step="1"
+            oninput="settingsChanged()">
+
+    </div>
+
+
+    <div class="setting">
+
+        <label for="spotVolume">
+            Spot volume (µL)
+        </label>
+
+        <input
+            type="number"
+            id="spotVolume"
+            value="5"
+            min="0.01"
+            step="0.1"
+            oninput="settingsChanged()">
+
+    </div>
+
+</div>
+
+
+<div class="calculated-value">
+
+Required concentration:
+<span id="targetConcentration">2,000</span>
+cells/µL
+
+</div>
+
+
+<div class="setting" style="margin-top: 25px;">
+
+    <label for="strainInput">
+        Enter strains, one strain per line
+    </label>
+
+    <textarea
+        id="strainInput"
+        placeholder="WT&#10;rad51Δ&#10;mutant A&#10;mutant B"></textarea>
+
+</div>
+
+
+<button onclick="generateStrainTables()">
+    Create table
+</button>
+
+</div>
+
+
+<!-- =========================
+     SAV
+     ========================= -->
+
+<div
+    id="sav-section"
+    class="box method-section">
+
+<h2>SAV – liquidator</h2>
+
+<p>
+Count cells manually using a Bürker chamber. Enter the average number
+of cells counted in one large square for each strain.
+</p>
+
+
+<div class="formula">
+
+<h2>Cell concentration</h2>
+
+<p>
+<strong>
+cells/µL = average cells per large square × 250
+</strong>
+</p>
+
+<p>
+The factor 250 corresponds to the volume of one large square
+(0.004 µL).
+</p>
+
+</div>
+
+
+<div id="sav-table-container"></div>
+
+</div>
+
+
+<!-- =========================
+     PRIFUK
+     ========================= -->
+
+<div
+    id="prifuk-section"
+    class="box method-section"
+    style="display:none;">
+
+<h2>PrifUK – liquidator</h2>
+
+<p>
+Enter the concentration measured directly by the automated cell counter.
+The calculator determines the culture and water volumes required to
+prepare 200 µL at the required concentration.
+</p>
+
+
+<div id="prifuk-table-container"></div>
+
+</div>
+
+
+<!-- =========================
+     MULTICHANNEL
+     ========================= -->
+
+<div
+    id="multi-section"
+    class="box method-section"
+    style="display:none;">
+
+<h2>PrifUK – multichannel pipette</h2>
+
+<p>
+This method represents the historical multichannel-pipette preparation.
+It uses a fixed highest concentration and a five-fold dilution series.
+</p>
+
+
+<div class="fixed-value">
+
+Highest concentration:
+
+<br><br>
+
+3,125 cells/spot in 3 µL
+
+<br><br>
+
+= 1,041.67 cells/µL
+
+</div>
+
+
+<div id="multi-table-container"></div>
+
+
+<div class="formula">
+
+<h2>Dilution series</h2>
+
+<p style="text-align:center; font-size:18px;">
+
+<strong>
+3,125 → 625 → 125 → 25 → 5 cells/spot
+</strong>
+
+</p>
+
+<p>
+Each step represents a five-fold dilution.
+</p>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     NOTES
+     ========================= -->
+
+<div class="references">
+
+<h2>Notes</h2>
+
+<ul>
+
+<li>
+All three methods use a final normalization volume of 200 µL.
+</li>
+
+<li>
+For SAV and PrifUK liquidator methods, spot volume can be changed.
+</li>
+
+<li>
+The required concentration is recalculated automatically from
+cells per spot and spot volume.
+</li>
+
+<li>
+The multichannel method represents the historical preparation workflow.
+</li>
+
+</ul>
+
+</div>
+
+
+<a href="calculations.html" class="back">
+← Back to Calculations
+</a>
+
+</div>
+
+
+<script>
+
+
+/* =========================
+   GLOBAL VARIABLES
+   ========================= */
+
+let strains = [];
+
+
+/* =========================
+   METHOD SWITCHING
+   ========================= */
+
+function showMethod(method, button) {
+
+    document
+        .querySelectorAll(".method-button")
+        .forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+    button.classList.add("active");
+
+
+    document.getElementById("sav-section").style.display =
+        method === "sav" ? "block" : "none";
+
+    document.getElementById("prifuk-section").style.display =
+        method === "prifuk" ? "block" : "none";
+
+    document.getElementById("multi-section").style.display =
+        method === "multi" ? "block" : "none";
+
+
+    document.getElementById("current-settings").style.display =
+        method === "multi" ? "none" : "block";
+
+
+    if (method === "multi") {
+
+        createMultiTable();
+
+    }
+
+}
+
+
+/* =========================
+   GET TARGET CONCENTRATION
+   ========================= */
+
+function getTargetConcentration() {
+
+    const cellsPerSpot =
+        parseFloat(
+            document.getElementById("cellsPerSpot").value
+        );
+
+    const spotVolume =
+        parseFloat(
+            document.getElementById("spotVolume").value
+        );
+
+
+    if (
+        isNaN(cellsPerSpot) ||
+        isNaN(spotVolume) ||
+        spotVolume <= 0
+    ) {
+
+        return null;
+
+    }
+
+
+    return cellsPerSpot / spotVolume;
+
+}
+
+
+/* =========================
+   UPDATE SETTINGS
+   ========================= */
+
+function settingsChanged() {
+
+    const target =
+        getTargetConcentration();
+
+
+    if (target === null) {
+
+        document.getElementById("targetConcentration")
+            .textContent = "—";
+
+        return;
+
+    }
+
+
+    document.getElementById("targetConcentration")
+        .textContent = formatNumber(target);
+
+
+    /*
+     * If tables already exist, recalculate them.
+     */
+
+    if (strains.length > 0) {
+
+        for (let i = 0; i < strains.length; i++) {
+
+            calculateSav(i);
+            calculatePrifuk(i);
+
+        }
+
+    }
+
+}
+
+
+/* =========================
+   CREATE STRAIN TABLES
+   ========================= */
+
+function generateStrainTables() {
+
+    const text =
+        document.getElementById("strainInput").value.trim();
+
+
+    if (!text) {
+
+        alert("Please enter at least one strain.");
+
+        return;
+
+    }
+
+
+    strains =
+        text
+        .split("\n")
+        .map(strain => strain.trim())
+        .filter(strain => strain.length > 0);
+
+
+    createSavTable();
+    createPrifukTable();
+    createMultiTable();
+
+}
+
+
+/* =========================
+   SAV TABLE
+   ========================= */
+
+function createSavTable() {
+
+    let html = `
+
+    <div class="table-wrapper">
+
+    <table>
+
+    <thead>
+
+    <tr>
+
+        <th>Strain</th>
+
+        <th>
+            Average cells<br>
+            / large square
+        </th>
+
+        <th>
+            Measured<br>
+            cells/µL
+        </th>
+
+        <th>
+            Culture<br>
+            for 200 µL
+        </th>
+
+        <th>
+            Water<br>
+            to 200 µL
+        </th>
+
+        <th>
+            Target<br>
+            cells/µL
+        </th>
+
+    </tr>
+
+    </thead>
+
+    <tbody>
+    `;
+
+
+    strains.forEach((strain, index) => {
+
+        html += `
+
+        <tr>
+
+            <td>
+                ${escapeHtml(strain)}
+            </td>
+
+            <td>
+
+                <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    id="sav-count-${index}"
+                    oninput="calculateSav(${index})"
+                    placeholder="count">
+
+            </td>
+
+            <td
+                id="sav-conc-${index}"
+                class="result-cell">
+
+                —
+
+            </td>
+
+            <td
+                id="sav-culture-${index}"
+                class="result-cell">
+
+                —
+
+            </td>
+
+            <td
+                id="sav-water-${index}"
+                class="result-cell">
+
+                —
+
+            </td>
+
+            <td
+                id="sav-target-${index}"
+                class="result-cell">
+
+                —
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+
+    html += `
+
+    </tbody>
+
+    </table>
+
+    </div>
+
+    `;
+
+
+    document.getElementById("sav-table-container")
+        .innerHTML = html;
+
+}
+
+
+/* =========================
+   SAV CALCULATION
+   ========================= */
+
+function calculateSav(index) {
+
+    const count =
+        parseFloat(
+            document.getElementById(
+                `sav-count-${index}`
+            ).value
+        );
+
+
+    const target =
+        getTargetConcentration();
+
+
+    if (
+        isNaN(count) ||
+        target === null
+    ) {
+
+        return;
+
+    }
+
+
+    const measured =
+        count * 250;
+
+
+    const culture =
+        (200 * target) / measured;
+
+
+    const water =
+        200 - culture;
+
+
+    document.getElementById(
+        `sav-conc-${index}`
+    ).textContent =
+        formatNumber(measured);
+
+
+    document.getElementById(
+        `sav-target-${index}`
+    ).textContent =
+        formatNumber(target);
+
+
+    const cultureCell =
+        document.getElementById(
+            `sav-culture-${index}`
+        );
+
+    const waterCell =
+        document.getElementById(
+            `sav-water-${index}`
+        );
+
+
+    if (measured >= target) {
+
+        cultureCell.textContent =
+            formatNumber(culture) + " µL";
+
+        waterCell.textContent =
+            formatNumber(water) + " µL";
+
+        cultureCell.classList.remove("error");
+        cultureCell.classList.add("good");
+
+    }
+
+    else {
+
+        cultureCell.textContent =
+            "Not possible";
+
+        waterCell.textContent =
+            "—";
+
+        cultureCell.classList.remove("good");
+        cultureCell.classList.add("error");
+
+    }
+
+}
+
+
+/* =========================
+   PRIFUK TABLE
+   ========================= */
+
+function createPrifukTable() {
+
+    let html = `
+
+    <div class="table-wrapper">
+
+    <table>
+
+    <thead>
+
+    <tr>
+
+        <th>Strain</th>
+
+        <th>
+            Cell counter<br>
+            cells/µL
+        </th>
+
+        <th>
+            Culture<br>
+            for 200 µL
+        </th>
+
+        <th>
+            Water<br>
+            to 200 µL
+        </th>
+
+        <th>
+            Target<br>
+            cells/µL
+        </th>
+
+    </tr>
+
+    </thead>
+
+    <tbody>
+    `;
+
+
+    strains.forEach((strain, index) => {
+
+        html += `
+
+        <tr>
+
+            <td>
+                ${escapeHtml(strain)}
+            </td>
+
+            <td>
+
+                <input
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    id="prifuk-count-${index}"
+                    oninput="calculatePrifuk(${index})"
+                    placeholder="cells/µL">
+
+            </td>
+
+            <td
+                id="prifuk-culture-${index}"
+                class="result-cell">
+
+                —
+
+            </td>
+
+            <td
+                id="prifuk-water-${index}"
+                class="result-cell">
+
+                —
+
+            </td>
+
+            <td
+                id="prifuk-target-${index}"
+                class="result-cell">
+
+                —
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+
+    html += `
+
+    </tbody>
+
+    </table>
+
+    </div>
+
+    `;
+
+
+    document.getElementById(
+        "prifuk-table-container"
+    ).innerHTML = html;
+
+}
+
+
+/* =========================
+   PRIFUK CALCULATION
+   ========================= */
+
+function calculatePrifuk(index) {
+
+    const measured =
+        parseFloat(
+            document.getElementById(
+                `prifuk-count-${index}`
+            ).value
+        );
+
+
+    const target =
+        getTargetConcentration();
+
+
+    if (
+        isNaN(measured) ||
+        target === null
+    ) {
+
+        return;
+
+    }
+
+
+    const culture =
+        (200 * target) / measured;
+
+
+    const water =
+        200 - culture;
+
+
+    document.getElementById(
+        `prifuk-target-${index}`
+    ).textContent =
+        formatNumber(target);
+
+
+    const cultureCell =
+        document.getElementById(
+            `prifuk-culture-${index}`
+        );
+
+    const waterCell =
+        document.getElementById(
+            `prifuk-water-${index}`
+        );
+
+
+    if (measured >= target) {
+
+        cultureCell.textContent =
+            formatNumber(culture) + " µL";
+
+        waterCell.textContent =
+            formatNumber(water) + " µL";
+
+        cultureCell.classList.remove("error");
+        cultureCell.classList.add("good");
+
+    }
+
+    else {
+
+        cultureCell.textContent =
+            "Not possible";
+
+        waterCell.textContent =
+            "—";
+
+        cultureCell.classList.remove("good");
+        cultureCell.classList.add("error");
+
+    }
+
+}
+
+
+/* =========================
+   MULTICHANNEL TABLE
+   ========================= */
+
+function createMultiTable() {
+
+    if (strains.length === 0) {
+
+        document.getElementById(
+            "multi-table-container"
+        ).innerHTML = "";
+
+        return;
+
+    }
+
+
+    let html = `
+
+    <div class="table-wrapper">
+
+    <table class="dilution-table">
+
+    <thead>
+
+    <tr>
+
+        <th>Strain</th>
+
+        <th>
+            Spot 1<br>
+            3,125
+        </th>
+
+        <th>
+            Spot 2<br>
+            625
+        </th>
+
+        <th>
+            Spot 3<br>
+            125
+        </th>
+
+        <th>
+            Spot 4<br>
+            25
+        </th>
+
+        <th>
+            Spot 5<br>
+            5
+        </th>
+
+    </tr>
+
+    </thead>
+
+    <tbody>
+    `;
+
+
+    strains.forEach(strain => {
+
+        html += `
+
+        <tr>
+
+            <td>
+                ${escapeHtml(strain)}
+            </td>
+
+            <td>3,125</td>
+            <td>625</td>
+            <td>125</td>
+            <td>25</td>
+            <td>5</td>
+
+        </tr>
+
+        `;
+
+    });
+
+
+    html += `
+
+    </tbody>
+
+    </table>
+
+    </div>
+
+    `;
+
+
+    document.getElementById(
+        "multi-table-container"
+    ).innerHTML = html;
+
+}
+
+
+/* =========================
+   NUMBER FORMATTING
+   ========================= */
+
+function formatNumber(value) {
+
+    if (!isFinite(value)) {
+
+        return "—";
+
+    }
+
+
+    if (Math.abs(value) >= 100) {
+
+        return value.toFixed(0);
+
+    }
+
+
+    if (Math.abs(value) >= 10) {
+
+        return value.toFixed(1);
+
+    }
+
+
+    return value.toFixed(2);
+
+}
+
+
+/* =========================
+   HTML SAFETY
+   ========================= */
+
+function escapeHtml(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================
+   INITIALIZE
+   ========================= */
+
+settingsChanged();
+
+</script>
+
+</body>
+</html>
