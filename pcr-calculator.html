@@ -1,1 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCR Calculator – Pombe Lab</title>
+<style>
+body {
+    margin: 0;
+    background: #e5e5e5;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+}
+.page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 45px 30px 60px;
+}
+h1 {
+    font-family: Georgia, serif;
+    text-align: center;
+    font-size: 46px;
+    margin-bottom: 18px;
+}
+.intro {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 35px;
+    line-height: 1.6;
+}
+.card {
+    background: #f5f5f5;
+    border-radius: 16px;
+    padding: 25px 28px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 8px rgba(0,0,0,.07);
+}
+h2 {
+    font-family: Georgia, serif;
+    margin-top: 0;
+    color: #52705d;
+}
+h3 {
+    font-family: Georgia, serif;
+    color: #52705d;
+}
+label {
+    display: block;
+    font-weight: bold;
+    margin: 16px 0 7px;
+}
+select, input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+}
+input[type="number"] {
+    max-width: 260px;
+}
+.help {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+button {
+    display: block;
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #78AA8A;
+    color: white;
+    font-size: 18px;
+    font-family: Georgia, serif;
+    cursor: pointer;
+}
+button:hover {
+    background: #5F8069;
+}
+.result-box {
+    display: none;
+}
+.summary {
+    background: #B8D8C0;
+    padding: 18px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+.colony-box {
+    background: #d9e8dc;
+    border-left: 5px solid #5F8069;
+    padding: 18px;
+    border-radius: 8px;
+    line-height: 1.6;
+}
+.warning {
+    background: #eee6d3;
+    border-left: 5px solid #9a8150;
+    padding: 16px;
+    border-radius: 8px;
+    line-height: 1.6;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: white;
+}
+th, td {
+    padding: 11px 9px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+th {
+    background: #DDE9E0;
+}
+.formula {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: Georgia, serif;
+    text-align: center;
+    font-size: 17px;
+    margin: 12px 0;
+}
+.reference {
+    font-size: 14px;
+    line-height: 1.6;
+}
+.reference a {
+    color: #52705d;
+}
+.back {
+    display: block;
+    text-align: center;
+    margin-top: 40px;
+    color: #52705d;
+    text-decoration: none;
+}
+.back:hover {
+    text-decoration: underline;
+}
+@media (max-width: 650px) {
+    .page { padding: 30px 16px 45px; }
+    h1 { font-size: 38px; }
+    .card { padding: 20px; }
+    table { font-size: 14px; }
+    th, td { padding: 8px 6px; }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<h1>PCR CALCULATOR</h1>
+
+<p class="intro">
+    Calculate PCR master-mix volumes for DreamTaq or Q5 reactions.
+    Select the polymerase, template type and number of reactions.
+    Template DNA is always added separately, after aliquoting the master mix.
+</p>
+
+<div class="card">
+<h2>Theory &amp; practical notes</h2>
+
+<p>
+    A PCR master mix contains all components that are common to the
+    reactions. Preparing a master mix helps reduce pipetting errors and
+    improves consistency between samples. The manufacturer's DreamTaq
+    protocol specifically recommends preparing enough master mix for the
+    required reactions plus one extra reaction, aliquoting the mix and
+    then adding template DNA.
+</p>
+
+<div class="warning">
+<strong>Controls:</strong> Never forget to include appropriate positive
+and negative controls whenever possible. Include your control reactions
+in the number of reactions entered into the calculator so that enough
+master mix is prepared.
+</div>
+
+<p>
+    The calculator uses the following working reaction volumes:
+</p>
+
+<ul>
+    <li><strong>DreamTaq + genomic DNA:</strong> 50 µL</li>
+    <li><strong>DreamTaq + plasmid DNA:</strong> 50 µL</li>
+    <li><strong>DreamTaq + colony:</strong> 12.5 µL</li>
+    <li><strong>Q5 + genomic DNA:</strong> 50 µL</li>
+    <li><strong>Q5 + plasmid DNA:</strong> 50 µL</li>
+</ul>
+
+<p>
+    DreamTaq genomic/plasmid reactions use a 50 µL working recipe based
+    on the Thermo Scientific manufacturer's recommended 50 µL reaction.
+    The laboratory uses a 10 mM-each dNTP mix, so the dNTP volume is
+    adjusted to give the same 200 µM final concentration of each dNTP.
+    Primer concentrations are set to 0.5 µM final using 10 µM primer stocks.
+</p>
+
+<p>
+    Q5 reactions use the NEB 50 µL reaction setup: 5× Q5 Reaction Buffer,
+    10 mM dNTPs, 10 µM primers and Q5 High-Fidelity DNA Polymerase.
+</p>
+
+<p>
+    The colony-PCR recipe is a laboratory-specific 12.5 µL working
+    reaction. The master mix is aliquoted first and the colony template
+    is added last.
+</p>
+
+<div class="colony-box">
+<strong>Colony PCR boiling step:</strong><br>
+Prepare the colony suspension and boil it at <strong>95°C for 5 min</strong>.
+For each reaction, aliquot <strong>10 µL</strong> of DreamTaq master mix
+and add <strong>2.5 µL</strong> of the boiled colony suspension.
+Final reaction volume: <strong>12.5 µL</strong>.
+</div>
+
+<p>
+    If you prefer to use a smaller or larger reaction volume in practice,
+    you can scale the calculated recipe accordingly. The calculator
+    provides the standard working recipes above.
+</p>
+
+<h3>Extra master-mix volume</h3>
+<p>
+    To reduce losses during pipetting, the calculator automatically adds
+    extra reaction volume:
+</p>
+<ul>
+    <li><strong>Fewer than 10 samples:</strong> +0.5 reaction</li>
+    <li><strong>10 or more samples:</strong> +1 reaction</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Calculate</h2>
+
+<label for="polymerase">DNA polymerase</label>
+<select id="polymerase">
+    <option value="dt">DreamTaq</option>
+    <option value="q5">Q5</option>
+</select>
+
+<label for="template">DNA template</label>
+<select id="template"></select>
+
+<label for="reactions">Number of reactions / samples</label>
+<input type="number" id="reactions" min="1" step="1" placeholder="e.g. 7">
+
+<p class="help">
+    Enter the total number of reactions you want to perform, including
+    any controls you want to prepare.
+</p>
+
+<button onclick="calculatePCR()">Calculate master mix</button>
+</div>
+
+<div class="card result-box" id="results">
+<h2>Master mix</h2>
+
+<div class="summary" id="summary"></div>
+
+<table>
+<thead>
+<tr>
+    <th>Component</th>
+    <th>Stock concentration</th>
+    <th>Volume / reaction</th>
+    <th>Final concentration</th>
+    <th>Total volume</th>
+</tr>
+</thead>
+<tbody id="results-body"></tbody>
+</table>
+
+<div id="special-instructions"></div>
+</div>
+
+<div class="card">
+<h2>Formulas</h2>
+
+<div class="formula">
+Total master-mix volume = volume per reaction × calculated reactions
+</div>
+
+<div class="formula">
+Calculated reactions = entered reactions + extra volume
+</div>
+
+<p>
+    The template volume is <strong>not</strong> included in the master-mix
+    total. It is added individually to each reaction after the master mix
+    has been aliquoted.
+</p>
+</div>
+
+<div class="card reference">
+<h2>References</h2>
+
+<p>
+<strong>DreamTaq DNA Polymerase:</strong>
+Thermo Scientific. <em>DreamTaq DNA Polymerase</em>. The manufacturer's
+protocol specifies a 50 µL reaction containing 5 µL 10× DreamTaq Buffer,
+5 µL of 2 mM-each dNTP mix, 1.25 U DreamTaq polymerase, primers at
+0.1–1.0 µM, template DNA at 10 pg–1 µg, and water to 50 µL. The protocol
+also recommends preparing master mix for the required reactions plus one
+extra reaction and adding template afterward.
+<br>
+<a href="https://www.thermofisher.com/TFS-Assets/LSG/manuals/MAN0012036_DreamTaqDNAPolymerase_500U_UG.pdf"
+target="_blank" rel="noopener noreferrer">
+Thermo Scientific DreamTaq DNA Polymerase protocol
+</a>
+</p>
+
+<p>
+<strong>Q5 High-Fidelity DNA Polymerase:</strong>
+New England Biolabs (NEB). The 50 µL reaction contains 10 µL 5× Q5
+Reaction Buffer, 1 µL 10 mM dNTPs, 2.5 µL each of 10 µM forward and
+reverse primers, 0.5 µL Q5 polymerase and variable template DNA, with
+water to 50 µL.
+<br>
+<a href="https://www.neb.com/en-nz/protocols/pcr-using-q5-high-fidelity-dna-polymerase-m0491"
+target="_blank" rel="noopener noreferrer">
+NEB Q5 High-Fidelity DNA Polymerase PCR protocol
+</a>
+</p>
+</div>
+
+<a href="calculations.html" class="back">← Back to calculations</a>
+
+</div>
+
+<script>
+const recipes = {
+
+    dreamtaq_g: {
+        name: "DreamTaq + genomic DNA",
+        reactionVolume: 50,
+        aliquot: 49,
+        templateVolume: 1,
+        components: [
+            { name: "Nuclease-free water", stock: "—", per: 38.75, final: "—" },
+            { name: "10× DreamTaq Buffer", stock: "10×", per: 5, final: "1×" },
+            { name: "dNTP mix", stock: "10 mM each", per: 1, final: "200 µM each" },
+            { name: "Forward primer", stock: "10 µM", per: 2.5, final: "0.5 µM" },
+            { name: "Reverse primer", stock: "10 µM", per: 2.5, final: "0.5 µM" },
+            { name: "DreamTaq polymerase", stock: "5 U/µL", per: 0.25, final: "0.025 U/µL" }
+        ]
+    },
+
+    dreamtaq_p: {
+        name: "DreamTaq + plasmid DNA",
+        reactionVolume: 50,
+        aliquot: 49,
+        templateVolume: 1,
+        components: [
+            { name: "Nuclease-free water", stock: "—", per: 38.75, final: "—" },
+            { name: "10× DreamTaq Buffer", stock: "10×", per: 5, final: "1×" },
+            { name: "dNTP mix", stock: "10 mM each", per: 1, final: "200 µM each" },
+            { name: "Forward primer", stock: "10 µM", per: 2.5, final: "0.5 µM" },
+            { name: "Reverse primer", stock: "10 µM", per: 2.5, final: "0.5 µM" },
+            { name: "DreamTaq polymerase", stock: "5 U/µL", per: 0.25, final: "0.025 U/µL" }
+        ]
+    },
+
+    dreamtaq_c: {
+        name: "DreamTaq + colony",
+        reactionVolume: 12.5,
+        aliquot: 10,
+        templateVolume: 2.5,
+        components: [
+            { name: "Nuclease-free water", stock: "—", per: 7.7333333333, final: "—" },
+            { name: "10× DreamTaq Buffer", stock: "10×", per: 1.25, final: "1×" },
+            { name: "dNTP mix", stock: "10 mM each", per: 0.225, final: "180 µM each" },
+            { name: "Forward primer", stock: "10 µM", per: 0.5416666667, final: "0.433 µM" },
+            { name: "Reverse primer", stock: "10 µM", per: 0.5416666667, final: "0.433 µM" },
+            { name: "DreamTaq polymerase", stock: "5 U/µL", per: 0.125, final: "0.05 U/µL" }
+        ]
+    },
+
+    q5_g: {
+        name: "Q5 + genomic DNA",
+        reactionVolume: 50,
+        aliquot: 49,
+        templateVolume: 1,
+        components: [
+            { name: "Nuclease-free water", stock: "—", per: 32.5, final: "—" },
+            { name: "5× Q5 Reaction Buffer", stock: "5×", per: 10, final: "1×" },
+            { name: "dNTP mix", stock: "10 mM each", per: 1, final: "200 µM each" },
+            { name: "Forward primer", stock: "10 µM", per: 2.5, final: "0.5 µM" },
+            { name: "Reverse primer", stock: "10 µM", per: 2.5, final: "0.5 µM" },
+            { name: "Q5 polymerase", stock: "2 U/µL", per: 0.5, final: "0.02 U/µL" }
+        ]
+    },
+
+    q5_p: {
+        name: "Q5 + plasmid DNA",
+        reactionVolume: 50,
+        aliquot: 49,
+        templateVolume: 1,
+        components: [
+            { name: "Nuclease-free water", stock: "—", per: 32.5, final: "—" },
+            { name: "5× Q5 Reaction Buffer", stock: "5×", per: 10, final: "1×" },
+            { name: "dNTP mix", stock: "10 mM each", per: 1, final: "200 µM each" },
+            { name: "Forward primer", stock: "10 µM", per: 2.5, final: "0.5 µM" },
+            { name: "Reverse primer", stock: "10 µM", per: 2.5, final: "0.5 µM" },
+            { name: "Q5 polymerase", stock: "2 U/µL", per: 0.5, final: "0.02 U/µL" }
+        ]
+    }
+};
+
+const polymeraseSelect = document.getElementById("polymerase");
+const templateSelect = document.getElementById("template");
+
+function updateTemplates() {
+    const polymerase = polymeraseSelect.value;
+
+    if (polymerase === "dt") {
+        templateSelect.innerHTML = `
+            <option value="dreamtaq_g">Genomic DNA</option>
+            <option value="dreamtaq_p">Plasmid DNA</option>
+            <option value="dreamtaq_c">Colony PCR</option>
+        `;
+    } else {
+        templateSelect.innerHTML = `
+            <option value="q5_g">Genomic DNA</option>
+            <option value="q5_p">Plasmid DNA</option>
+        `;
+    }
+}
+
+polymeraseSelect.addEventListener("change", updateTemplates);
+updateTemplates();
+
+function roundVolume(value) {
+    return value.toFixed(2);
+}
+
+function calculatePCR() {
+    const recipe = recipes[templateSelect.value];
+    const reactions = parseFloat(document.getElementById("reactions").value);
+    const results = document.getElementById("results");
+    const body = document.getElementById("results-body");
+    const summary = document.getElementById("summary");
+    const instructions = document.getElementById("special-instructions");
+
+    if (!Number.isFinite(reactions) || reactions < 1 || !Number.isInteger(reactions)) {
+        alert("Please enter a whole number of reactions (at least 1).");
+        return;
+    }
+
+    const extra = reactions < 10 ? 0.5 : 1;
+    const calculatedReactions = reactions + extra;
+
+    summary.innerHTML = `
+        <strong>${recipe.name}</strong><br>
+        Requested reactions: <strong>${reactions}</strong><br>
+        Master mix calculated for: <strong>${calculatedReactions} reactions</strong><br>
+        Final reaction volume: <strong>${recipe.reactionVolume} µL</strong><br>
+        Master mix aliquot: <strong>${recipe.aliquot} µL</strong><br>
+        Template added last: <strong>${recipe.templateVolume} µL</strong>
+    `;
+
+    body.innerHTML = "";
+
+    recipe.components.forEach(component => {
+        const total = component.per * calculatedReactions;
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${component.name}</td>
+            <td>${component.stock}</td>
+            <td>${roundVolume(component.per)} µL</td>
+            <td>${component.final}</td>
+            <td>${roundVolume(total)} µL</td>
+        `;
+
+        body.appendChild(row);
+    });
+
+    if (templateSelect.value === "dreamtaq_c") {
+        instructions.innerHTML = `
+            <div class="colony-box" style="margin-top:20px;">
+                <strong>Colony PCR — template preparation</strong><br><br>
+                Boil the colony suspension at <strong>95°C for 5 min</strong>.
+                For each reaction, aliquot <strong>10 µL</strong> of master mix
+                and add <strong>2.5 µL</strong> of boiled colony suspension.
+                Final reaction volume: <strong>12.5 µL</strong>.
+            </div>
+        `;
+    } else {
+        instructions.innerHTML = `
+            <div class="summary" style="margin-top:20px;">
+                <strong>Template addition:</strong>
+                Aliquot <strong>${recipe.aliquot} µL</strong> of master mix
+                into each reaction, then add <strong>${recipe.templateVolume} µL</strong>
+                of template DNA individually.
+            </div>
+        `;
+    }
+
+    results.style.display = "block";
+}
+</script>
+
+</body>
+</html>
 
