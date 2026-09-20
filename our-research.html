@@ -1,1 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Our Research – Pombe Lab</title>
+
+<style>
+body {
+    margin: 0;
+    background: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+p {
+    text-align: justify;
+    line-height: 1.6;
+}
+
+.page {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 50px 30px;
+}
+
+/* MAIN TITLE */
+
+h1 {
+    font-family: Georgia, serif;
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+/* INTRODUCTION */
+
+.intro {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #444;
+    margin: 0 auto 40px;
+    max-width: 760px;
+}
+
+/* RESEARCH SECTIONS */
+
+.research-section {
+    margin-top: 55px;
+}
+
+.section-heading {
+    font-family: Georgia, serif;
+    font-size: 25px;
+    margin-top: 35px;
+    margin-bottom: 25px;
+    color: #52705d;
+    text-align: left;
+}
+
+/* TEXT + SCHEME */
+
+.section-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 45px;
+    align-items: center;
+}
+
+.section-text {
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.section-text p {
+    margin-bottom: 18px;
+}
+
+/* SCHEMES */
+
+.scheme {
+    text-align: center;
+}
+
+.scheme img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.repair-scheme {
+    max-width: 390px;
+}
+
+.meiosis-scheme {
+    max-width: 390px;
+}
+
+/* RESEARCH IN PRACTICE */
+
+.practice-title {
+    font-family: Georgia, serif;
+    font-size: 25px;
+    margin-top: 40px;
+    margin-bottom: 22px;
+    color: #52705d;
+    text-align: left;
+}
+
+/*
+   The three figures intentionally remain
+   on one line on normal-sized screens.
+*/
+
+.practice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    align-items: start;
+}
+
+.figure-card {
+    min-width: 0;
+}
+
+.figure-card img {
+    width: 100%;
+    height: 165px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+.figure-card p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: #444;
+    margin-top: 12px;
+}
+
+/* RAD51 FIGURE */
+
+.rad51-figure {
+    object-fit: contain !important;
+}
+
+/* BACK LINK */
+
+.back {
+    display: block;
+    text-align: center;
+    margin-top: 50px;
+    color: #52705d;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .page {
+        padding: 40px 20px;
+    }
+
+    .section-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    /*
+       On a phone three figures cannot remain
+       comfortably on one line, so they stack.
+    */
+
+    .practice-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .figure-card img {
+        height: auto;
+        max-height: 260px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <h1>OUR RESEARCH</h1>
+
+    <div class="intro">
+        <p>
+            Our research focuses on chromosome biology in the fission yeast
+            <em>Schizosaccharomyces pombe</em>, with particular interest in
+            DNA repair, chromatin regulation, meiosis and karyogamy.
+        </p>
+    </div>
+
+
+    <!-- =====================================================
+         DNA REPAIR
+         ===================================================== -->
+
+    <section class="research-section">
+
+        <h2 class="section-heading">
+            01 — DNA repair and chromatin remodelers
+        </h2>
+
+        <div class="section-grid">
+
+            <div class="section-text">
+
+                <p>
+                    Homologous recombination is a high-fidelity DNA repair
+                    pathway that repairs DNA double-strand breaks through
+                    Rad51-mediated strand invasion into a homologous DNA
+                    template. Chromatin dynamics, regulated by histone
+                    modifications such as acetylation, methylation,
+                    phosphorylation, and ubiquitination, play central roles
+                    in transcriptional regulation and have also emerged as
+                    important regulators of DNA repair and the replication
+                    stress response.
+                </p>
+
+                <p>
+                    Our projects aim to identify and characterize
+                    chromatin-associated factors that regulate the DNA damage
+                    response and homologous recombination in the fission yeast.
+                </p>
+
+            </div>
+
+
+            <div class="scheme">
+
+                <!-- ORIGINAL POWERPOINT REPAIR SCHEME -->
+
+                <img
+                    src="research_assets/repair-scheme.png"
+                    class="repair-scheme"
+                    alt="DNA repair and homologous recombination scheme"
+                >
+
+            </div>
+
+        </div>
+
+
+        <h3 class="practice-title">
+            Research in practice
+        </h3>
+
+
+        <div class="practice-grid">
+
+            <!-- RAD51 -->
+
+            <div class="figure-card">
+
+                <img
+                    src="research_assets/rad51-wt-dbl2delta.png"
+                    class="rad51-figure"
+                    alt="Rad51 immunofluorescence in wild type and dbl2 delta cells"
+                >
+
+                <p>
+                    Rad51 immunofluorescence in wild type and
+                    <em>dbl2Δ</em> cells, showing Rad51, DAPI-stained nuclei
+                    and merged images.
+                </p>
+
+            </div>
+
+
+            <!-- SPOT ASSAY -->
+
+            <div class="figure-card">
+
+                <img
+                    src="research_assets/spot-assay.png"
+                    alt="Spot assay showing growth of wild type and mutant strains"
+                >
+
+                <p>
+                    Spot assay showing growth of wild type and mutant strains
+                    on mutagen-containing media. Improved growth in the double
+                    mutant indicates a positive genetic interaction of
+                    <em>dbl2</em> and <em>fbh1</em> within the same repair
+                    pathway using homologous recombination.
+                </p>
+
+            </div>
+
+
+            <!-- PFGE -->
+
+            <div class="figure-card">
+
+                <img
+                    src="research_assets/pfge.png"
+                    alt="Pulse-field gel electrophoresis of Schizosaccharomyces pombe chromosomes"
+                >
+
+                <p>
+                    Pulse-field gel electrophoresis separation of three
+                    <em>S. pombe</em> chromosomes. Deletion of either
+                    <em>dbl2</em> or <em>fbh1</em> recombination factors leads
+                    to instability of chromosome III.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         MEIOSIS AND KARYOGAMY
+         ===================================================== -->
+
+    <section class="research-section">
+
+        <h2 class="section-heading">
+            02 — Meiosis and karyogamy
+        </h2>
+
+        <div class="section-grid">
+
+
+            <div class="section-text">
+
+                <p>
+                    Fission yeast
+                    <em>Schizosaccharomyces pombe</em>
+                    is a suitable model to study meiosis. Upon pheromone
+                    signalling, haploid cells of opposite mating types
+                    conjugate to form a pre-zygote, followed by karyogamy –
+                    a key event in meiotic progression. The process includes
+                    congression and fusion of haploid nuclei, which produces
+                    a diploid zygote and enables two subsequent rounds of
+                    meiotic division.
+                </p>
+
+                <p>
+                    In a large genetic screen, we have identified several
+                    candidate genes with a potential function during
+                    karyogamy, which has not been yet elucidated. Our main
+                    aim is to describe and explain their role as prominent
+                    and non-canonical regulators of fission yeast meiosis.
+                </p>
+
+            </div>
+
+
+            <div class="scheme">
+
+                <!-- ORIGINAL POWERPOINT MEIOSIS SCHEME -->
+
+                <img
+                    src="research_assets/meiosis-scheme.png"
+                    class="meiosis-scheme"
+                    alt="Meiosis and karyogamy scheme in fission yeast"
+                >
+
+            </div>
+
+        </div>
+
+
+        <h3 class="practice-title">
+            Research in practice
+        </h3>
+
+
+        <div class="practice-grid">
+
+
+            <!-- SPC2 -->
+
+            <div class="figure-card">
+
+                <img
+                    src="research_assets/spc2-twin-horsetail.png"
+                    alt="Wild type and spc2 delta cells showing twin-horsetail phenotype"
+                >
+
+                <p>
+                    Functional knockout of <em>spc2</em> leads to defective
+                    fusion of endoplasmic reticulum membrane in fission yeast,
+                    manifested as twin-horsetail.
+                </p>
+
+            </div>
+
+
+            <!-- CLOSED MITOSIS -->
+
+            <div class="figure-card">
+
+                <img
+                    src="research_assets/closed-mitosis.png"
+                    alt="Live cell imaging of closed mitosis in fission yeast"
+                >
+
+                <p>
+                    Live cell imaging of closed mitosis in fission yeast,
+                    showing the nuclear membrane and heat shock protein 104.
+                </p>
+
+            </div>
+
+
+            <!-- MEIOTIC ZYGOTES -->
+
+            <div class="figure-card">
+
+                <img
+                    src="research_assets/meiotic-zygotes.png"
+                    alt="DNA segregation in meiotic zygotes"
+                >
+
+                <p>
+                    DNA (red) in meiotic zygotes is segregated by the nuclear
+                    spindle (green) during the two meiotic divisions, MI and
+                    MII, resulting in the formation of four equally sized
+                    DNA masses.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <a class="back" href="index.html">
+        ← Back to Pombe Lab
+    </a>
+
+</div>
+
+</body>
+</html>
