@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Genetic Interaction Calculator | Pombe Lab</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #e5e5e5;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #333;
+        }
+
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #444;
+            margin: 0 auto 40px;
+            max-width: 760px;
+        }
+
+        .description h2 {
+            font-family: Georgia, serif;
+            font-size: 25px;
+            margin-top: 35px;
+            margin-bottom: 12px;
+            color: #52705d;
+        }
+
+        .description ul {
+            line-height: 1.7;
+        }
+
+        .calculator-box {
+            background: #f4f4f4;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-family: Georgia, serif;
+            font-size: 25px;
+            color: #52705d;
+            margin: 0 0 18px 0;
+        }
+
+        .section-intro {
+            margin-top: -5px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+            border: 1px solid #bbb;
+            border-radius: 8px;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            outline: 2px solid #78AA8A;
+            outline-offset: 1px;
+        }
+
+        .experiment-name {
+            margin-bottom: 25px;
+        }
+
+        .wt-box {
+            background: #e8eeee;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .wt-result {
+            margin-top: 12px;
+            font-weight: bold;
+            color: #52705d;
+        }
+
+        .number-selector {
+            max-width: 180px;
+            margin-bottom: 25px;
+        }
+
+        .strain-row {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr;
+            gap: 15px;
+            align-items: end;
+            margin-bottom: 15px;
+        }
+
+        .combined-row {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr 1fr;
+            gap: 15px;
+            align-items: end;
+            margin-bottom: 15px;
+        }
+
+        .field-group label {
+            font-size: 14px;
+        }
+
+        .calculated-value {
+            background: #e8eeee;
+            min-height: 46px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .expected-box {
+            background: #dce9df;
+            padding: 25px;
+            border-radius: 14px;
+            margin-top: 20px;
+        }
+
+        .expected-box h3 {
+            font-family: Georgia, serif;
+            font-size: 22px;
+            margin: 0 0 12px 0;
+            color: #52705d;
+        }
+
+        .expected-number {
+            font-family: Georgia, serif;
+            font-size: 34px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .formula {
+            font-family: Georgia, serif;
+            font-size: 18px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .calculate-button {
+            display: block;
+            margin: 35px auto 0;
+            padding: 14px 35px;
+            font-size: 17px;
+            font-family: Georgia, serif;
+            border: none;
+            border-radius: 10px;
+            background: #78AA8A;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .calculate-button:hover {
+            background: #5F8069;
+            transform: translateY(-2px);
+        }
+
+        .results {
+            margin-top: 40px;
+            display: none;
+        }
+
+        .results-title {
+            font-family: Georgia, serif;
+            font-size: 29px;
+            color: #52705d;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .summary-box {
+            background: #e8eeee;
+            padding: 25px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .summary-item {
+            background: #f4f4f4;
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .summary-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 7px;
+        }
+
+        .summary-value {
+            font-family: Georgia, serif;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .difference-positive {
+            color: #4d7659;
+        }
+
+        .difference-negative {
+            color: #8a4a4a;
+        }
+
+        .interaction-box {
+            padding: 25px;
+            border-radius: 14px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .interaction-box h3 {
+            font-family: Georgia, serif;
+            margin: 0 0 8px 0;
+            font-size: 27px;
+        }
+
+        .interaction-box p {
+            text-align: center;
+            margin: 0;
+        }
+
+        .strong-negative {
+            background: #e4b7b7;
+        }
+
+        .weak-negative {
+            background: #efd2c8;
+        }
+
+        .non-interacting {
+            background: #dddddd;
+        }
+
+        .weak-positive {
+            background: #d6e5c8;
+        }
+
+        .strong-positive {
+            background: #b8d8c0;
+        }
+
+        .results-table-wrapper {
+            overflow-x: auto;
+            margin-top: 25px;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 13px 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: right;
+        }
+
+        .results-table th:first-child,
+        .results-table td:first-child {
+            text-align: left;
+        }
+
+        .results-table th {
+            background: #638A96;
+            color: white;
+            font-weight: bold;
+        }
+
+        .results-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .statistics-box {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+        }
+
+        .statistics-box h3 {
+            font-family: Georgia, serif;
+            font-size: 22px;
+            color: #52705d;
+            margin-top: 0;
+        }
+
+        .statistics-box p {
+            margin-bottom: 0;
+        }
+
+        .note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 12px;
+        }
+
+        .error {
+            background: #f3d5d5;
+            color: #7a3f3f;
+            padding: 15px 18px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .references {
+            margin-top: 45px;
+            padding-top: 25px;
+            border-top: 1px solid #bbb;
+        }
+
+        .references h2 {
+            font-family: Georgia, serif;
+            font-size: 24px;
+            color: #52705d;
+        }
+
+        .references p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 45px;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 700px) {
+
+            .page {
+                padding: 35px 18px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .calculator-box {
+                padding: 25px 18px;
+            }
+
+            .strain-row,
+            .combined-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                padding: 15px 0;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .expected-number {
+                font-size: 29px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<main class="page">
+
+    <h1>GENETIC INTERACTION CALCULATOR</h1>
+
+
+    <div class="description">
+
+        <p>
+            This calculator is designed for screening genetic interactions in
+            <em>Schizosaccharomyces pombe</em> using spot-test growth measurements.
+            ImageJ/FiJi area measurements are converted automatically to relative
+            fitness using wild type as the 100% growth reference.
+        </p>
+
+
+        <h2>Multiplicative model</h2>
+
+        <p>
+            The expected fitness of a combined mutant is calculated using the
+            multiplicative (Product) model. The fitness values of the individual
+            parental mutants are multiplied to obtain the expected fitness of the
+            combined mutant.
+        </p>
+
+        <p class="formula">
+            Expected fitness = W<sub>1</sub> × W<sub>2</sub> × ... × W<sub>n</sub>
+        </p>
+
+        <p>
+            The interaction is then quantified as the difference between the
+            observed and expected fitness:
+        </p>
+
+        <p class="formula">
+            Difference = Observed fitness − Expected fitness
+        </p>
+
+        <p>
+            A positive difference means that the combined mutant grows better
+            than expected, whereas a negative difference means that it grows
+            worse than expected.
+        </p>
+
+
+        <h2>Screening interpretation</h2>
+
+        <p>
+            The interaction categories used by this calculator are the
+            <strong>Pombe Lab screening criteria</strong>. They are intended to
+            identify effects that may be biologically relevant in the screening
+            experiment. In particular, differences of 10–20% should not be
+            overlooked because relatively small genetic effects may still be
+            biologically meaningful.
+        </p>
+
+        <ul>
+            <li><strong>≤ −20 percentage points:</strong> strong negative interaction</li>
+            <li><strong>&gt; −20 to ≤ −10 percentage points:</strong> weak negative interaction</li>
+            <li><strong>&gt; −10 to &lt; +10 percentage points:</strong> non-interacting</li>
+            <li><strong>≥ +10 to ≤ +20 percentage points:</strong> weak positive interaction</li>
+            <li><strong>&gt; +20 percentage points:</strong> strong positive interaction</li>
+        </ul>
+
+    </div>
+
+
+    <div class="calculator-box">
+
+
+        <!-- EXPERIMENT -->
+
+        <section class="section">
+
+            <h2 class="section-title">1. Experiment</h2>
+
+            <div class="experiment-name">
+
+                <label for="experiment">
+                    Experiment / condition
+                </label>
+
+                <input
+                    type="text"
+                    id="experiment"
+                    placeholder="e.g. CPT 10 µM"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- WILD TYPE -->
+
+        <section class="section">
+
+            <h2 class="section-title">2. Wild type</h2>
+
+            <p class="section-intro">
+                Enter the ImageJ/FiJi area measured for the wild type on this
+                spot-test plate. This value is used as the 100% growth reference.
+            </p>
+
+            <label for="wtArea">
+                Wild type area
+            </label>
+
+            <input
+                type="number"
+                id="wtArea"
+                min="0"
+                step="any"
+                placeholder="Enter ImageJ area"
+            >
+
+            <div class="wt-box">
+
+                <div class="wt-result">
+                    Wild type fitness: 100%
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PARENTS -->
+
+        <section class="section">
+
+            <h2 class="section-title">3. Parent strains</h2>
+
+            <p class="section-intro">
+                Enter the number of parental strains that make up the combined
+                mutant. A maximum of four parent strains can be used.
+            </p>
+
+            <div class="number-selector">
+
+                <label for="parentCount">
+                    Number of parent strains
+                </label>
+
+                <select id="parentCount">
+
+                    <option value="1">1</option>
+                    <option value="2" selected>2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+
+                </select>
+
+            </div>
+
+            <div id="parentRows"></div>
+
+            <div class="expected-box">
+
+                <h3>Expected combined-mutant fitness</h3>
+
+                <div class="expected-number" id="expectedFitness">
+                    —
+                </div>
+
+                <p>
+                    This value is calculated automatically using the
+                    multiplicative model.
+                </p>
+
+                <div class="formula" id="expectedFormula">
+                    —
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- COMBINED MUTANTS -->
+
+        <section class="section">
+
+            <h2 class="section-title">4. Combined mutant strains</h2>
+
+            <p class="section-intro">
+                Enter each combined mutant strain tested in the screening
+                experiment and its ImageJ/FiJi area measurement.
+            </p>
+
+            <div class="number-selector">
+
+                <label for="combinedCount">
+                    Number of combined strains
+                </label>
+
+                <select id="combinedCount">
+
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4" selected>4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+
+                </select>
+
+            </div>
+
+            <div id="combinedRows"></div>
+
+        </section>
+
+
+        <div id="error" class="error"></div>
+
+
+        <button
+            type="button"
+            class="calculate-button"
+            id="calculateButton"
+        >
+            Calculate genetic interaction
+        </button>
+
+
+        <!-- RESULTS -->
+
+        <section class="results" id="results">
+
+            <h2 class="results-title">
+                RESULT
+            </h2>
+
+
+            <div class="summary-box">
+
+                <div class="summary-grid">
+
+                    <div class="summary-item">
+
+                        <div class="summary-label">
+                            Expected fitness
+                        </div>
+
+                        <div
+                            class="summary-value"
+                            id="resultExpected"
+                        >
+                            —
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <div class="summary-label">
+                            Mean observed fitness
+                        </div>
+
+                        <div
+                            class="summary-value"
+                            id="resultObserved"
+                        >
+                            —
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <div class="summary-label">
+                            Difference
+                        </div>
+
+                        <div
+                            class="summary-value"
+                            id="resultDifference"
+                        >
+                            —
+                        </div>
+
+                    </div>
+
+
+                    <div class="summary-item">
+
+                        <div class="summary-label">
+                            Variation among combined strains
+                        </div>
+
+                        <div
+                            class="summary-value"
+                            id="resultVariation"
+                        >
+                            —
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="interaction-box"
+                id="interactionBox"
+            >
+
+                <h3 id="interactionTitle">
+                    —
+                </h3>
+
+                <p id="interactionDescription">
+                    —
+                </p>
+
+            </div>
+
+
+            <div class="results-table-wrapper">
+
+                <table class="results-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Combined strain
+                            </th>
+
+                            <th>
+                                ImageJ area
+                            </th>
+
+                            <th>
+                                Observed fitness
+                            </th>
+
+                            <th>
+                                Difference from expected
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="resultsTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="statistics-box">
+
+                <h3>
+                    Statistical analysis
+                </h3>
+
+                <p>
+                    Statistical testing is not performed in this screening
+                    calculator. Each combined strain is measured once, while
+                    the expected fitness is calculated from single measurements
+                    of the parental strains. A more advanced statistical
+                    analysis will be included in the separate calculator for
+                    repeated experiments and technical/experimental replicates.
+                </p>
+
+            </div>
+
+
+            <div class="statistics-box">
+
+                <h3>
+                    Interpretation
+                </h3>
+
+                <p>
+                    The interaction category is based on the difference between
+                    the mean observed fitness of the combined strains and the
+                    multiplicative expected fitness. The numerical difference
+                    is reported in percentage points. The category reflects the
+                    Pombe Lab screening criteria and should be interpreted
+                    together with the individual strain values and their
+                    heterogeneity.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- REFERENCES -->
+
+    <div class="description references">
+
+        <h2>References</h2>
+
+        <p>
+            Mani, R. et al. (2008). <em>Defining genetic interaction.</em>
+            Proceedings of the National Academy of Sciences, 105(9), 3461–3466.
+            DOI: 10.1073/pnas.0712255105
+        </p>
+
+        <p>
+            Beltrao, P., Cagney, G., & Krogan, N. J. (2010).
+            <em>Quantitative Genetic Interactions Reveal Biological Modularity.</em>
+            PLoS Computational Biology / related quantitative genetic interaction
+            framework. PMCID: PMC2946632.
+        </p>
+
+    </div>
+
+
+    <a
+        class="back"
+        href="calculations.html"
+    >
+        ← Back to calculations
+    </a>
+
+
+</main>
+
+
+<script>
+
+    const parentCount = document.getElementById("parentCount");
+    const combinedCount = document.getElementById("combinedCount");
+
+    const parentRows = document.getElementById("parentRows");
+    const combinedRows = document.getElementById("combinedRows");
+
+    const wtArea = document.getElementById("wtArea");
+
+    const expectedFitness = document.getElementById("expectedFitness");
+    const expectedFormula = document.getElementById("expectedFormula");
+
+    const calculateButton =
+        document.getElementById("calculateButton");
+
+    const results =
+        document.getElementById("results");
+
+    const errorBox =
+        document.getElementById("error");
+
+
+    function formatNumber(value, decimals = 2) {
+
+        return Number(value).toFixed(decimals);
+
+    }
+
+
+    function createParentRows() {
+
+        parentRows.innerHTML = "";
+
+        const count = Number(parentCount.value);
+
+        for (let i = 1; i <= count; i++) {
+
+            const row = document.createElement("div");
+
+            row.className = "strain-row";
+
+            row.innerHTML = `
+
+                <div class="field-group">
+
+                    <label>
+                        Parent strain ${i}
+                    </label>
+
+                    <input
+                        type="text"
+                        class="parent-name"
+                        placeholder="e.g. mutant A"
+                    >
+
+                </div>
+
+
+                <div class="field-group">
+
+                    <label>
+                        ImageJ area
+                    </label>
+
+                    <input
+                        type="number"
+                        class="parent-area"
+                        min="0"
+                        step="any"
+                        placeholder="Area"
+                    >
+
+                </div>
+
+
+                <div class="field-group">
+
+                    <label>
+                        Relative fitness
+                    </label>
+
+                    <div class="calculated-value parent-fitness">
+                        —
+                    </div>
+
+                </div>
+
+            `;
+
+            parentRows.appendChild(row);
+
+        }
+
+        updateParentFitness();
+
+    }
+
+
+    function createCombinedRows() {
+
+        combinedRows.innerHTML = "";
+
+        const count = Number(combinedCount.value);
+
+        for (let i = 1; i <= count; i++) {
+
+            const row = document.createElement("div");
+
+            row.className = "combined-row";
+
+            row.innerHTML = `
+
+                <div class="field-group">
+
+                    <label>
+                        Combined strain ${i}
+                    </label>
+
+                    <input
+                        type="text"
+                        class="combined-name"
+                        placeholder="e.g. A+B #1"
+                    >
+
+                </div>
+
+
+                <div class="field-group">
+
+                    <label>
+                        ImageJ area
+                    </label>
+
+                    <input
+                        type="number"
+                        class="combined-area"
+                        min="0"
+                        step="any"
+                        placeholder="Area"
+                    >
+
+                </div>
+
+
+                <div class="field-group">
+
+                    <label>
+                        Observed fitness
+                    </label>
+
+                    <div class="calculated-value combined-fitness">
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="field-group">
+
+                    <label>
+                        Difference from expected
+                    </label>
+
+                    <div class="calculated-value combined-difference">
+                        —
+                    </div>
+
+                </div>
+
+            `;
+
+            combinedRows.appendChild(row);
+
+        }
+
+    }
+
+
+    function getWT() {
+
+        return Number(wtArea.value);
+
+    }
+
+
+    function updateParentFitness() {
+
+        const wt = getWT();
+
+        const areas =
+            document.querySelectorAll(".parent-area");
+
+        const fitnesses =
+            document.querySelectorAll(".parent-fitness");
+
+        areas.forEach((input, index) => {
+
+            const area = Number(input.value);
+
+            if (wt > 0 && area >= 0) {
+
+                const fitness =
+                    (area / wt) * 100;
+
+                fitnesses[index].textContent =
+                    `${formatNumber(fitness)}%`;
+
+            } else {
+
+                fitnesses[index].textContent = "—";
+
+            }
+
+        });
+
+        updateExpectedFitness();
+
+    }
+
+
+    function getParentFitnessValues() {
+
+        const wt = getWT();
+
+        const areas =
+            [...document.querySelectorAll(".parent-area")];
+
+        if (wt <= 0) {
+            return [];
+        }
+
+        return areas.map(input => {
+
+            const area = Number(input.value);
+
+            if (!Number.isFinite(area) || area <= 0) {
+                return null;
+            }
+
+            return (area / wt) * 100;
+
+        });
+
+    }
+
+
+    function calculateExpectedFitness() {
+
+        const fitnesses =
+            getParentFitnessValues();
+
+        if (
+            fitnesses.length === 0 ||
+            fitnesses.some(value => value === null)
+        ) {
+            return null;
+        }
+
+        let expected = 1;
+
+        fitnesses.forEach(value => {
+
+            expected *= value / 100;
+
+        });
+
+        return expected * 100;
+
+    }
+
+
+    function updateExpectedFitness() {
+
+        const fitnesses =
+            getParentFitnessValues();
+
+        const expected =
+            calculateExpectedFitness();
+
+        if (expected === null) {
+
+            expectedFitness.textContent = "—";
+            expectedFormula.textContent = "—";
+
+            return;
+
+        }
+
+        expectedFitness.textContent =
+            `${formatNumber(expected)}%`;
+
+        expectedFormula.textContent =
+            fitnesses
+                .map(value => formatNumber(value) + "%")
+                .join(" × ")
+            + ` = ${formatNumber(expected)}%`;
+
+    }
+
+
+    function getCombinedValues(expected) {
+
+        const wt = getWT();
+
+        const areas =
+            [...document.querySelectorAll(".combined-area")];
+
+        const names =
+            [...document.querySelectorAll(".combined-name")];
+
+        const values = [];
+
+        areas.forEach((input, index) => {
+
+            const area = Number(input.value);
+
+            if (
+                !Number.isFinite(area) ||
+                area <= 0
+            ) {
+                return;
+            }
+
+            const observed =
+                (area / wt) * 100;
+
+            const difference =
+                observed - expected;
+
+            values.push({
+
+                name:
+                    names[index].value.trim()
+                    || `Combined strain ${index + 1}`,
+
+                area,
+                observed,
+                difference
+
+            });
+
+        });
+
+        return values;
+
+    }
+
+
+    function getInteraction(difference) {
+
+        if (difference <= -20) {
+
+            return {
+                title: "Strong negative interaction",
+                className: "strong-negative",
+                description:
+                    "The mean observed fitness is more than 20 percentage points below the multiplicative expectation."
+            };
+
+        }
+
+        if (difference <= -10) {
+
+            return {
+                title: "Weak negative interaction",
+                className: "weak-negative",
+                description:
+                    "The mean observed fitness is 10–20 percentage points below the multiplicative expectation. This may represent a biologically relevant effect."
+            };
+
+        }
+
+        if (difference < 10) {
+
+            return {
+                title: "Non-interacting",
+                className: "non-interacting",
+                description:
+                    "The mean observed fitness is within ±10 percentage points of the multiplicative expectation."
+            };
+
+        }
+
+        if (difference <= 20) {
+
+            return {
+                title: "Weak positive interaction",
+                className: "weak-positive",
+                description:
+                    "The mean observed fitness is 10–20 percentage points above the multiplicative expectation. This may represent a biologically relevant effect."
+            };
+
+        }
+
+        return {
+            title: "Strong positive interaction",
+            className: "strong-positive",
+            description:
+                "The mean observed fitness is more than 20 percentage points above the multiplicative expectation."
+        };
+
+    }
+
+
+    function showError(message) {
+
+        errorBox.textContent = message;
+        errorBox.style.display = "block";
+
+    }
+
+
+    function clearError() {
+
+        errorBox.textContent = "";
+        errorBox.style.display = "none";
+
+    }
+
+
+    function calculate() {
+
+        clearError();
+
+        const wt = getWT();
+
+        if (
+            !Number.isFinite(wt) ||
+            wt <= 0
+        ) {
+
+            showError(
+                "Please enter a valid wild type ImageJ area greater than zero."
+            );
+
+            return;
+
+        }
+
+
+        const parentAreas =
+            [...document.querySelectorAll(".parent-area")];
+
+        if (
+            parentAreas.some(
+                input =>
+                    !Number.isFinite(Number(input.value)) ||
+                    Number(input.value) <= 0
+            )
+        ) {
+
+            showError(
+                "Please enter an ImageJ area for every parent strain."
+            );
+
+            return;
+
+        }
+
+
+        const expected =
+            calculateExpectedFitness();
+
+        if (
+            expected === null ||
+            !Number.isFinite(expected)
+        ) {
+
+            showError(
+                "The expected fitness could not be calculated. Please check the parent measurements."
+            );
+
+            return;
+
+        }
+
+
+        const combinedAreas =
+            [...document.querySelectorAll(".combined-area")];
+
+        if (
+            combinedAreas.some(
+                input =>
+                    !Number.isFinite(Number(input.value)) ||
+                    Number(input.value) <= 0
+            )
+        ) {
+
+            showError(
+                "Please enter an ImageJ area for every combined mutant strain."
+            );
+
+            return;
+
+        }
+
+
+        const combinedValues =
+            getCombinedValues(expected);
+
+        if (combinedValues.length === 0) {
+
+            showError(
+                "Please enter at least one combined mutant strain."
+            );
+
+            return;
+
+        }
+
+
+        const observedValues =
+            combinedValues.map(
+                item => item.observed
+            );
+
+
+        const meanObserved =
+            observedValues.reduce(
+                (sum, value) => sum + value,
+                0
+            ) / observedValues.length;
+
+
+        const difference =
+            meanObserved - expected;
+
+
+        let standardDeviation = 0;
+
+        if (observedValues.length > 1) {
+
+            const squaredDifferences =
+                observedValues.map(
+                    value =>
+                        Math.pow(
+                            value - meanObserved,
+                            2
+                        )
+                );
+
+            standardDeviation =
+                Math.sqrt(
+                    squaredDifferences.reduce(
+                        (sum, value) =>
+                            sum + value,
+                        0
+                    ) /
+                    (observedValues.length - 1)
+                );
+
+        }
+
+
+        const minimum =
+            Math.min(...observedValues);
+
+        const maximum =
+            Math.max(...observedValues);
+
+
+        const interaction =
+            getInteraction(difference);
+
+
+        document.getElementById("resultExpected")
+            .textContent =
+            `${formatNumber(expected)}%`;
+
+
+        document.getElementById("resultObserved")
+            .textContent =
+            `${formatNumber(meanObserved)}%`;
+
+
+        const differenceElement =
+            document.getElementById("resultDifference");
+
+
+        differenceElement.textContent =
+            `${difference >= 0 ? "+" : ""}${formatNumber(difference)} percentage points`;
+
+
+        differenceElement.className =
+            "summary-value " +
+            (
+                difference >= 0
+                    ? "difference-positive"
+                    : "difference-negative"
+            );
+
+
+        document.getElementById("resultVariation")
+            .textContent =
+            observedValues.length > 1
+                ? `SD ${formatNumber(standardDeviation)} pp`
+                : "Only one strain";
+
+
+        const interactionBox =
+            document.getElementById("interactionBox");
+
+
+        interactionBox.className =
+            "interaction-box " +
+            interaction.className;
+
+
+        document.getElementById("interactionTitle")
+            .textContent =
+            interaction.title;
+
+
+        document.getElementById("interactionDescription")
+            .textContent =
+            interaction.description;
+
+
+        const tableBody =
+            document.getElementById("resultsTableBody");
+
+        tableBody.innerHTML = "";
+
+
+        combinedValues.forEach(item => {
+
+            const row =
+                document.createElement("tr");
+
+            row.innerHTML = `
+
+                <td>
+                    ${escapeHTML(item.name)}
+                </td>
+
+                <td>
+                    ${formatNumber(item.area)}
+                </td>
+
+                <td>
+                    ${formatNumber(item.observed)}%
+                </td>
+
+                <td class="${
+                    item.difference >= 0
+                        ? "difference-positive"
+                        : "difference-negative"
+                }">
+
+                    ${
+                        item.difference >= 0
+                            ? "+"
+                            : ""
+                    }${formatNumber(item.difference)} pp
+
+                </td>
+
+            `;
+
+            tableBody.appendChild(row);
+
+        });
+
+
+        const rangeText =
+            observedValues.length > 1
+                ? `Range ${formatNumber(minimum)}–${formatNumber(maximum)}%`
+                : `Observed ${formatNumber(minimum)}%`;
+
+
+        document.getElementById("resultVariation")
+            .textContent =
+            observedValues.length > 1
+                ? `SD ${formatNumber(standardDeviation)} pp · ${rangeText}`
+                : "Only one strain";
+
+
+        results.style.display = "block";
+
+        results.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    }
+
+
+    function escapeHTML(value) {
+
+        return value
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    parentCount.addEventListener(
+        "change",
+        createParentRows
+    );
+
+
+    combinedCount.addEventListener(
+        "change",
+        createCombinedRows
+    );
+
+
+    wtArea.addEventListener(
+        "input",
+        updateParentFitness
+    );
+
+
+    parentRows.addEventListener(
+        "input",
+        updateParentFitness
+    );
+
+
+    combinedRows.addEventListener(
+        "input",
+        updateExpectedFitness
+    );
+
+
+    calculateButton.addEventListener(
+        "click",
+        calculate
+    );
+
+
+    createParentRows();
+    createCombinedRows();
+
+</script>
+
+</body>
+
+</html>
