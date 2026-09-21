@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Members — Pombe Lab</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #e5e5e5;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #333;
+    }
+
+    .page {
+        max-width: 950px;
+        margin: 0 auto;
+        padding: 45px 30px 60px;
+        background: white;
+        min-height: 100vh;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        margin: 0 0 45px;
+        text-align: center;
+        font-family: Georgia, serif;
+        font-size: 44px;
+        color: #52705d;
+        letter-spacing: 0.5px;
+    }
+
+    h2 {
+        margin: 45px 0 25px;
+        text-align: center;
+        font-family: Georgia, serif;
+        font-size: 27px;
+        font-weight: normal;
+        color: #52705d;
+    }
+
+    .members-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 34px 28px;
+        max-width: 760px;
+        margin: 0 auto;
+    }
+
+    .member {
+        text-align: center;
+    }
+
+    .member.single {
+        grid-column: 2;
+    }
+
+    .photo-wrap {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 10px;
+        overflow: hidden;
+        background: #eeeeee;
+        border-radius: 2px;
+    }
+
+    .photo-wrap img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+    }
+
+    .photo-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        box-sizing: border-box;
+        color: #777;
+        font-size: 12px;
+        line-height: 1.4;
+        text-align: center;
+        background: #eeeeee;
+    }
+
+    .member-name {
+        display: inline-block;
+        padding: 5px 9px;
+        border-radius: 6px;
+        font-size: 12px;
+        line-height: 1.3;
+        color: #222;
+    }
+
+    .member-name.purple {
+        background: #C9B8D9;
+    }
+
+    .member-name.blue {
+        background: #638A96;
+        color: white;
+    }
+
+    .role {
+        margin: 3px 0 0;
+        font-size: 12px;
+        font-style: italic;
+        line-height: 1.35;
+        color: #333;
+    }
+
+    .meeting {
+        margin-top: 65px;
+    }
+
+    .event {
+        margin-top: 38px;
+    }
+
+    .event-title {
+        margin: 0 0 14px;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #52705d;
+        text-align: left;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: normal;
+    }
+
+    .event-photos {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .event-photo {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 300px;
+        display: block;
+        object-fit: contain;
+        background: #eeeeee;
+    }
+
+    .event-photo.portrait {
+        max-width: 240px;
+    }
+
+    .event-photo.landscape {
+        max-width: 500px;
+    }
+
+    .event-placeholder {
+        min-width: 220px;
+        min-height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        box-sizing: border-box;
+        background: #eeeeee;
+        color: #777;
+        font-size: 13px;
+    }
+
+    .back {
+        display: block;
+        width: fit-content;
+        margin: 45px auto 0;
+        color: #52705d;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .back:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+        .page {
+            padding: 30px 18px 45px;
+        }
+
+        h1 {
+            font-size: 34px;
+            margin-bottom: 35px;
+        }
+
+        .members-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px 14px;
+        }
+
+        .member.single {
+            grid-column: auto;
+        }
+
+        .photo-wrap {
+            width: 130px;
+            height: 130px;
+        }
+
+        .event-photos {
+            gap: 12px;
+        }
+
+        .event-photo.portrait,
+        .event-photo.landscape {
+            max-width: 100%;
+            max-height: 260px;
+        }
+    }
+</style>
+</head>
+
+<body>
+<main class="page">
+
+    <h1>LAB MEMBERS</h1>
+
+    <!-- ================= GROUP LEADER / RESEARCHERS ================= -->
+    <section>
+        <h2>Our Team</h2>
+
+        <div class="members-grid">
+
+            <div class="member">
+                <div class="photo-wrap">
+                    <img src="lab_members/sbp.png" alt="Silvia Bágeľová Poláková"
+                         onerror="this.outerHTML='<div class=&quot;photo-placeholder&quot;>Add Silvia’s photo<br>as lab_members/sbp.png</div>'">
+                </div>
+                <div class="member-name purple">Mgr. Silvia Bágeľová Poláková, PhD.</div>
+                <p class="role">Group leader</p>
+            </div>
+
+            <div class="member">
+                <div class="photo-wrap">
+                    <img src="lab_members/kg.png" alt="Katarína Gáplovská"
+                         onerror="this.outerHTML='<div class=&quot;photo-placeholder&quot;>Add Katarína’s photo<br>as lab_members/kg.png</div>'">
+                </div>
+                <div class="member-name blue">Mgr. Katarína Gáplovská, PhD.</div>
+                <p class="role">Researcher</p>
+            </div>
+
+            <div class="member">
+                <div class="photo-wrap">
+                    <img src="lab_members/ab.png" alt="Anetta Bakošová"
+                         onerror="this.outerHTML='<div class=&quot;photo-placeholder&quot;>Add Anetta’s photo<br>as lab_members/ab.png</div>'">
+                </div>
+                <div class="member-name purple">Mgr. Anetta Bakošová, PhD.</div>
+                <p class="role">Researcher</p>
+            </div>
+
+            <div class="member">
+                <div class="photo-wrap">
+                    <img src="lab_members/nm.png" alt="Nina Mayerová"
+                         onerror="this.outerHTML='<div class=&quot;photo-placeholder&quot;>Add Nina’s photo<br>as lab_members/nm.png</div>'">
+                </div>
+                <div class="member-name purple">Mgr. Nina Mayerová, PhD.</div>
+                <p class="role">Postdoc</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= PHD CANDIDATES ================= -->
+    <section>
+        <h2>PhD Candidates</h2>
+
+        <div class="members-grid">
+
+            <div class="member">
+                <div class="photo-wrap">
+                    <img src="lab_members/am.png" alt="Anna Martyrosian"
+                         onerror="this.outerHTML='<div class=&quot;photo-placeholder&quot;>Add Anna’s photo<br>as lab_members/am.png</div>'">
+                </div>
+                <div class="member-name blue">Mgr. Anna Martyrosian</div>
+                <p class="role">PhD candidate</p>
+            </div>
+
+            <div class="member">
+                <div class="photo-wrap">
+                    <img src="lab_members/vn.png" alt="Veronika Novysedláková"
+                         onerror="this.outerHTML='<div class=&quot;photo-placeholder&quot;>Add Veronika’s photo<br>as lab_members/vn.png</div>'">
+                </div>
+                <div class="member-name purple">Mgr. Veronika Novysedláková</div>
+                <p class="role">PhD candidate</p>
+            </div>
+
+            <div class="member">
+                <div class="photo-wrap">
+                    <img src="lab_members/dp.png" alt="Dominika Piatrová"
+                         onerror="this.outerHTML='<div class=&quot;photo-placeholder&quot;>Add Dominika’s photo<br>as lab_members/dp.png</div>'">
+                </div>
+                <div class="member-name purple">Mgr. Dominika Piatrová</div>
+                <p class="role">PhD candidate</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= EVENTS ================= -->
+    <section class="meeting">
+
+        <!-- Newest -->
+        <div class="event">
+            <h2 class="event-title">The 14th Central European Genome Stability and Dynamics Meeting 2026</h2>
+            <div class="event-photos">
+                <img class="event-photo portrait" src="lab_members/varsaw.png" alt="Pombe Lab at the 14th Central European Genome Stability and Dynamics Meeting 2026">
+            </div>
+        </div>
+
+        <div class="event">
+            <h2 class="event-title">Lab lunch 2026</h2>
+            <div class="event-photos">
+                <img class="event-photo landscape" src="lab_members/laksa.png" alt="Pombe Lab lunch 2026">
+            </div>
+        </div>
+
+        <!-- Older -->
+        <div class="event">
+            <h2 class="event-title">The 11th International Fission Yeast Meeting (POMBE2023 Hiroshima 2023)</h2>
+            <div class="event-photos">
+                <img class="event-photo landscape" src="lab_members/hiroshima1.jpg" alt="Pombe Lab at POMBE2023 in Hiroshima">
+                <img class="event-photo landscape" src="lab_members/hiroshima2.jpg" alt="Pombe Lab at POMBE2023 in Hiroshima">
+            </div>
+        </div>
+
+    </section>
+
+    <a class="back" href="index.html">← Back to home</a>
+
+</main>
+</body>
+</html>
