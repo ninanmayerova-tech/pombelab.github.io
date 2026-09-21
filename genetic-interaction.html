@@ -57,6 +57,42 @@ input:focus,select:focus { outline:none; border-color:#78AA8A; box-shadow:0 0 0 
 .note { background:#eee; border-left:3px solid #78AA8A; padding:10px 12px; margin:12px 0; line-height:1.5; font-size:12px; }
 .criteria { display:grid; gap:5px; margin-top:10px; }
 .criteria-row { display:grid; grid-template-columns:165px 1fr; gap:10px; padding:7px 9px; border-radius:7px; background:white; font-size:12px; }
+.references {
+    margin-top: 35px;
+    padding: 25px;
+    background: #eeeeee;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.references h2 {
+    font-family: Georgia, serif;
+    font-size: 23px;
+    margin-top: 0;
+    color: #52705d;
+}
+
+.references a {
+    color: #52705d;
+}
+
+.references p {
+    margin-bottom: 18px;
+}
+
+.references p:last-child {
+    margin-bottom: 0;
+}
+.paste-tip {
+    background:#eef5f0;
+    border-left:4px solid #78AA8A;
+    padding:9px 11px;
+    margin:10px 0 12px;
+    font-size:12px;
+    line-height:1.45;
+}
+
 .back-link { display:inline-block; margin-top:30px; color:#52705d; font-weight:bold; text-decoration:none; font-size:13px; }
 .back-link:hover { text-decoration:underline; }
 .empty-message { color:#666; font-style:italic; margin:8px 0; font-size:12px; }
@@ -130,10 +166,34 @@ input:focus,select:focus { outline:none; border-color:#78AA8A; box-shadow:0 0 0 
 <p>A positive difference means that the combined mutant grows better than expected from the multiplicative model, whereas a negative difference means that it grows worse than expected.</p>
 </div>
 
-<h2>REFERENCES</h2>
-<div class="description">
-<p>1. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2946632/" target="_blank" rel="noopener noreferrer">Genetic interaction methodology and the multiplicative model — PMC article</a>.</p>
-<p>2. <a href="https://www.pnas.org/doi/10.1073/pnas.0712255105" target="_blank" rel="noopener noreferrer">Genetic interactions and the multiplicative model — PNAS article</a>.</p>
+<div class="references">
+
+<h2>References</h2>
+
+<p>
+<strong>Beltrao et al.</strong>
+Quantitative Genetic Interactions Reveal Layers of Biological Modularity.
+<em>Cell</em> (2010).
+</p>
+
+<p>
+<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2946632/" target="_blank" rel="noopener noreferrer">
+PMC – Beltrao et al. (2010)
+</a>
+</p>
+
+<p>
+<strong>Mani et al.</strong>
+Defining genetic interaction.
+<em>Proceedings of the National Academy of Sciences</em> (2008).
+</p>
+
+<p>
+<a href="https://www.pnas.org/doi/10.1073/pnas.0712255105" target="_blank" rel="noopener noreferrer">
+PNAS – Mani et al. (2008)
+</a>
+</p>
+
 </div>
 <a class="back-link" href="calculations.html">← Back to Calculations</a>
 </div>
@@ -153,7 +213,13 @@ function findConcentration(id){return state.concentrations.find(c=>c.id===id)}
 function renderParentSetup(){
  const container=document.getElementById("parentSetup");
  container.innerHTML=state.parents.map((p,i)=>`<div class="strain-setup"><div class="field"><label for="parentName-${i}">Parent ${i+1} name</label><input id="parentName-${i}" class="parent-name-input" data-index="${i}" type="text" value="${escapeHtml(p.name)}" placeholder="e.g. geneAΔ"></div></div>`).join("");
- container.querySelectorAll(".parent-name-input").forEach(input=>input.addEventListener("input",()=>{state.parents[Number(input.dataset.index)].name=input.value;renderParentSetup();renderConcentrationMeasurements();}));
+ container.querySelectorAll(".parent-name-input").forEach(input=>input.addEventListener("input",()=>{state.parents[Number(input.dataset.index)].name=input.value;updateParentLabels();}));
+}
+
+function updateParentLabels(){
+ state.parents.forEach((p,i)=>{
+  document.querySelectorAll(`[id^="parentLabel-"][id$="-${i}"]`).forEach(el=>{el.textContent=p.name||"Parent "+(i+1)});
+ });
 }
 
 function renderConcentrationSetup(){
@@ -176,12 +242,40 @@ function renderConcentrationMeasurements(){
  const container=document.getElementById("concentrationMeasurements");
  container.innerHTML=state.concentrations.map((c,ci)=>`<div class="concentration-card" data-concentration-measurement="${c.id}">
  <div class="concentration-header"><div><div class="concentration-number">Concentration ${ci+1}</div><h3 class="concentration-title" id="title-${c.id}">${escapeHtml(c.label||"Unnamed concentration")}</h3></div></div>
+ <div class="paste-tip"><strong>Fast entry from Excel:</strong> copy the ImageJ areas for this concentration in this order — WT, parent strains, then combined mutant strains — and paste them into the <strong>WT ImageJ area</strong> box. The values will be filled automatically.</div>
  <div class="measurement-section"><h3>Wild type</h3><div class="measurement-row"><div><div class="live-label">WT</div><div class="help">ImageJ area</div></div><input id="wtArea-${c.id}" class="measurement-input" type="number" min="0" step="any" placeholder="Enter area"><div><div class="live-label">Reference</div><div class="result neutral">100%</div></div></div></div>
  <div class="measurement-section"><h3>Parent strains</h3>${state.parents.map((p,pi)=>`<div class="measurement-row"><div><div class="live-label" id="parentLabel-${c.id}-${pi}">${escapeHtml(p.name||"Parent "+(pi+1))}</div><div class="help">ImageJ area</div></div><input id="parentArea-${c.id}-${pi}" class="measurement-input" type="number" min="0" step="any" placeholder="Enter area"><div><div class="live-label">Fitness</div><div class="result neutral" id="parentFitness-${c.id}-${pi}">—</div></div></div>`).join("")}</div>
  <div class="measurement-section"><h3>Combined mutant strains</h3>${c.mutants.map((m,mi)=>`<div class="measurement-row"><div><div class="live-label" id="mutantLabel-${c.id}-${m.id}">${escapeHtml(m.name||"Combined mutant "+(mi+1))}</div><div class="help">ImageJ area</div></div><input id="mutantArea-${c.id}-${m.id}" class="measurement-input" type="number" min="0" step="any" placeholder="Enter area"><div><div class="live-label">Observed fitness</div><div class="result neutral" id="mutantFitness-${c.id}-${m.id}">—</div></div></div><div class="row" style="display:flex;justify-content:flex-end;margin-top:5px"><div style="width:120px"><div class="live-label">Difference</div><div class="result neutral" id="mutantDifference-${c.id}-${m.id}">—</div></div></div>`).join("")}</div>
  <div class="results-grid"><div class="result-box"><div class="result-name">Expected fitness</div><div class="result-number" id="expected-${c.id}">—</div></div><div class="result-box"><div class="result-name">Mean observed fitness</div><div class="result-number" id="mean-${c.id}">—</div></div><div class="result-box"><div class="result-name">Difference (mean − expected)</div><div class="result-number" id="difference-${c.id}">—</div></div><div class="result-box"><div class="result-name">SD of observed fitness</div><div class="result-number" id="sd-${c.id}">—</div></div><div class="result-box"><div class="result-name">Observed range</div><div class="result-number" id="range-${c.id}">—</div></div><div class="result-box"><div class="result-name">Include in interpretation?</div><div class="result-number" id="includeStatus-${c.id}">${c.include?"Yes":"No"}</div></div></div>
  <div class="interpretation" id="interpretation-${c.id}">Enter the required measurements.</div></div>`).join("");
- container.querySelectorAll(".measurement-input").forEach(input=>input.addEventListener("input",updateAllResults));
+ container.querySelectorAll(".measurement-input").forEach(input=>{
+   input.addEventListener("input",updateAllResults);
+   input.addEventListener("paste",handleMeasurementPaste);
+ });
+}
+
+function handleMeasurementPaste(event){
+ const input=event.currentTarget;
+ const card=input.closest("[data-concentration-measurement]");
+ if(!card)return;
+ const firstInput=card.querySelector(".measurement-input");
+ if(input!==firstInput)return;
+
+ const text=(event.clipboardData||window.clipboardData).getData("text");
+ if(!text || (!text.includes("\n") && !text.includes("\t"))) return;
+
+ const values=text.trim().split(/\s+/).filter(v=>v!=="");
+ const inputs=[...card.querySelectorAll(".measurement-input")];
+ const numericValues=values.map(v=>Number(v.replace(/,/g,""))).filter(v=>Number.isFinite(v));
+
+ if(!numericValues.length)return;
+
+ event.preventDefault();
+ numericValues.slice(0,inputs.length).forEach((value,i)=>{
+   inputs[i].value=value;
+ });
+ updateAllResults();
+ inputs[Math.min(numericValues.length,inputs.length)-1]?.focus();
 }
 function updateConcentrationTitles(id){const c=findConcentration(id);const title=document.getElementById("title-"+id);if(title&&c)title.textContent=c.label||"Unnamed concentration"}
 function updateConcentrationMutantLabels(id){const c=findConcentration(id);if(!c)return;c.mutants.forEach(m=>{const el=document.getElementById("mutantLabel-"+id+"-"+m.id);if(el)el.textContent=m.name||"Combined mutant"})}
