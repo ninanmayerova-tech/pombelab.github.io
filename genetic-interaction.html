@@ -4,1289 +4,204 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Genetic Interaction Calculator | Pombe Lab</title>
-
 <style>
 * { box-sizing: border-box; }
-
-body {
-    margin: 0;
-    background: #e5e5e5;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #333;
-}
-
-p {
-    text-align: justify;
-    line-height: 1.6;
-}
-
-.page {
-    max-width: 850px;
-    margin: 0 auto;
-    padding: 50px 30px;
-}
-
-h1 {
-    font-family: Georgia, serif;
-    text-align: center;
-    font-size: 42px;
-    margin-bottom: 15px;
-}
-
-h2 {
-    font-family: Georgia, serif;
-    color: #52705d;
-    font-size: 27px;
-    margin: 45px 0 15px;
-}
-
-h3 {
-    font-family: Georgia, serif;
-    color: #52705d;
-    margin-top: 0;
-}
-
-.description {
-    font-size: 17px;
-    line-height: 1.7;
-    color: #444;
-    margin: 0 auto 40px;
-    max-width: 760px;
-}
-
-.description h2 {
-    font-family: Georgia, serif;
-    font-size: 25px;
-    margin-top: 35px;
-    margin-bottom: 12px;
-    color: #52705d;
-}
-
-.card {
-    background: #f4f4f4;
-    border-radius: 18px;
-    padding: 25px;
-    margin: 22px 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,.10);
-}
-
-.setup-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-}
-
-.field {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-}
-
-.field.full {
-    grid-column: 1 / -1;
-}
-
-label {
-    font-weight: bold;
-    font-size: 15px;
-}
-
-input,
-select {
-    width: 100%;
-    padding: 12px 13px;
-    border: 1px solid #c9c9c9;
-    border-radius: 8px;
-    background: white;
-    font-size: 15px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-input:focus,
-select:focus {
-    outline: none;
-    border-color: #78AA8A;
-    box-shadow: 0 0 0 2px rgba(120,170,138,.18);
-}
-
-.help {
-    color: #666;
-    font-size: 13px;
-    line-height: 1.5;
-    margin: 4px 0 0;
-}
-
-.subcard {
-    background: white;
-    border: 1px solid #d8d8d8;
-    border-radius: 14px;
-    padding: 18px;
-    margin-top: 15px;
-}
-
-.row {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 15px;
-    align-items: end;
-    margin-top: 12px;
-}
-
-.measurement-row {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 150px;
-    gap: 15px;
-    align-items: end;
-    margin-top: 12px;
-}
-
-.result {
-    background: #eaf1ec;
-    border-radius: 10px;
-    padding: 11px 13px;
-    min-height: 43px;
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-}
-
-.result.neutral {
-    background: #ededed;
-    color: #555;
-}
-
-.add-button,
-.secondary-button,
-.clear-button {
-    border: none;
-    border-radius: 9px;
-    padding: 11px 16px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-top: 15px;
-}
-
-.add-button {
-    background: #78AA8A;
-    color: white;
-}
-
-.add-button:hover {
-    background: #5F8069;
-}
-
-.secondary-button {
-    background: #d9e5dc;
-    color: #333;
-}
-
-.secondary-button:hover {
-    background: #c6d8cb;
-}
-
-.clear-button {
-    background: #eeeeee;
-    color: #444;
-    border: 1px solid #cfcfcf;
-}
-
-.clear-button:hover {
-    background: #e2e2e2;
-}
-
-.remove-button {
-    border: none;
-    background: transparent;
-    color: #777;
-    cursor: pointer;
-    font-size: 13px;
-    padding: 5px;
-}
-
-.remove-button:hover {
-    color: #a34f45;
-}
-
-.checkbox-line {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    margin-top: 12px;
-    font-weight: normal;
-}
-
-.checkbox-line input {
-    width: auto;
-}
-
-.concentration-card {
-    background: #f4f4f4;
-    border-radius: 18px;
-    padding: 22px;
-    margin: 18px 0;
-    box-shadow: 0 3px 8px rgba(0,0,0,.08);
-}
-
-.concentration-header {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    align-items: flex-start;
-}
-
-.concentration-title {
-    font-family: Georgia, serif;
-    font-size: 22px;
-    color: #52705d;
-    margin: 0;
-}
-
-.concentration-number {
-    color: #777;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
-    font-weight: normal;
-}
-
-.setup-strain-list {
-    margin-top: 18px;
-}
-
-.strain-setup {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 10px;
-    align-items: end;
-    margin-top: 10px;
-}
-
-.mutation-box {
-    margin-top: 18px;
-}
-
-.mutation-box h3 {
-    font-size: 20px;
-    margin-bottom: 8px;
-}
-
-.live-label {
-    color: #52705d;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.fitness-value {
-    font-weight: bold;
-    color: #52705d;
-}
-
-.results-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-top: 20px;
-}
-
-.result-box {
-    background: white;
-    border-radius: 12px;
-    padding: 15px;
-    border: 1px solid #ddd;
-}
-
-.result-box .result-name {
-    font-size: 13px;
-    color: #666;
-    margin-bottom: 7px;
-}
-
-.result-box .result-number {
-    font-family: Georgia, serif;
-    font-size: 23px;
-    color: #333;
-    font-weight: bold;
-}
-
-.interpretation {
-    margin-top: 18px;
-    padding: 17px;
-    border-radius: 12px;
-    background: #e5e5e5;
-    font-weight: bold;
-}
-
-.interpretation strong {
-    color: #52705d;
-}
-
-.summary-table-wrap {
-    overflow-x: auto;
-    margin-top: 18px;
-}
-
-.summary-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.summary-table th,
-.summary-table td {
-    padding: 11px 10px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-    font-size: 14px;
-}
-
-.summary-table th {
-    background: #d9e5dc;
-    color: #333;
-}
-
-.note {
-    background: #eeeeee;
-    border-left: 4px solid #78AA8A;
-    padding: 15px 17px;
-    margin: 18px 0;
-    line-height: 1.6;
-}
-
-.criteria {
-    display: grid;
-    gap: 8px;
-    margin-top: 15px;
-}
-
-.criteria-row {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 9px;
-    background: white;
-}
-
-.back-link {
-    display: inline-block;
-    margin-top: 45px;
-    color: #52705d;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-
-.empty-message {
-    color: #666;
-    font-style: italic;
-    margin: 10px 0;
-}
-
-.actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 18px;
-}
-
-@media (max-width: 700px) {
-    .page {
-        padding: 35px 18px;
-    }
-
-    h1 {
-        font-size: 34px;
-    }
-
-    .setup-grid,
-    .row,
-    .measurement-row,
-    .results-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .criteria-row {
-        grid-template-columns: 1fr;
-        gap: 3px;
-    }
-
-    .concentration-header {
-        flex-direction: column;
-    }
+body { margin:0; background:#e5e5e5; font-family:Arial,Helvetica,sans-serif; color:#333; font-size:14px; }
+p { text-align:justify; line-height:1.5; }
+.page { max-width:850px; margin:0 auto; padding:32px 24px; }
+h1 { font-family:Georgia,serif; text-align:center; font-size:34px; margin:0 0 12px; }
+h2 { font-family:Georgia,serif; color:#52705d; font-size:22px; margin:30px 0 11px; }
+h3 { font-family:Georgia,serif; color:#52705d; margin:0 0 8px; font-size:17px; }
+.description { font-size:14px; line-height:1.55; color:#444; margin:0 auto 24px; max-width:760px; }
+.description h2 { font-size:21px; margin-top:26px; margin-bottom:10px; }
+.card { background:#f4f4f4; border-radius:15px; padding:18px; margin:14px 0; box-shadow:0 3px 8px rgba(0,0,0,.09); }
+.setup-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.field { display:flex; flex-direction:column; gap:5px; }
+.field.full { grid-column:1/-1; }
+label { font-weight:bold; font-size:13px; }
+input,select { width:100%; padding:8px 10px; border:1px solid #c9c9c9; border-radius:7px; background:white; font-size:13px; font-family:Arial,Helvetica,sans-serif; }
+input:focus,select:focus { outline:none; border-color:#78AA8A; box-shadow:0 0 0 2px rgba(120,170,138,.15); }
+.help { color:#666; font-size:12px; line-height:1.45; margin:3px 0 0; }
+.subcard { background:white; border:1px solid #d8d8d8; border-radius:11px; padding:13px; margin-top:12px; }
+.strain-setup { display:grid; grid-template-columns:1fr auto; gap:8px; align-items:end; margin-top:8px; }
+.checkbox-line { display:flex; align-items:center; gap:7px; margin-top:8px; font-weight:normal; font-size:12px; }
+.checkbox-line input { width:auto; }
+.add-button,.secondary-button,.clear-button { border:none; border-radius:8px; padding:8px 12px; font-size:12px; font-weight:bold; cursor:pointer; font-family:Arial,Helvetica,sans-serif; margin-top:10px; }
+.add-button { background:#78AA8A; color:white; }
+.add-button:hover { background:#5F8069; }
+.secondary-button { background:#d9e5dc; color:#333; }
+.secondary-button:hover { background:#c6d8cb; }
+.clear-button { background:#eee; color:#444; border:1px solid #cfcfcf; }
+.clear-button:hover { background:#e2e2e2; }
+.remove-button { border:none; background:transparent; color:#777; cursor:pointer; font-size:11px; padding:4px; }
+.remove-button:hover { color:#a34f45; }
+.concentration-card { background:#f4f4f4; border-radius:15px; padding:16px; margin:13px 0; box-shadow:0 2px 7px rgba(0,0,0,.07); }
+.concentration-header { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+.concentration-title { font-family:Georgia,serif; font-size:19px; color:#52705d; margin:0; }
+.concentration-number { color:#777; font-size:11px; font-weight:normal; margin-bottom:2px; }
+.measurement-section { margin-top:13px; }
+.measurement-row { display:grid; grid-template-columns:1.35fr 1fr 120px; gap:10px; align-items:end; margin-top:8px; }
+.live-label { color:#52705d; font-size:11px; font-weight:bold; margin-bottom:3px; }
+.result { background:#eaf1ec; border-radius:7px; padding:8px 9px; min-height:34px; display:flex; align-items:center; font-weight:bold; font-size:12px; }
+.result.neutral { background:#ededed; color:#555; }
+.results-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:13px; }
+.result-box { background:white; border-radius:9px; padding:10px; border:1px solid #ddd; }
+.result-box .result-name { font-size:11px; color:#666; margin-bottom:4px; }
+.result-box .result-number { font-family:Georgia,serif; font-size:17px; color:#333; font-weight:bold; }
+.interpretation { margin-top:12px; padding:11px 12px; border-radius:9px; background:#e5e5e5; font-weight:bold; font-size:12px; line-height:1.45; }
+.interpretation strong { color:#52705d; }
+.summary-table-wrap { overflow-x:auto; margin-top:12px; }
+.summary-table { width:100%; border-collapse:collapse; background:white; border-radius:9px; overflow:hidden; }
+.summary-table th,.summary-table td { padding:8px 8px; border-bottom:1px solid #ddd; text-align:left; font-size:11px; }
+.summary-table th { background:#d9e5dc; color:#333; }
+.note { background:#eee; border-left:3px solid #78AA8A; padding:10px 12px; margin:12px 0; line-height:1.5; font-size:12px; }
+.criteria { display:grid; gap:5px; margin-top:10px; }
+.criteria-row { display:grid; grid-template-columns:165px 1fr; gap:10px; padding:7px 9px; border-radius:7px; background:white; font-size:12px; }
+.back-link { display:inline-block; margin-top:30px; color:#52705d; font-weight:bold; text-decoration:none; font-size:13px; }
+.back-link:hover { text-decoration:underline; }
+.empty-message { color:#666; font-style:italic; margin:8px 0; font-size:12px; }
+.actions { display:flex; justify-content:flex-end; gap:8px; margin-top:12px; }
+@media(max-width:700px){
+ .page{padding:24px 15px} h1{font-size:29px} h2{font-size:20px;margin-top:25px}
+ .setup-grid,.measurement-row,.results-grid{grid-template-columns:1fr}
+ .strain-setup{grid-template-columns:1fr}
+ .criteria-row{grid-template-columns:1fr;gap:2px}
+ .concentration-header{flex-direction:column}
 }
 </style>
 </head>
-
 <body>
 <div class="page">
-
 <h1>GENETIC INTERACTION CALCULATOR</h1>
-
 <div class="description">
-    <p>
-        This calculator is designed for screening genetic interactions in
-        <em>Schizosaccharomyces pombe</em> using the multiplicative (product) model.
-        ImageJ area measurements are converted to fitness relative to the wild type,
-        and the expected fitness of a combined mutant is calculated from the fitness
-        of its parent strains.
-    </p>
-
-    <div class="note">
-        <strong>Workflow:</strong> define the experimental setup once, enter the
-        ImageJ measurements from the current plate, and the calculator updates all
-        fitness values and interpretations automatically. When analysing another
-        plate with the same setup, only the measurement values need to be changed.
-    </div>
+<p>This calculator is designed for screening genetic interactions in <em>Schizosaccharomyces pombe</em> using the multiplicative (product) model. ImageJ area measurements are converted to fitness relative to the wild type at the <strong>same cell / spot concentration</strong>, and the expected fitness of a combined mutant is calculated from the parent strains measured at that same concentration.</p>
+<div class="note"><strong>Workflow:</strong> define the experimental setup once, then enter the ImageJ measurements for each cell / spot concentration. For another plate with the same setup, use the existing structure and replace only the measurement values.</div>
 </div>
 
 <h2>EXPERIMENT SETUP</h2>
-
 <div class="card">
-
-    <div class="setup-grid">
-        <div class="field">
-            <label for="damageAgent">DNA damage agent / condition</label>
-            <input id="damageAgent" type="text" placeholder="e.g. CPT">
-        </div>
-
-        <div class="field">
-            <label for="damageConcentration">Condition / concentration</label>
-            <input id="damageConcentration" type="text" placeholder="e.g. 10 µM">
-        </div>
-
-        <div class="field full">
-            <label for="parentCount">Number of parent strains</label>
-            <select id="parentCount">
-                <option value="1">1</option>
-                <option value="2" selected>2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
-            <p class="help">
-                Enter the parent strain names below. Their ImageJ areas are entered
-                separately in the Measurement Data section.
-            </p>
-        </div>
-    </div>
-
-    <div class="subcard">
-        <h3>Parent strains</h3>
-        <div id="parentSetup"></div>
-    </div>
-
-    <div class="subcard">
-        <h3>Cell / spot concentrations</h3>
-        <p class="help">
-            Add the concentrations used on the plate. You decide which concentrations
-            should contribute to the overall interpretation.
-        </p>
-
-        <div id="concentrationSetup"></div>
-
-        <button type="button" class="add-button" id="addConcentration">
-            + Add concentration
-        </button>
-    </div>
-
+<div class="setup-grid">
+<div class="field"><label for="damageAgent">DNA damage agent / condition</label><input id="damageAgent" type="text" placeholder="e.g. CPT"></div>
+<div class="field"><label for="damageConcentration">Condition / concentration</label><input id="damageConcentration" type="text" placeholder="e.g. 10 µM"></div>
+<div class="field full">
+<label for="parentCount">Number of parent strains</label>
+<select id="parentCount"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option></select>
+<p class="help">Parent names are defined here. Their ImageJ areas are entered separately for every cell / spot concentration below.</p>
+</div>
+</div>
+<div class="subcard"><h3>Parent strains</h3><div id="parentSetup"></div></div>
+<div class="subcard">
+<h3>Cell / spot concentrations</h3>
+<p class="help">Add the concentrations used on the plate. Each concentration gets its own WT, parent and combined-mutant measurements.</p>
+<div id="concentrationSetup"></div>
+<button type="button" class="add-button" id="addConcentration">+ Add concentration</button>
+</div>
 </div>
 
 <h2>MEASUREMENT DATA</h2>
-
 <div class="card">
-
-    <p class="help">
-        Enter the ImageJ area measurements from the current plate. These values can
-        be replaced for every new plate without changing the experimental setup.
-    </p>
-
-    <div class="subcard">
-        <h3>Wild type</h3>
-        <div class="field">
-            <label for="wtArea">WT ImageJ area</label>
-            <input id="wtArea" class="measurement-input" type="number" min="0" step="any" placeholder="Enter area">
-        </div>
-    </div>
-
-    <div class="subcard">
-        <h3>Parent strains</h3>
-        <div id="parentMeasurements"></div>
-    </div>
-
-    <div id="concentrationMeasurements"></div>
-
-    <div class="actions">
-        <button type="button" class="clear-button" id="clearMeasurements">
-            Clear measurement values
-        </button>
-    </div>
+<p class="help">Enter the ImageJ area measurements from the current plate. WT and parent measurements are entered separately for every concentration because fitness is normalized to the WT at that same concentration.</p>
+<div id="concentrationMeasurements"></div>
+<div class="actions"><button type="button" class="clear-button" id="clearMeasurements">Clear measurement values</button></div>
 </div>
 
 <h2>OVERALL CONCENTRATION PATTERN</h2>
-
 <div class="card">
-    <p class="help">
-        Only concentrations marked <strong>Include in interpretation</strong> are
-        included here. This summary does not automatically select a "strongest"
-        concentration; biological interpretation remains with the experimenter.
-    </p>
-
-    <div id="overallSummary"></div>
+<p class="help">Only concentrations marked <strong>Include in interpretation</strong> are included here. The calculator does not automatically select a strongest concentration.</p>
+<div id="overallSummary"></div>
 </div>
 
 <h2>INTERPRETATION CRITERIA</h2>
-
 <div class="card">
-    <p>
-        The categories below are the interpretation criteria used for this Pombe Lab
-        calculator. They are lab-specific biological criteria and should not be treated
-        as universal thresholds for genetic interaction studies.
-    </p>
-
-    <div class="criteria">
-        <div class="criteria-row">
-            <strong>Strong negative</strong>
-            <span>difference &lt; −20 percentage points</span>
-        </div>
-        <div class="criteria-row">
-            <strong>Weak negative</strong>
-            <span>−20 to −10 percentage points</span>
-        </div>
-        <div class="criteria-row">
-            <strong>No significant genetic interaction</strong>
-            <span>&gt; −10 to &lt; +10 percentage points</span>
-        </div>
-        <div class="criteria-row">
-            <strong>Weak positive</strong>
-            <span>+10 to +20 percentage points</span>
-        </div>
-        <div class="criteria-row">
-            <strong>Strong positive</strong>
-            <span>&gt; +20 percentage points</span>
-        </div>
-    </div>
-
-    <div class="note">
-        The current screening calculator reports quantitative differences and
-        descriptive variation (SD and range). It does not force a statistical
-        significance test onto the screening data.
-    </div>
+<p>The categories below are the interpretation criteria used for this Pombe Lab calculator. They are lab-specific biological criteria and should not be treated as universal thresholds.</p>
+<div class="criteria">
+<div class="criteria-row"><strong>Strong negative</strong><span>difference &lt; −20 percentage points</span></div>
+<div class="criteria-row"><strong>Weak negative</strong><span>−20 to −10 percentage points</span></div>
+<div class="criteria-row"><strong>No significant genetic interaction</strong><span>&gt; −10 to &lt; +10 percentage points</span></div>
+<div class="criteria-row"><strong>Weak positive</strong><span>+10 to +20 percentage points</span></div>
+<div class="criteria-row"><strong>Strong positive</strong><span>&gt; +20 percentage points</span></div>
+</div>
+<div class="note">The screening calculator reports quantitative differences and descriptive variation (SD and range). It does not force a statistical significance test onto the screening data.</div>
 </div>
 
 <h2>MODEL</h2>
-
 <div class="description">
-    <p>
-        Fitness is calculated relative to the wild type:
-        <strong>fitness (%) = strain area / WT area × 100</strong>.
-        Under the multiplicative model, the expected fitness of a combined mutant
-        is the product of the relative fitnesses of its parent strains.
-        The interaction difference reported here is:
-        <strong>mean observed fitness − expected fitness</strong>.
-    </p>
-
-    <p>
-        A positive difference means that the combined mutant grows better than
-        expected from the multiplicative model, whereas a negative difference means
-        that it grows worse than expected.
-    </p>
+<p>Fitness is calculated relative to the wild type at the same concentration: <strong>fitness (%) = strain area / WT area × 100</strong>. Under the multiplicative model, the expected fitness of a combined mutant is the product of the relative fitnesses of its parent strains. The interaction difference reported here is <strong>mean observed fitness − expected fitness</strong>.</p>
+<p>A positive difference means that the combined mutant grows better than expected from the multiplicative model, whereas a negative difference means that it grows worse than expected.</p>
 </div>
 
 <h2>REFERENCES</h2>
-
 <div class="description">
-    <p>
-        1. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2946632/" target="_blank" rel="noopener noreferrer">
-        Genetic interaction methodology and the multiplicative model — PMC article</a>.
-    </p>
-    <p>
-        2. <a href="https://www.pnas.org/doi/10.1073/pnas.0712255105" target="_blank" rel="noopener noreferrer">
-        Genetic interactions and the multiplicative model — PNAS article</a>.
-    </p>
+<p>1. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2946632/" target="_blank" rel="noopener noreferrer">Genetic interaction methodology and the multiplicative model — PMC article</a>.</p>
+<p>2. <a href="https://www.pnas.org/doi/10.1073/pnas.0712255105" target="_blank" rel="noopener noreferrer">Genetic interactions and the multiplicative model — PNAS article</a>.</p>
 </div>
-
 <a class="back-link" href="calculations.html">← Back to Calculations</a>
-
 </div>
 
 <script>
-const state = {
-    parents: [
-        { name: "Parent 1" },
-        { name: "Parent 2" }
-    ],
-    concentrations: [
-        {
-            id: createId(),
-            label: "",
-            include: true,
-            mutants: [
-                { id: createId(), name: "Combined mutant 1" }
-            ]
-        }
-    ]
+const state={
+ parents:[{name:"Parent 1"},{name:"Parent 2"}],
+ concentrations:[{id:createId(),label:"",include:true,mutants:[{id:createId(),name:"Combined mutant 1"}]}]
 };
+function createId(){return "id-"+Math.random().toString(36).slice(2)+Date.now().toString(36)}
+function escapeHtml(value){return String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
+function formatNumber(value,decimals=2){if(!Number.isFinite(value))return "—";return value.toFixed(decimals).replace(/\.00$/,"")}
+function getNumber(id){const el=document.getElementById(id);if(!el||el.value==="")return null;const v=Number(el.value);return Number.isFinite(v)?v:null}
+function interpretation(diff){if(!Number.isFinite(diff))return "Enter the required measurements.";if(diff< -20)return "Strong negative";if(diff<=-10)return "Weak negative";if(diff<10)return "No significant genetic interaction";if(diff<=20)return "Weak positive";return "Strong positive"}
+function findConcentration(id){return state.concentrations.find(c=>c.id===id)}
 
-function createId() {
-    return "id-" + Math.random().toString(36).slice(2) + Date.now().toString(36);
+function renderParentSetup(){
+ const container=document.getElementById("parentSetup");
+ container.innerHTML=state.parents.map((p,i)=>`<div class="strain-setup"><div class="field"><label for="parentName-${i}">Parent ${i+1} name</label><input id="parentName-${i}" class="parent-name-input" data-index="${i}" type="text" value="${escapeHtml(p.name)}" placeholder="e.g. geneAΔ"></div></div>`).join("");
+ container.querySelectorAll(".parent-name-input").forEach(input=>input.addEventListener("input",()=>{state.parents[Number(input.dataset.index)].name=input.value;renderParentSetup();renderConcentrationMeasurements();}));
 }
 
-function escapeHtml(value) {
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+function renderConcentrationSetup(){
+ const container=document.getElementById("concentrationSetup");
+ container.innerHTML=state.concentrations.map((c,ci)=>`<div class="subcard" data-concentration-setup="${c.id}">
+ <div class="concentration-header"><div class="field" style="flex:1"><label for="concentrationLabel-${c.id}">Concentration ${ci+1}</label><input id="concentrationLabel-${c.id}" class="concentration-label-input" data-id="${c.id}" type="text" value="${escapeHtml(c.label)}" placeholder="e.g. 10⁵ cells/spot"></div><button type="button" class="remove-button remove-concentration" data-id="${c.id}" title="Remove concentration">× Remove</button></div>
+ <label class="checkbox-line"><input type="checkbox" class="include-checkbox" data-id="${c.id}" ${c.include?"checked":""}> Include in interpretation</label>
+ <div class="mutation-box"><h3>Combined mutant strains</h3><p class="help">Add every combined mutant strain carrying the same combined genotype that was tested at this concentration.</p>
+ <div class="setup-strain-list">${c.mutants.map((m,mi)=>`<div class="strain-setup"><div class="field"><label for="mutantName-${c.id}-${m.id}">Combined mutant ${mi+1}</label><input id="mutantName-${c.id}-${m.id}" class="mutant-name-input" data-concentration="${c.id}" data-mutant="${m.id}" type="text" value="${escapeHtml(m.name)}" placeholder="e.g. geneAΔ geneBΔ #1"></div><button type="button" class="remove-button remove-mutant" data-concentration="${c.id}" data-mutant="${m.id}">× Remove</button></div>`).join("")}</div>
+ <button type="button" class="secondary-button add-mutant" data-concentration="${c.id}">+ Add combined strain</button></div></div>`).join("");
+ container.querySelectorAll(".concentration-label-input").forEach(input=>input.addEventListener("input",()=>{const c=findConcentration(input.dataset.id);if(c)c.label=input.value;updateConcentrationTitles(input.dataset.id);updateOverallSummary()}));
+ container.querySelectorAll(".include-checkbox").forEach(input=>input.addEventListener("change",()=>{const c=findConcentration(input.dataset.id);if(c)c.include=input.checked;updateAllResults()}));
+ container.querySelectorAll(".mutant-name-input").forEach(input=>input.addEventListener("input",()=>{const c=findConcentration(input.dataset.concentration);const m=c?.mutants.find(x=>x.id===input.dataset.mutant);if(m)m.name=input.value;updateConcentrationMutantLabels(input.dataset.concentration);updateAllResults()}));
+ container.querySelectorAll(".add-mutant").forEach(button=>button.addEventListener("click",()=>{const c=findConcentration(button.dataset.concentration);if(!c)return;c.mutants.push({id:createId(),name:"Combined mutant "+(c.mutants.length+1)});renderConcentrationSetup();renderConcentrationMeasurements();updateAllResults()}));
+ container.querySelectorAll(".remove-mutant").forEach(button=>button.addEventListener("click",()=>{const c=findConcentration(button.dataset.concentration);if(!c||c.mutants.length<=1)return;c.mutants=c.mutants.filter(m=>m.id!==button.dataset.mutant);renderConcentrationSetup();renderConcentrationMeasurements();updateAllResults()}));
+ container.querySelectorAll(".remove-concentration").forEach(button=>button.addEventListener("click",()=>{if(state.concentrations.length<=1)return;state.concentrations=state.concentrations.filter(c=>c.id!==button.dataset.id);renderConcentrationSetup();renderConcentrationMeasurements();updateAllResults()}));
 }
 
-function formatNumber(value, decimals = 2) {
-    if (!Number.isFinite(value)) return "—";
-    return value.toFixed(decimals).replace(/\.00$/, "");
+function renderConcentrationMeasurements(){
+ const container=document.getElementById("concentrationMeasurements");
+ container.innerHTML=state.concentrations.map((c,ci)=>`<div class="concentration-card" data-concentration-measurement="${c.id}">
+ <div class="concentration-header"><div><div class="concentration-number">Concentration ${ci+1}</div><h3 class="concentration-title" id="title-${c.id}">${escapeHtml(c.label||"Unnamed concentration")}</h3></div></div>
+ <div class="measurement-section"><h3>Wild type</h3><div class="measurement-row"><div><div class="live-label">WT</div><div class="help">ImageJ area</div></div><input id="wtArea-${c.id}" class="measurement-input" type="number" min="0" step="any" placeholder="Enter area"><div><div class="live-label">Reference</div><div class="result neutral">100%</div></div></div></div>
+ <div class="measurement-section"><h3>Parent strains</h3>${state.parents.map((p,pi)=>`<div class="measurement-row"><div><div class="live-label" id="parentLabel-${c.id}-${pi}">${escapeHtml(p.name||"Parent "+(pi+1))}</div><div class="help">ImageJ area</div></div><input id="parentArea-${c.id}-${pi}" class="measurement-input" type="number" min="0" step="any" placeholder="Enter area"><div><div class="live-label">Fitness</div><div class="result neutral" id="parentFitness-${c.id}-${pi}">—</div></div></div>`).join("")}</div>
+ <div class="measurement-section"><h3>Combined mutant strains</h3>${c.mutants.map((m,mi)=>`<div class="measurement-row"><div><div class="live-label" id="mutantLabel-${c.id}-${m.id}">${escapeHtml(m.name||"Combined mutant "+(mi+1))}</div><div class="help">ImageJ area</div></div><input id="mutantArea-${c.id}-${m.id}" class="measurement-input" type="number" min="0" step="any" placeholder="Enter area"><div><div class="live-label">Observed fitness</div><div class="result neutral" id="mutantFitness-${c.id}-${m.id}">—</div></div></div><div class="row" style="display:flex;justify-content:flex-end;margin-top:5px"><div style="width:120px"><div class="live-label">Difference</div><div class="result neutral" id="mutantDifference-${c.id}-${m.id}">—</div></div></div>`).join("")}</div>
+ <div class="results-grid"><div class="result-box"><div class="result-name">Expected fitness</div><div class="result-number" id="expected-${c.id}">—</div></div><div class="result-box"><div class="result-name">Mean observed fitness</div><div class="result-number" id="mean-${c.id}">—</div></div><div class="result-box"><div class="result-name">Difference (mean − expected)</div><div class="result-number" id="difference-${c.id}">—</div></div><div class="result-box"><div class="result-name">SD of observed fitness</div><div class="result-number" id="sd-${c.id}">—</div></div><div class="result-box"><div class="result-name">Observed range</div><div class="result-number" id="range-${c.id}">—</div></div><div class="result-box"><div class="result-name">Include in interpretation?</div><div class="result-number" id="includeStatus-${c.id}">${c.include?"Yes":"No"}</div></div></div>
+ <div class="interpretation" id="interpretation-${c.id}">Enter the required measurements.</div></div>`).join("");
+ container.querySelectorAll(".measurement-input").forEach(input=>input.addEventListener("input",updateAllResults));
 }
-
-function getNumber(id) {
-    const element = document.getElementById(id);
-    if (!element || element.value === "") return null;
-    const value = Number(element.value);
-    return Number.isFinite(value) ? value : null;
+function updateConcentrationTitles(id){const c=findConcentration(id);const title=document.getElementById("title-"+id);if(title&&c)title.textContent=c.label||"Unnamed concentration"}
+function updateConcentrationMutantLabels(id){const c=findConcentration(id);if(!c)return;c.mutants.forEach(m=>{const el=document.getElementById("mutantLabel-"+id+"-"+m.id);if(el)el.textContent=m.name||"Combined mutant"})}
+function calculateExpectedForConcentration(c){const wt=getNumber("wtArea-"+c.id);if(wt===null||wt<=0)return null;const fs=[];for(let i=0;i<state.parents.length;i++){const area=getNumber("parentArea-"+c.id+"-"+i);if(area===null)return null;fs.push(area/wt*100)}return fs.length?fs.reduce((p,f)=>p*(f/100),1)*100:null}
+function calculateSD(values){if(values.length<2)return null;const mean=values.reduce((a,b)=>a+b,0)/values.length;return Math.sqrt(values.reduce((s,v)=>s+Math.pow(v-mean,2),0)/(values.length-1))}
+function updateConcentrationResults(c){
+ const wt=getNumber("wtArea-"+c.id);const expected=calculateExpectedForConcentration(c);const observed=[];
+ state.parents.forEach((p,i)=>{const out=document.getElementById("parentFitness-"+c.id+"-"+i);const area=getNumber("parentArea-"+c.id+"-"+i);if(!out)return;if(wt!==null&&wt>0&&area!==null){out.textContent=formatNumber(area/wt*100)+"%";out.classList.remove("neutral")}else{out.textContent="—";out.classList.add("neutral")}});
+ c.mutants.forEach(m=>{const area=getNumber("mutantArea-"+c.id+"-"+m.id);const fo=document.getElementById("mutantFitness-"+c.id+"-"+m.id);const d=document.getElementById("mutantDifference-"+c.id+"-"+m.id);let fit=null;if(wt!==null&&wt>0&&area!==null){fit=area/wt*100;observed.push(fit);fo.textContent=formatNumber(fit)+"%";fo.classList.remove("neutral")}else{fo.textContent="—";fo.classList.add("neutral")}if(fit!==null&&expected!==null){d.textContent=formatNumber(fit-expected)+" pp";d.classList.remove("neutral")}else{d.textContent="—";d.classList.add("neutral")}});
+ const eo=document.getElementById("expected-"+c.id),mo=document.getElementById("mean-"+c.id),do_=document.getElementById("difference-"+c.id),so=document.getElementById("sd-"+c.id),ro=document.getElementById("range-"+c.id),io=document.getElementById("includeStatus-"+c.id),interp=document.getElementById("interpretation-"+c.id);
+ eo.textContent=expected===null?"—":formatNumber(expected)+"%";io.textContent=c.include?"Yes":"No";
+ if(observed.length){const mean=observed.reduce((a,b)=>a+b,0)/observed.length;const sd=calculateSD(observed);const range=Math.max(...observed)-Math.min(...observed);mo.textContent=formatNumber(mean)+"%";so.textContent=sd===null?"—":formatNumber(sd)+" pp";ro.textContent=formatNumber(range)+" pp";if(expected!==null){const diff=mean-expected;do_.textContent=formatNumber(diff)+" pp";interp.innerHTML="<strong>"+interpretation(diff)+"</strong> — mean observed fitness is "+formatNumber(Math.abs(diff))+" percentage points "+(diff>=0?"above":"below")+" the multiplicative expectation."}else{do_.textContent="—";interp.textContent="Enter WT and all parent ImageJ areas at this concentration to calculate the expected fitness."}}else{mo.textContent="—";so.textContent="—";ro.textContent="—";do_.textContent="—";interp.textContent=expected===null?"Enter the required WT and parent measurements.":"Enter at least one combined mutant ImageJ area."}
 }
-
-function interpretation(diff) {
-    if (!Number.isFinite(diff)) {
-        return "Enter the required measurements.";
-    }
-
-    if (diff < -20) return "Strong negative";
-    if (diff <= -10) return "Weak negative";
-    if (diff < 10) return "No significant genetic interaction";
-    if (diff <= 20) return "Weak positive";
-    return "Strong positive";
-}
-
-function renderParentSetup() {
-    const container = document.getElementById("parentSetup");
-
-    container.innerHTML = state.parents.map((parent, index) => `
-        <div class="strain-setup">
-            <div class="field">
-                <label for="parentName-${index}">Parent ${index + 1} name</label>
-                <input
-                    id="parentName-${index}"
-                    class="parent-name-input"
-                    data-index="${index}"
-                    type="text"
-                    value="${escapeHtml(parent.name)}"
-                    placeholder="e.g. geneAΔ"
-                >
-            </div>
-        </div>
-    `).join("");
-
-    container.querySelectorAll(".parent-name-input").forEach(input => {
-        input.addEventListener("input", () => {
-            const index = Number(input.dataset.index);
-            state.parents[index].name = input.value;
-            renderParentMeasurements();
-            updateAllResults();
-        });
-    });
-}
-
-function renderParentMeasurements() {
-    const container = document.getElementById("parentMeasurements");
-
-    container.innerHTML = state.parents.map((parent, index) => `
-        <div class="measurement-row">
-            <div>
-                <div class="live-label">${escapeHtml(parent.name || "Parent " + (index + 1))}</div>
-                <div class="help">ImageJ area</div>
-            </div>
-
-            <input
-                id="parentArea-${index}"
-                class="measurement-input parent-area-input"
-                data-index="${index}"
-                type="number"
-                min="0"
-                step="any"
-                placeholder="Enter area"
-            >
-
-            <div>
-                <div class="live-label">Fitness</div>
-                <div class="result neutral" id="parentFitness-${index}">—</div>
-            </div>
-        </div>
-    `).join("");
-
-    container.querySelectorAll(".parent-area-input").forEach(input => {
-        input.addEventListener("input", updateAllResults);
-    });
-}
-
-function renderConcentrationSetup() {
-    const container = document.getElementById("concentrationSetup");
-
-    container.innerHTML = state.concentrations.map((concentration, cIndex) => `
-        <div class="subcard" data-concentration-setup="${concentration.id}">
-            <div class="concentration-header">
-                <div class="field" style="flex:1;">
-                    <label for="concentrationLabel-${concentration.id}">
-                        Concentration ${cIndex + 1}
-                    </label>
-                    <input
-                        id="concentrationLabel-${concentration.id}"
-                        class="concentration-label-input"
-                        data-id="${concentration.id}"
-                        type="text"
-                        value="${escapeHtml(concentration.label)}"
-                        placeholder="e.g. 10⁵ cells/spot"
-                    >
-                </div>
-
-                <button
-                    type="button"
-                    class="remove-button remove-concentration"
-                    data-id="${concentration.id}"
-                    title="Remove concentration"
-                >× Remove</button>
-            </div>
-
-            <label class="checkbox-line">
-                <input
-                    type="checkbox"
-                    class="include-checkbox"
-                    data-id="${concentration.id}"
-                    ${concentration.include ? "checked" : ""}
-                >
-                Include in interpretation
-            </label>
-
-            <div class="mutation-box">
-                <h3>Combined mutant strains</h3>
-                <p class="help">
-                    Add every combined mutant strain carrying the same combined genotype
-                    that was tested at this concentration.
-                </p>
-
-                <div class="setup-strain-list">
-                    ${concentration.mutants.map((mutant, mIndex) => `
-                        <div class="strain-setup">
-                            <div class="field">
-                                <label for="mutantName-${concentration.id}-${mutant.id}">
-                                    Combined mutant ${mIndex + 1}
-                                </label>
-                                <input
-                                    id="mutantName-${concentration.id}-${mutant.id}"
-                                    class="mutant-name-input"
-                                    data-concentration="${concentration.id}"
-                                    data-mutant="${mutant.id}"
-                                    type="text"
-                                    value="${escapeHtml(mutant.name)}"
-                                    placeholder="e.g. geneAΔ geneBΔ #1"
-                                >
-                            </div>
-
-                            <button
-                                type="button"
-                                class="remove-button remove-mutant"
-                                data-concentration="${concentration.id}"
-                                data-mutant="${mutant.id}"
-                            >× Remove</button>
-                        </div>
-                    `).join("")}
-                </div>
-
-                <button
-                    type="button"
-                    class="secondary-button add-mutant"
-                    data-concentration="${concentration.id}"
-                >
-                    + Add combined strain
-                </button>
-            </div>
-        </div>
-    `).join("");
-
-    container.querySelectorAll(".concentration-label-input").forEach(input => {
-        input.addEventListener("input", () => {
-            const concentration = findConcentration(input.dataset.id);
-            if (concentration) concentration.label = input.value;
-            renderConcentrationMeasurements();
-            updateAllResults();
-        });
-    });
-
-    container.querySelectorAll(".include-checkbox").forEach(input => {
-        input.addEventListener("change", () => {
-            const concentration = findConcentration(input.dataset.id);
-            if (concentration) concentration.include = input.checked;
-            updateAllResults();
-        });
-    });
-
-    container.querySelectorAll(".mutant-name-input").forEach(input => {
-        input.addEventListener("input", () => {
-            const concentration = findConcentration(input.dataset.concentration);
-            const mutant = concentration?.mutants.find(m => m.id === input.dataset.mutant);
-            if (mutant) mutant.name = input.value;
-            renderConcentrationMeasurements();
-            updateAllResults();
-        });
-    });
-
-    container.querySelectorAll(".add-mutant").forEach(button => {
-        button.addEventListener("click", () => {
-            const concentration = findConcentration(button.dataset.concentration);
-            if (!concentration) return;
-
-            concentration.mutants.push({
-                id: createId(),
-                name: "Combined mutant " + (concentration.mutants.length + 1)
-            });
-
-            renderConcentrationSetup();
-            renderConcentrationMeasurements();
-            updateAllResults();
-        });
-    });
-
-    container.querySelectorAll(".remove-mutant").forEach(button => {
-        button.addEventListener("click", () => {
-            const concentration = findConcentration(button.dataset.concentration);
-            if (!concentration || concentration.mutants.length <= 1) return;
-
-            concentration.mutants = concentration.mutants.filter(
-                mutant => mutant.id !== button.dataset.mutant
-            );
-
-            renderConcentrationSetup();
-            renderConcentrationMeasurements();
-            updateAllResults();
-        });
-    });
-
-    container.querySelectorAll(".remove-concentration").forEach(button => {
-        button.addEventListener("click", () => {
-            if (state.concentrations.length <= 1) return;
-
-            state.concentrations = state.concentrations.filter(
-                concentration => concentration.id !== button.dataset.id
-            );
-
-            renderConcentrationSetup();
-            renderConcentrationMeasurements();
-            updateAllResults();
-        });
-    });
-}
-
-function renderConcentrationMeasurements() {
-    const container = document.getElementById("concentrationMeasurements");
-
-    container.innerHTML = state.concentrations.map((concentration, cIndex) => `
-        <div class="concentration-card" data-concentration-measurement="${concentration.id}">
-            <div class="concentration-header">
-                <div>
-                    <div class="concentration-number">Concentration ${cIndex + 1}</div>
-                    <h3 class="concentration-title">
-                        ${escapeHtml(concentration.label || "Unnamed concentration")}
-                    </h3>
-                </div>
-            </div>
-
-            <div class="mutation-box">
-                <h3>Combined mutant measurements</h3>
-
-                ${concentration.mutants.map((mutant, mIndex) => `
-                    <div class="measurement-row">
-                        <div>
-                            <div class="live-label">
-                                ${escapeHtml(mutant.name || "Combined mutant " + (mIndex + 1))}
-                            </div>
-                            <div class="help">ImageJ area</div>
-                        </div>
-
-                        <input
-                            id="mutantArea-${concentration.id}-${mutant.id}"
-                            class="measurement-input mutant-area-input"
-                            data-concentration="${concentration.id}"
-                            data-mutant="${mutant.id}"
-                            type="number"
-                            min="0"
-                            step="any"
-                            placeholder="Enter area"
-                        >
-
-                        <div>
-                            <div class="live-label">Observed fitness</div>
-                            <div
-                                class="result neutral mutant-fitness-result"
-                                id="mutantFitness-${concentration.id}-${mutant.id}"
-                            >—</div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div></div>
-                        <div>
-                            <div class="live-label">Difference from expected</div>
-                            <div
-                                class="result neutral mutant-difference-result"
-                                id="mutantDifference-${concentration.id}-${mutant.id}"
-                            >—</div>
-                        </div>
-                    </div>
-                `).join("")}
-            </div>
-
-            <div class="results-grid">
-                <div class="result-box">
-                    <div class="result-name">Expected fitness</div>
-                    <div class="result-number" id="expected-${concentration.id}">—</div>
-                </div>
-
-                <div class="result-box">
-                    <div class="result-name">Mean observed fitness</div>
-                    <div class="result-number" id="mean-${concentration.id}">—</div>
-                </div>
-
-                <div class="result-box">
-                    <div class="result-name">Difference (mean − expected)</div>
-                    <div class="result-number" id="difference-${concentration.id}">—</div>
-                </div>
-
-                <div class="result-box">
-                    <div class="result-name">SD of observed fitness</div>
-                    <div class="result-number" id="sd-${concentration.id}">—</div>
-                </div>
-
-                <div class="result-box">
-                    <div class="result-name">Observed range</div>
-                    <div class="result-number" id="range-${concentration.id}">—</div>
-                </div>
-
-                <div class="result-box">
-                    <div class="result-name">Include in interpretation?</div>
-                    <div class="result-number" id="includeStatus-${concentration.id}">—</div>
-                </div>
-            </div>
-
-            <div class="interpretation" id="interpretation-${concentration.id}">
-                Enter the required measurements.
-            </div>
-        </div>
-    `).join("");
-
-    container.querySelectorAll(".mutant-area-input").forEach(input => {
-        input.addEventListener("input", updateAllResults);
-    });
-}
-
-function findConcentration(id) {
-    return state.concentrations.find(concentration => concentration.id === id);
-}
-
-function calculateExpectedFitness() {
-    const wtArea = getNumber("wtArea");
-
-    if (wtArea === null || wtArea <= 0) return null;
-
-    const parentFitnesses = [];
-
-    for (let i = 0; i < state.parents.length; i++) {
-        const area = getNumber("parentArea-" + i);
-        if (area === null) return null;
-
-        parentFitnesses.push((area / wtArea) * 100);
-    }
-
-    if (!parentFitnesses.length) return null;
-
-    return parentFitnesses.reduce(
-        (product, fitness) => product * (fitness / 100),
-        1
-    ) * 100;
-}
-
-function calculateSD(values) {
-    if (values.length < 2) return null;
-
-    const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
-
-    const variance = values.reduce(
-        (sum, value) => sum + Math.pow(value - mean, 2),
-        0
-    ) / (values.length - 1);
-
-    return Math.sqrt(variance);
-}
-
-function updateParentResults() {
-    const wtArea = getNumber("wtArea");
-
-    state.parents.forEach((parent, index) => {
-        const output = document.getElementById("parentFitness-" + index);
-        const area = getNumber("parentArea-" + index);
-
-        if (!output) return;
-
-        if (wtArea === null || wtArea <= 0 || area === null) {
-            output.textContent = "—";
-            output.classList.add("neutral");
-            return;
-        }
-
-        const fitness = (area / wtArea) * 100;
-        output.textContent = formatNumber(fitness) + "%";
-        output.classList.remove("neutral");
-    });
-}
-
-function updateConcentrationResults(concentration) {
-    const wtArea = getNumber("wtArea");
-    const expected = calculateExpectedFitness();
-
-    const observed = [];
-
-    concentration.mutants.forEach(mutant => {
-        const area = getNumber(
-            "mutantArea-" + concentration.id + "-" + mutant.id
-        );
-
-        const fitnessOutput = document.getElementById(
-            "mutantFitness-" + concentration.id + "-" + mutant.id
-        );
-
-        const differenceOutput = document.getElementById(
-            "mutantDifference-" + concentration.id + "-" + mutant.id
-        );
-
-        let fitness = null;
-
-        if (wtArea !== null && wtArea > 0 && area !== null) {
-            fitness = (area / wtArea) * 100;
-            observed.push(fitness);
-            fitnessOutput.textContent = formatNumber(fitness) + "%";
-            fitnessOutput.classList.remove("neutral");
-        } else {
-            fitnessOutput.textContent = "—";
-            fitnessOutput.classList.add("neutral");
-        }
-
-        if (fitness !== null && expected !== null) {
-            differenceOutput.textContent =
-                formatNumber(fitness - expected) + " pp";
-            differenceOutput.classList.remove("neutral");
-        } else {
-            differenceOutput.textContent = "—";
-            differenceOutput.classList.add("neutral");
-        }
-    });
-
-    const expectedOutput = document.getElementById("expected-" + concentration.id);
-    const meanOutput = document.getElementById("mean-" + concentration.id);
-    const differenceOutput = document.getElementById("difference-" + concentration.id);
-    const sdOutput = document.getElementById("sd-" + concentration.id);
-    const rangeOutput = document.getElementById("range-" + concentration.id);
-    const includeOutput = document.getElementById("includeStatus-" + concentration.id);
-    const interpretationOutput = document.getElementById(
-        "interpretation-" + concentration.id
-    );
-
-    expectedOutput.textContent =
-        expected === null ? "—" : formatNumber(expected) + "%";
-
-    if (observed.length) {
-        const mean = observed.reduce((sum, value) => sum + value, 0) / observed.length;
-        const sd = calculateSD(observed);
-        const range = Math.max(...observed) - Math.min(...observed);
-
-        meanOutput.textContent = formatNumber(mean) + "%";
-        sdOutput.textContent = sd === null ? "—" : formatNumber(sd) + " pp";
-        rangeOutput.textContent = formatNumber(range) + " pp";
-
-        if (expected !== null) {
-            const difference = mean - expected;
-            differenceOutput.textContent = formatNumber(difference) + " pp";
-            interpretationOutput.innerHTML =
-                "<strong>" + interpretation(difference) + "</strong>" +
-                " — mean observed fitness is " +
-                formatNumber(Math.abs(difference)) +
-                " percentage points " +
-                (difference >= 0 ? "above" : "below") +
-                " the multiplicative expectation.";
-        } else {
-            differenceOutput.textContent = "—";
-            interpretationOutput.textContent =
-                "Enter WT and all parent ImageJ areas to calculate the expected fitness.";
-        }
-    } else {
-        meanOutput.textContent = "—";
-        sdOutput.textContent = "—";
-        rangeOutput.textContent = "—";
-        differenceOutput.textContent = "—";
-
-        interpretationOutput.textContent =
-            expected === null
-                ? "Enter the required measurements."
-                : "Enter at least one combined mutant ImageJ area.";
-    }
-
-    includeOutput.textContent =
-        concentration.include ? "Yes" : "No";
-}
-
-function updateOverallSummary() {
-    const container = document.getElementById("overallSummary");
-    const included = state.concentrations.filter(c => c.include);
-
-    if (!included.length) {
-        container.innerHTML =
-            '<p class="empty-message">Select at least one concentration for the interpretation summary.</p>';
-        return;
-    }
-
-    const rows = [];
-
-    included.forEach(concentration => {
-        const expected = calculateExpectedFitness();
-        const wtArea = getNumber("wtArea");
-
-        const observed = concentration.mutants
-            .map(mutant => {
-                const area = getNumber(
-                    "mutantArea-" + concentration.id + "-" + mutant.id
-                );
-                if (wtArea === null || wtArea <= 0 || area === null) return null;
-                return (area / wtArea) * 100;
-            })
-            .filter(value => value !== null);
-
-        if (expected === null || !observed.length) {
-            rows.push(`
-                <tr>
-                    <td>${escapeHtml(concentration.label || "Unnamed")}</td>
-                    <td>—</td>
-                    <td>—</td>
-                    <td>—</td>
-                    <td>Enter measurements</td>
-                </tr>
-            `);
-            return;
-        }
-
-        const mean = observed.reduce((sum, value) => sum + value, 0) / observed.length;
-        const difference = mean - expected;
-
-        rows.push(`
-            <tr>
-                <td>${escapeHtml(concentration.label || "Unnamed")}</td>
-                <td>${formatNumber(expected)}%</td>
-                <td>${formatNumber(mean)}%</td>
-                <td>${formatNumber(difference)} pp</td>
-                <td>${interpretation(difference)}</td>
-            </tr>
-        `);
-    });
-
-    container.innerHTML = `
-        <div class="summary-table-wrap">
-            <table class="summary-table">
-                <thead>
-                    <tr>
-                        <th>Cell / spot concentration</th>
-                        <th>Expected</th>
-                        <th>Mean observed</th>
-                        <th>Difference</th>
-                        <th>Interpretation</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${rows.join("")}
-                </tbody>
-            </table>
-        </div>
-    `;
-}
-
-function updateAllResults() {
-    updateParentResults();
-
-    state.concentrations.forEach(updateConcentrationResults);
-
-    updateOverallSummary();
-}
-
-document.getElementById("parentCount").addEventListener("change", event => {
-    const newCount = Number(event.target.value);
-
-    while (state.parents.length < newCount) {
-        state.parents.push({
-            name: "Parent " + (state.parents.length + 1)
-        });
-    }
-
-    state.parents.length = newCount;
-
-    renderParentSetup();
-    renderParentMeasurements();
-    updateAllResults();
-});
-
-document.getElementById("wtArea").addEventListener("input", updateAllResults);
-
-document.getElementById("addConcentration").addEventListener("click", () => {
-    state.concentrations.push({
-        id: createId(),
-        label: "",
-        include: true,
-        mutants: [
-            {
-                id: createId(),
-                name: "Combined mutant 1"
-            }
-        ]
-    });
-
-    renderConcentrationSetup();
-    renderConcentrationMeasurements();
-    updateAllResults();
-});
-
-document.getElementById("clearMeasurements").addEventListener("click", () => {
-    document.getElementById("wtArea").value = "";
-
-    state.parents.forEach((parent, index) => {
-        const input = document.getElementById("parentArea-" + index);
-        if (input) input.value = "";
-    });
-
-    state.concentrations.forEach(concentration => {
-        concentration.mutants.forEach(mutant => {
-            const input = document.getElementById(
-                "mutantArea-" + concentration.id + "-" + mutant.id
-            );
-            if (input) input.value = "";
-        });
-    });
-
-    updateAllResults();
-});
-
-renderParentSetup();
-renderParentMeasurements();
-renderConcentrationSetup();
-renderConcentrationMeasurements();
-updateAllResults();
+function updateOverallSummary(){const container=document.getElementById("overallSummary");const included=state.concentrations.filter(c=>c.include);if(!included.length){container.innerHTML='<p class="empty-message">Select at least one concentration for the interpretation summary.</p>';return}const rows=included.map(c=>{const expected=calculateExpectedForConcentration(c);const wt=getNumber("wtArea-"+c.id);const obs=c.mutants.map(m=>{const a=getNumber("mutantArea-"+c.id+"-"+m.id);return wt!==null&&wt>0&&a!==null?a/wt*100:null}).filter(v=>v!==null);if(expected===null||!obs.length)return `<tr><td>${escapeHtml(c.label||"Unnamed")}</td><td>—</td><td>—</td><td>—</td><td>Enter measurements</td></tr>`;const mean=obs.reduce((a,b)=>a+b,0)/obs.length;const diff=mean-expected;return `<tr><td>${escapeHtml(c.label||"Unnamed")}</td><td>${formatNumber(expected)}%</td><td>${formatNumber(mean)}%</td><td>${formatNumber(diff)} pp</td><td>${interpretation(diff)}</td></tr>`}).join("");container.innerHTML=`<div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Cell / spot concentration</th><th>Expected</th><th>Mean observed</th><th>Difference</th><th>Interpretation</th></tr></thead><tbody>${rows}</tbody></table></div>`}
+function updateAllResults(){state.concentrations.forEach(updateConcentrationResults);updateOverallSummary()}
+
+document.getElementById("parentCount").addEventListener("change",e=>{const n=Number(e.target.value);while(state.parents.length<n)state.parents.push({name:"Parent "+(state.parents.length+1)});state.parents.length=n;renderParentSetup();renderConcentrationSetup();renderConcentrationMeasurements();updateAllResults()});
+document.getElementById("addConcentration").addEventListener("click",()=>{state.concentrations.push({id:createId(),label:"",include:true,mutants:[{id:createId(),name:"Combined mutant 1"}]});renderConcentrationSetup();renderConcentrationMeasurements();updateAllResults()});
+document.getElementById("clearMeasurements").addEventListener("click",()=>{state.concentrations.forEach(c=>{document.getElementById("wtArea-"+c.id).value="";state.parents.forEach((p,i)=>{const el=document.getElementById("parentArea-"+c.id+"-"+i);if(el)el.value=""});c.mutants.forEach(m=>{const el=document.getElementById("mutantArea-"+c.id+"-"+m.id);if(el)el.value=""})});updateAllResults()});
+renderParentSetup();renderConcentrationSetup();renderConcentrationMeasurements();updateAllResults();
 </script>
-
 </body>
 </html>
