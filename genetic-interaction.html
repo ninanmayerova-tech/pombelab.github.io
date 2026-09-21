@@ -56,7 +56,12 @@ input:focus,select:focus { outline:none; border-color:#78AA8A; box-shadow:0 0 0 
 .summary-table th { background:#d9e5dc; color:#333; }
 .note { background:#eee; border-left:3px solid #78AA8A; padding:10px 12px; margin:12px 0; line-height:1.5; font-size:12px; }
 .criteria { display:grid; gap:5px; margin-top:10px; }
-.criteria-row { display:grid; grid-template-columns:165px 1fr; gap:10px; padding:7px 9px; border-radius:7px; background:white; font-size:12px; }
+.criteria-row { display:grid; grid-template-columns:230px 1fr; gap:10px; padding:7px 9px; border-radius:7px; background:white; font-size:12px; }
+.legend-card { margin-top:14px; }
+.legend-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px 18px; }
+.legend-grid > div { background:white; border-radius:8px; padding:8px 10px; font-size:12px; line-height:1.45; }
+.legend-grid strong { display:inline-block; min-width:34px; color:#52705d; }
+@media(max-width:700px){ .legend-grid{grid-template-columns:1fr;} }
 .references {
     margin-top: 35px;
     padding: 25px;
@@ -158,6 +163,15 @@ input:focus,select:focus { outline:none; border-color:#78AA8A; box-shadow:0 0 0 
 <div class="criteria-row"><strong>Strong positive</strong><span>&gt; +20 percentage points</span></div>
 </div>
 <div class="note">The screening calculator reports quantitative differences and descriptive variation (SD and range). It does not force a statistical significance test onto the screening data.</div>
+</div>
+
+<h2>LEGEND</h2>
+<div class="card legend-card">
+<div class="legend-grid">
+<div><strong>WT</strong><span>Wild type</span></div>
+<div><strong>SD</strong><span>Standard deviation — the spread of observed fitness values around their mean.</span></div>
+<div><strong>pp</strong><span>Percentage points — the difference between observed and expected fitness.</span></div>
+</div>
 </div>
 
 <h2>MODEL</h2>
@@ -287,7 +301,7 @@ function updateConcentrationResults(c){
  c.mutants.forEach(m=>{const area=getNumber("mutantArea-"+c.id+"-"+m.id);const fo=document.getElementById("mutantFitness-"+c.id+"-"+m.id);const d=document.getElementById("mutantDifference-"+c.id+"-"+m.id);let fit=null;if(wt!==null&&wt>0&&area!==null){fit=area/wt*100;observed.push(fit);fo.textContent=formatNumber(fit)+"%";fo.classList.remove("neutral")}else{fo.textContent="—";fo.classList.add("neutral")}if(fit!==null&&expected!==null){d.textContent=formatNumber(fit-expected)+" pp";d.classList.remove("neutral")}else{d.textContent="—";d.classList.add("neutral")}});
  const eo=document.getElementById("expected-"+c.id),mo=document.getElementById("mean-"+c.id),do_=document.getElementById("difference-"+c.id),so=document.getElementById("sd-"+c.id),ro=document.getElementById("range-"+c.id),io=document.getElementById("includeStatus-"+c.id),interp=document.getElementById("interpretation-"+c.id);
  eo.textContent=expected===null?"—":formatNumber(expected)+"%";io.textContent=c.include?"Yes":"No";
- if(observed.length){const mean=observed.reduce((a,b)=>a+b,0)/observed.length;const sd=calculateSD(observed);const range=Math.max(...observed)-Math.min(...observed);mo.textContent=formatNumber(mean)+"%";so.textContent=sd===null?"—":formatNumber(sd)+" pp";ro.textContent=formatNumber(range)+" pp";if(expected!==null){const diff=mean-expected;do_.textContent=formatNumber(diff)+" pp";interp.innerHTML="<strong>"+interpretation(diff)+"</strong> — mean observed fitness is "+formatNumber(Math.abs(diff))+" percentage points "+(diff>=0?"above":"below")+" the multiplicative expectation."}else{do_.textContent="—";interp.textContent="Enter WT and all parent ImageJ areas at this concentration to calculate the expected fitness."}}else{mo.textContent="—";so.textContent="—";ro.textContent="—";do_.textContent="—";interp.textContent=expected===null?"Enter the required WT and parent measurements.":"Enter at least one combined mutant ImageJ area."}
+ if(observed.length){const mean=observed.reduce((a,b)=>a+b,0)/observed.length;const sd=calculateSD(observed);const range=Math.max(...observed)-Math.min(...observed);mo.textContent=formatNumber(mean)+"%";so.textContent=sd===null?"—":formatNumber(sd)+" pp";ro.textContent=formatNumber(range)+" pp";if(expected!==null){const diff=mean-expected;do_.textContent=formatNumber(diff)+" pp";interp.innerHTML="<strong>"+interpretation(diff)+"</strong> — mean observed fitness is "+formatNumber(Math.abs(diff))+" percentage points "+(diff>=0?"above":"below")+" the multiplicative expectation."}else{do_.textContent="—";interp.textContent="Enter WT and all parent ImageJ areas at this concentration to calculate the expected fitness."}else{mo.textContent="—";so.textContent="—";ro.textContent="—";do_.textContent="—";interp.textContent=expected===null?"Enter the required WT and parent measurements.":"Enter at least one combined mutant ImageJ area.";}}
 }
 function updateOverallSummary(){const container=document.getElementById("overallSummary");const included=state.concentrations.filter(c=>c.include);if(!included.length){container.innerHTML='<p class="empty-message">Select at least one concentration for the interpretation summary.</p>';return}const rows=included.map(c=>{const expected=calculateExpectedForConcentration(c);const wt=getNumber("wtArea-"+c.id);const obs=c.mutants.map(m=>{const a=getNumber("mutantArea-"+c.id+"-"+m.id);return wt!==null&&wt>0&&a!==null?a/wt*100:null}).filter(v=>v!==null);if(expected===null||!obs.length)return `<tr><td>${escapeHtml(c.label||"Unnamed")}</td><td>—</td><td>—</td><td>—</td><td>Enter measurements</td></tr>`;const mean=obs.reduce((a,b)=>a+b,0)/obs.length;const diff=mean-expected;return `<tr><td>${escapeHtml(c.label||"Unnamed")}</td><td>${formatNumber(expected)}%</td><td>${formatNumber(mean)}%</td><td>${formatNumber(diff)} pp</td><td>${interpretation(diff)}</td></tr>`}).join("");container.innerHTML=`<div class="summary-table-wrap"><table class="summary-table"><thead><tr><th>Cell / spot concentration</th><th>Expected</th><th>Mean observed</th><th>Difference</th><th>Interpretation</th></tr></thead><tbody>${rows}</tbody></table></div>`}
 function updateAllResults(){state.concentrations.forEach(updateConcentrationResults);updateOverallSummary()}
