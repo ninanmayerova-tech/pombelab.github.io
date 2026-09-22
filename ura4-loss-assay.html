@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ura4 Loss Assay — Pombe Lab</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #e5e5e5;
+            font-family: 'Lato', Arial, Helvetica, sans-serif;
+            color: #333;
+        }
+
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            text-align: center;
+            font-size: 42px;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #52705d;
+            font-family: Georgia, serif;
+            font-size: 24px;
+            margin: 0 0 40px;
+        }
+
+        h2 {
+            font-family: Georgia, serif;
+            font-size: 25px;
+            margin-top: 38px;
+            margin-bottom: 14px;
+            color: #52705d;
+        }
+
+        h3 {
+            font-family: Georgia, serif;
+            font-size: 20px;
+            margin-top: 28px;
+            margin-bottom: 10px;
+            color: #52705d;
+        }
+
+        .description {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #444;
+            margin: 0 auto 35px;
+            max-width: 760px;
+            text-align: justify;
+        }
+
+        .note {
+            background: #eeeeee;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 25px 0;
+            line-height: 1.6;
+        }
+
+        .step {
+            margin: 0 0 22px;
+        }
+
+        .step strong {
+            color: #52705d;
+        }
+
+        .figure {
+            margin: 28px auto;
+            text-align: center;
+        }
+
+        .figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .figure-caption {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0 28px;
+            background: #f4f4f4;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 11px 14px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        th {
+            background: #52705d;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .recipe {
+            background: #eeeeee;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 18px 0 28px;
+        }
+
+        .recipe p {
+            margin: 7px 0;
+        }
+
+        .reference {
+            margin-top: 40px;
+            padding: 25px;
+            background: #eeeeee;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .reference h2 {
+            margin-top: 0;
+            font-size: 23px;
+        }
+
+        .back {
+            display: block;
+            margin-top: 35px;
+            text-align: center;
+            color: #52705d;
+            text-decoration: none;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 700px) {
+            .page {
+                padding: 35px 20px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .subtitle {
+                font-size: 21px;
+            }
+
+            th,
+            td {
+                padding: 9px 10px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="page">
+
+    <h1>URA4 LOSS ASSAY</h1>
+    <p class="subtitle">TF2-6 ura4 loss assay</p>
+
+    <section class="description">
+
+        <h2>PRINCIPLE</h2>
+
+        <p>
+            The ura4<sup>+</sup> allele is used as a reporter for genomic
+            rearrangements at the Tf2-6 locus. Cells that lose ura4<sup>+</sup>
+            are selected on 5-FOA and subsequently characterized by colony PCR
+            to distinguish between eviction and conversion events.
+        </p>
+
+        <h2>EXPERIMENTAL SETUP</h2>
+
+        <div class="note">
+            <strong>Starting cultures:</strong> 12 independent cultures of each
+            WT and mutant strain are picked from EMMG-ura plates to ensure
+            ura4<sup>+</sup> starting populations.
+        </div>
+
+        <p>
+            Cultures are seeded in rich medium at the same density, using
+            20 mL per culture. After growth to saturation, cells are plated
+            onto 5-FOA selective plates to select for ura4 loss. Colonies are
+            subsequently characterized by colony PCR.
+        </p>
+
+        <div class="figure">
+            <img src="ura4loss-scheme.png"
+                 alt="Ura4 loss assay scheme">
+            <div class="figure-caption">
+                <strong>Figure 1.</strong> Ura4 loss assay scheme, adapted from
+                Zaratiegui et al. (2011).
+            </div>
+        </div>
+
+        <h2>PROTOCOL</h2>
+
+        <div class="step">
+            <strong>1.</strong>
+            Pick 12 independent cultures of the WT and mutant strains from
+            EMMG-ura plates to ensure ura4<sup>+</sup> starting populations.
+        </div>
+
+        <div class="step">
+            <strong>2.</strong>
+            Seed the cultures in rich medium at the same density
+            (20 mL per culture).
+        </div>
+
+        <div class="step">
+            <strong>3.</strong>
+            Grow at 32 °C to saturation for 24–26 h with shaking at 160 rpm.
+            Alternatively, grow on plates for 1 week to reach stationary phase.
+            Plate 100,000 cells onto 5-FOA selective plates and grow for 3 days.
+        </div>
+
+        <div class="step">
+            <strong>4.</strong>
+            Plate 100 cells onto rich medium to account for possible cell death
+            and plating efficiency.
+        </div>
+
+        <div class="step">
+            <strong>5.</strong>
+            After colonies arise, count the colonies and pick all colonies
+            from each genotype (minimum 30) for characterization of the
+            rearrangements by colony PCR using primers Tf2-6_F, Tf2-6_R,
+            and Tf2-2_R.
+        </div>
+
+        <h2>YES + 5-FOA MEDIUM</h2>
+
+        <h3>Final volume: 1 L</h3>
+
+        <p>
+            The medium is prepared as 0.5 L of dissolved 5-FOA mixed with
+            0.5 L of 2× YES medium. The final concentration is 1× YES + 5-FOA.
+        </p>
+
+        <div class="recipe">
+            <p><strong>5-FOA solution</strong></p>
+            <p>Dissolve 1 g 5-FOA in 500 mL sterile H<sub>2</sub>O.</p>
+            <p><strong>Important:</strong> 5-FOA is light-sensitive. Prepare separately; it takes time to dissolve.</p>
+        </div>
+
+        <h3>2× YES medium — 500 mL</h3>
+
+        <table>
+            <tr>
+                <th>Component</th>
+                <th>Amount</th>
+            </tr>
+            <tr>
+                <td>Glucose</td>
+                <td>30 g</td>
+            </tr>
+            <tr>
+                <td>Yeast extract</td>
+                <td>5 g</td>
+            </tr>
+            <tr>
+                <td>Uracil</td>
+                <td>0.05 g</td>
+            </tr>
+            <tr>
+                <td>Histidine, lysine, leucine</td>
+                <td>0.1 g</td>
+            </tr>
+            <tr>
+                <td>Adenine hemisulfate</td>
+                <td>0.125 g</td>
+            </tr>
+            <tr>
+                <td>Agar</td>
+                <td>20 g</td>
+            </tr>
+            <tr>
+                <td>H<sub>2</sub>O</td>
+                <td>Add to 500 mL</td>
+            </tr>
+        </table>
+
+        <div class="step">
+            <strong>6.</strong>
+            Autoclave the 2× YES medium. Cool to 55 °C, then mix 0.5 L of
+            2× YES medium with 0.5 L of dissolved 5-FOA to obtain 1 L of
+            1× YES + 5-FOA.
+        </div>
+
+        <div class="note">
+            <strong>Practical preparation note:</strong>
+            Prepare 3 × 0.25 L of 2× YES in 0.5-L flasks and mark the volume.
+            If the media boil too much, use one flask to correct the volumes
+            of the remaining two. Each 0.25 L of 2× YES medium, cooled to
+            55 °C, is then mixed with 0.25 L of dissolved 5-FOA, giving
+            0.5 L of 1× YES + 5-FOA (approximately 24 plates).
+        </div>
+
+        <div class="step">
+            <strong>7.</strong>
+            Keep the 5-FOA plates in darkness.
+        </div>
+
+        <h2>1× EXPERIMENT</h2>
+
+        <table>
+            <tr>
+                <th>Material</th>
+                <th>Amount</th>
+            </tr>
+            <tr>
+                <td>Independent colonies</td>
+                <td>12 single colonies of each strain</td>
+            </tr>
+            <tr>
+                <td>Liquid YES</td>
+                <td>1 L for 48 colonies (4 strains)</td>
+            </tr>
+            <tr>
+                <td>YES plates</td>
+                <td>1 L for 48 colonies (4 strains; 4 × 12 plates)</td>
+            </tr>
+            <tr>
+                <td>YES + 5-FOA</td>
+                <td>1 L for 48 colonies (4 strains; light-sensitive)</td>
+            </tr>
+        </table>
+
+        <h2>COLONY CHARACTERIZATION</h2>
+
+        <p>
+            After colonies arise on 5-FOA, count the colonies and pick all
+            colonies from each genotype (minimum 30) for characterization of
+            the rearrangements by colony PCR.
+        </p>
+
+        <div class="figure">
+            <img src="tf2-6-snapgene.png"
+                 alt="Wild-type Tf2-2 locus and primer positions">
+            <div class="figure-caption">
+                <strong>Figure 2.</strong> Visualisation of the wild-type
+                Tf2-2 locus and positions of the primers used for
+                characterization.
+            </div>
+        </div>
+
+        <h3>Eviction</h3>
+
+        <table>
+            <tr>
+                <th>Primers</th>
+                <td>Tf2-6_F + Tf2-6_R</td>
+            </tr>
+            <tr>
+                <th>Tm</th>
+                <td>54.9 °C</td>
+            </tr>
+            <tr>
+                <th>Polymerization</th>
+                <td>1 min</td>
+            </tr>
+        </table>
+
+        <h3>Conversion</h3>
+
+        <table>
+            <tr>
+                <th>Primers</th>
+                <td>Tf2-6_F + Tf2-2_R</td>
+            </tr>
+            <tr>
+                <th>Tm</th>
+                <td>56.4 °C</td>
+            </tr>
+            <tr>
+                <th>Polymerization</th>
+                <td>5 min</td>
+            </tr>
+        </table>
+
+        <h3>Primer sequences</h3>
+
+        <table>
+            <tr>
+                <th>Primer</th>
+                <th>Sequence</th>
+            </tr>
+            <tr>
+                <td>Tf2-6_F</td>
+                <td>ttccagaaatccagaaagaagc</td>
+            </tr>
+            <tr>
+                <td>Tf2-2_R</td>
+                <td>atttcaaaagggataacagtc</td>
+            </tr>
+            <tr>
+                <td>Tf2-6_R</td>
+                <td>caattgcaacgtccaatgac</td>
+            </tr>
+        </table>
+
+        <h2>COLONY PCR</h2>
+
+        <p>
+            The colony is boiled for 5 min at 95 °C before PCR. The reaction
+            volume is 15 µL.
+        </p>
+
+        <table>
+            <tr>
+                <th>Component</th>
+                <th>Volume</th>
+            </tr>
+            <tr>
+                <td>10× DreamTaq Buffer</td>
+                <td>1.5 µL</td>
+            </tr>
+            <tr>
+                <td>dNTPs</td>
+                <td>0.27 µL</td>
+            </tr>
+            <tr>
+                <td>DreamTaq polymerase</td>
+                <td>0.15 µL</td>
+            </tr>
+            <tr>
+                <td>Primer 1</td>
+                <td>0.65 µL</td>
+            </tr>
+            <tr>
+                <td>Primer 2</td>
+                <td>0.65 µL</td>
+            </tr>
+            <tr>
+                <td>DNA</td>
+                <td>2.5 µL (colony in 30 µL ddH<sub>2</sub>O)</td>
+            </tr>
+            <tr>
+                <td>ddH<sub>2</sub>O</td>
+                <td>9.28 µL</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <th>15 µL</th>
+            </tr>
+        </table>
+
+        <h2>PCR PROGRAM</h2>
+
+        <table>
+            <tr>
+                <th>Step</th>
+                <th>Condition</th>
+            </tr>
+            <tr>
+                <td>Initial denaturation</td>
+                <td>95 °C, 3 min</td>
+            </tr>
+            <tr>
+                <td>Denaturation</td>
+                <td>94 °C, 50 s</td>
+            </tr>
+            <tr>
+                <td>Annealing</td>
+                <td>Tm, 1 min — 36 cycles</td>
+            </tr>
+            <tr>
+                <td>Polymerization</td>
+                <td>72 °C, T<sub>pol</sub></td>
+            </tr>
+            <tr>
+                <td>Final polymerization</td>
+                <td>72 °C, 10 min</td>
+            </tr>
+        </table>
+
+        <div class="reference">
+            <h2>REFERENCE</h2>
+
+            <p>
+                <strong>Zaratiegui, M., Vaughn, M. W., Irvine, D. V., Goto, D.,
+                Watt, S., Bähler, J., Arcangioli, B., &amp; Martienssen, R. A.</strong>
+                (2011). CENP-B preserves genome integrity at replication forks
+                paused by retrotransposon LTR.
+                <em>Nature</em>, 469(7328), 112–115.
+            </p>
+
+            <p>
+                <a href="https://doi.org/10.1038/nature09608"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    https://doi.org/10.1038/nature09608
+                </a>
+            </p>
+        </div>
+
+        <a class="back" href="protocols.html">← Back to Protocols</a>
+
+    </section>
+
+</main>
+
+</body>
+</html>
