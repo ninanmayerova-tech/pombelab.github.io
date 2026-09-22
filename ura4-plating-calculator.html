@@ -205,7 +205,25 @@
         .result-table {
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed;
             font-size: 14px;
+        }
+
+        .result-table th:nth-child(1),
+        .result-table td:nth-child(1) {
+            width: 8%;
+        }
+
+        .result-table th:nth-child(2),
+        .result-table td:nth-child(2) {
+            width: 17%;
+        }
+
+        .result-table th:nth-child(3),
+        .result-table td:nth-child(3),
+        .result-table th:nth-child(4),
+        .result-table td:nth-child(4) {
+            width: 37.5%;
         }
 
         .result-table th,
@@ -237,6 +255,17 @@
             margin-top: 8px;
             font-size: 11px;
             line-height: 1.35;
+            overflow-wrap: anywhere;
+        }
+
+        .download-button {
+            background: #B8D8C0;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .download-button:hover {
+            background: #8FBEA1;
         }
 
         .error {
@@ -364,6 +393,9 @@
 
     <div id="results" class="results-card" style="display:none;">
         <h2>RESULTS</h2>
+        <button type="button" class="download-button" id="download-excel">
+            Download results as Excel
+        </button>
         <div id="result-content"></div>
     </div>
 
@@ -372,6 +404,8 @@
     </a>
 
 </main>
+
+<script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
 
 <script>
 const TARGET_FOA = 100000;
@@ -385,6 +419,7 @@ const resultContent = document.getElementById("result-content");
 const errorBox = document.getElementById("error");
 
 let strainCount = 0;
+let latestResults = [];
 
 function addStrain() {
     strainCount += 1;
@@ -594,6 +629,8 @@ function calculate() {
         });
     }
 
+    latestResults = allResults;
+
     resultContent.innerHTML = allResults.map(strain => `
         <div class="result-strain">
             <h3>${escapeHtml(strain.name)}</h3>
@@ -619,8 +656,8 @@ function calculate() {
                                        Plate ${formatNumber(item.foa.finalVolume)} µL`
                                     : `<strong>Direct:</strong> ${formatNumber(item.foa.finalVolume)} µL
                                        <div class="warning">
-                                           Volume is above ${MAX_VOLUME} µL.
-                                           Dilution cannot reduce the plating volume;
+                                           Volume is above ${MAX_VOLUME} µL.<br>
+                                           Dilution cannot reduce the plating volume;<br>
                                            the culture would need to be more concentrated.
                                        </div>`
                                 }
@@ -632,8 +669,8 @@ function calculate() {
                                        Plate ${formatNumber(item.yes.finalVolume)} µL`
                                     : `<strong>Direct:</strong> ${formatNumber(item.yes.finalVolume)} µL
                                        <div class="warning">
-                                           Volume is above ${MAX_VOLUME} µL.
-                                           Dilution cannot reduce the plating volume;
+                                           Volume is above ${MAX_VOLUME} µL.<br>
+                                           Dilution cannot reduce the plating volume;<br>
                                            the culture would need to be more concentrated.
                                        </div>`
                                 }
@@ -649,6 +686,141 @@ function calculate() {
     resultsBox.scrollIntoView({behavior: "smooth", block: "start"});
 }
 
+async function downloadExcel() {
+    if (!latestResults.length) {
+        errorBox.textContent = "Please calculate the plating volumes first.";
+        errorBox.style.display = "block";
+        return;
+    }
+
+    if (typeof ExcelJS === "undefined") {
+        errorBox.textContent = "The Excel export library could not be loaded. Please check your internet connection and try again.";
+        errorBox.style.display = "block";
+        return;
+    }
+
+    const workbook = new ExcelJS.Workbook();
+    workbook.creator = "Pombe Lab";
+    workbook.title = "Ura4 Loss Assay – Plating Calculator";
+    workbook.subject = "Ura4 loss assay plating calculations";
+
+    const worksheet = workbook.addWorksheet("Plating results");
+    worksheet.views = [{ showGridLines: false }];
+
+    let rowNumber = 1;
+    worksheet.mergeCells(rowNumber, 1, rowNumber, 8);
+    const title = worksheet.getCell(rowNumber, 1);
+    title.value = "URA4 LOSS ASSAY – PLATING CALCULATOR";
+    title.font = { name: "Georgia", size: 16, bold: true };
+    title.alignment = { horizontal: "center", vertical: "middle" };
+    title.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "B8D8C0" } };
+    worksheet.getRow(rowNumber).height = 28;
+    rowNumber += 2;
+
+    worksheet.mergeCells(rowNumber, 1, rowNumber, 8);
+    const note = worksheet.getCell(rowNumber, 1);
+    note.value = "Targets: 100,000 cells on YES + 5-FOA and 100 cells on YES control. Culture concentration is entered in cells/mL. Recommended plating volume: 20–120 µL.";
+    note.font = { name: "Arial", size: 10, italic: true };
+    note.alignment = { wrapText: true, vertical: "top" };
+    worksheet.getRow(rowNumber).height = 34;
+    rowNumber += 2;
+
+    const headers = [
+        "Colony",
+        "Culture concentration (cells/mL)",
+        "YES + 5-FOA target (cells)",
+        "YES + 5-FOA dilution",
+        "YES + 5-FOA plating volume (µL)",
+        "YES control target (cells)",
+        "YES control dilution",
+        "YES control plating volume (µL)"
+    ];
+
+    const headerFill = { type: "pattern", pattern: "solid", fgColor: { argb: "8FBEA1" } };
+    const thinBorder = {
+        top: { style: "thin", color: { argb: "D0D0D0" } },
+        left: { style: "thin", color: { argb: "D0D0D0" } },
+        bottom: { style: "thin", color: { argb: "D0D0D0" } },
+        right: { style: "thin", color: { argb: "D0D0D0" } }
+    };
+
+    latestResults.forEach(strain => {
+        worksheet.mergeCells(rowNumber, 1, rowNumber, 8);
+        const strainCell = worksheet.getCell(rowNumber, 1);
+        strainCell.value = strain.name;
+        strainCell.font = { name: "Georgia", size: 13, bold: true };
+        strainCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "E5E5E5" } };
+        strainCell.alignment = { vertical: "middle" };
+        worksheet.getRow(rowNumber).height = 22;
+        rowNumber += 1;
+
+        headers.forEach((header, i) => {
+            const cell = worksheet.getCell(rowNumber, i + 1);
+            cell.value = header;
+            cell.font = { name: "Arial", size: 10, bold: true };
+            cell.fill = headerFill;
+            cell.alignment = { wrapText: true, vertical: "middle", horizontal: "center" };
+            cell.border = thinBorder;
+        });
+        worksheet.getRow(rowNumber).height = 36;
+        rowNumber += 1;
+
+        strain.colonies.forEach(item => {
+            const values = [
+                item.colony,
+                item.concentration,
+                TARGET_FOA,
+                dilutionText(item.foa.factor),
+                item.foa.finalVolume,
+                TARGET_YES,
+                dilutionText(item.yes.factor),
+                item.yes.finalVolume
+            ];
+
+            values.forEach((value, i) => {
+                const cell = worksheet.getCell(rowNumber, i + 1);
+                cell.value = value;
+                cell.font = { name: "Arial", size: 10 };
+                cell.border = thinBorder;
+                cell.alignment = { vertical: "top", wrapText: true };
+                if (i === 1 || i === 4 || i === 7) {
+                    cell.numFmt = "#,##0.0";
+                }
+            });
+
+            if (!item.foa.possible) {
+                worksheet.getCell(rowNumber, 5).value = `${item.foa.finalVolume.toLocaleString("en-US", {maximumFractionDigits: 1})} µL – concentration too low`;
+                worksheet.getCell(rowNumber, 5).fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFF2CC" } };
+            }
+            if (!item.yes.possible) {
+                worksheet.getCell(rowNumber, 8).value = `${item.yes.finalVolume.toLocaleString("en-US", {maximumFractionDigits: 1})} µL – concentration too low`;
+                worksheet.getCell(rowNumber, 8).fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFF2CC" } };
+            }
+
+            rowNumber += 1;
+        });
+
+        rowNumber += 1;
+    });
+
+    [9, 20, 18, 20, 22, 18, 20, 22].forEach((width, i) => {
+        worksheet.getColumn(i + 1).width = width;
+    });
+
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "ura4-loss-assay-plating-results.xlsx";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+}
+
 function escapeHtml(text) {
     return text.replace(/[&<>"']/g, char => ({
         "&": "&amp;",
@@ -661,6 +833,7 @@ function escapeHtml(text) {
 
 document.getElementById("add-strain").addEventListener("click", addStrain);
 document.getElementById("calculate").addEventListener("click", calculate);
+document.getElementById("download-excel").addEventListener("click", downloadExcel);
 
 addStrain();
 </script>
