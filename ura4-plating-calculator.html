@@ -1,139 +1,3 @@
-Library
-New
-Suggested
-Favorites
-Folders
-Images
-All
-Name
-Last activity
-ura4-plating-calculator.html
-Opened 1m ago
-ura4 loss výpočet výsev (1).xlsx
-Modified 9m ago
-ura4-loss-assay.html
-Modified 20m ago
-protocols.html
-Modified 23m ago
-protocols(1).html
-Modified 55m ago
-ura4 loss protocol.docx
-Modified 1h ago
-index.html
-Opened 1h ago
-protocols-login.html
-Opened 1h ago
-Pasted markdown
-Modified 3h ago
-lab-members.html
-Opened 17h ago
-genetic-interaction.html
-Opened 18h ago
-genetic-interaction-calculator-replicates.html
-Opened 19h ago
-5272d54c-bc58-4d2b-8e65-0952490cc79f.png
-Modified 17h ago
-f4e29ece-c20d-44ce-96b4-9003c22a0267.png
-Modified 18h ago
-849b2d7a-0899-43c1-a27b-d190124d13c3.png
-Modified 18h ago
-87c10d7e-7ccf-4f56-8bda-a4fc409eb083.png
-Modified 19h ago
-f461aaca-28af-4f67-9dc6-138b6befe6a6.png
-Modified 19h ago
-0e3a4ca6-7bed-4878-a221-783dee9fc56a.png
-Modified 20h ago
-28604c46-65e6-4dbf-9bac-541673902d4f.png
-Modified 20h ago
-6bc545c6-7232-4634-9fac-ed7ed21483c1.png
-Modified 20h ago
-Library/
-calculations
-/
-ura4-plating-calculator.html
-Share
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -217,4 +81,688 @@ Share
             border: 1px solid #ddd;
         }
 
+        .strain-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
 
+        .strain-header h3 {
+            font-family: Georgia, serif;
+            color: #52705d;
+            font-size: 21px;
+            margin: 0;
+        }
+
+        .strain-name {
+            width: 220px;
+            margin: 0;
+        }
+
+        .colony-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 16px;
+        }
+
+        .colony-row {
+            display: grid;
+            grid-template-columns: 65px 1fr;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .colony-row label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: 2px solid #B8D8C0;
+            border-color: #52705d;
+        }
+
+        .fast-input {
+            background: white;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            border: 1px solid #ddd;
+        }
+
+        .fast-input label {
+            display: block;
+            margin-bottom: 6px;
+            color: #52705d;
+        }
+
+        .fast-input p {
+            margin: 0 0 12px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: Arial, Helvetica, sans-serif;
+            resize: vertical;
+        }
+
+        .paste-button {
+            background: #B8D8C0;
+            color: #333;
+            margin-top: 10px;
+            padding: 10px 16px;
+        }
+
+        .paste-button:hover {
+            background: #8FBEA1;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 15px;
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .calculate-button {
+            background: #78AA8A;
+            color: white;
+            font-weight: bold;
+        }
+
+        .calculate-button:hover {
+            background: #5F8069;
+        }
+
+        .add-button {
+            background: #B8D8C0;
+            color: #333;
+        }
+
+        .add-button:hover {
+            background: #8FBEA1;
+        }
+
+        .remove-button {
+            background: #eeeeee;
+            color: #666;
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+
+        .remove-button:hover {
+            background: #ddd;
+        }
+
+        .result-strain {
+            background: white;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+        }
+
+        .result-strain h3 {
+            font-family: Georgia, serif;
+            color: #52705d;
+            margin: 0 0 14px;
+            font-size: 20px;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .result-table th,
+        .result-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .result-table th {
+            color: #52705d;
+            font-weight: bold;
+        }
+
+        .result-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .dilution {
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #8a5a00;
+            background: #fff7e6;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .error {
+            color: #9b2c2c;
+            background: #fdeeee;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .references {
+            margin-top: 35px;
+            padding: 25px;
+            background: #eeeeee;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .references h2 {
+            font-family: Georgia, serif;
+            font-size: 23px;
+            margin-top: 0;
+            color: #52705d;
+        }
+
+        .back {
+            display: block;
+            margin-top: 35px;
+            text-align: center;
+            color: #52705d;
+            text-decoration: none;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 700px) {
+            .page {
+                padding: 35px 20px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .colony-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .strain-header {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .strain-name {
+                width: 100%;
+            }
+
+            .result-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="page">
+
+    <h1>URA4 LOSS ASSAY – PLATING CALCULATOR</h1>
+
+    <div class="description">
+
+        <h2>PRINCIPLE</h2>
+
+        <p>
+            This calculator determines how to plate cells from a culture for
+            the ura4 loss assay. The goal is to plate <strong>100,000 cells on
+            YES + 5-FOA</strong> and <strong>100 cells on YES</strong> as a
+            growth control.
+        </p>
+
+        <p>
+            Enter the measured cell concentration in each culture in
+            <strong>cells/mL</strong>. The calculator determines the volume
+            required to contain the target number of cells and recommends a
+            dilution when the direct plating volume would be too small.
+        </p>
+
+        <div class="note">
+            <p>
+                <strong>Recommended plating volume:</strong> 20–120 µL.
+                Dilutions are selected to keep the final volume in this range,
+                while preferentially using 10-fold dilutions (10×, 100×,
+                1000×, etc.). If a 10-fold dilution cannot give a suitable
+                volume, a 5-fold or 2-fold dilution is considered.
+            </p>
+            <p>
+                Each strain contains <strong>12 independent colonies</strong>.
+                Add additional strains if needed; every strain always contains
+                12 colonies.
+            </p>
+        </div>
+
+        <h2>CALCULATION</h2>
+
+        <div class="formula">
+            <p>
+                <strong>Direct volume (µL)</strong> =
+                target cells ÷ culture concentration × 1000
+            </p>
+            <p>
+                The recommended dilution is then applied to the culture before
+                plating. The reported plating volume is the volume of the
+                diluted culture required to contain the target number of cells.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="calculator">
+
+        <div class="fast-input">
+            <label for="bulk-concentrations"><strong>Fast input — paste 12 concentrations</strong></label>
+            <p>Copy the 12 cell concentrations from Excel and paste them here, one per line or separated by tabs/spaces. The values will be placed into Colony 1–12 automatically.</p>
+            <textarea id="bulk-concentrations" rows="4" placeholder="e.g.
+5.72E+06
+6.10E+06
+...
+12 values total"></textarea>
+            <button type="button" class="paste-button" id="fill-concentrations">Fill 12 colonies</button>
+        </div>
+
+        <div id="strains"></div>
+
+        <div class="button-row">
+            <button type="button" class="add-button" id="add-strain">
+                + Add strain
+            </button>
+            <button type="button" class="calculate-button" id="calculate">
+                Calculate plating volumes
+            </button>
+        </div>
+
+        <div id="error" class="error" aria-live="polite"></div>
+
+    </div>
+
+    <div id="results" class="results-card" style="display:none;">
+        <h2>RESULTS</h2>
+        <div id="result-content"></div>
+    </div>
+
+    <div class="references">
+        <h2>References</h2>
+        <p>
+            Calculation targets and dilution approach are based on the
+            laboratory Ura4 Loss Assay spreadsheet provided for this calculator.
+        </p>
+    </div>
+
+    <a href="calculations.html" class="back">
+        ← Back to calculations
+    </a>
+
+</main>
+
+<script>
+const TARGET_FOA = 100000;
+const TARGET_YES = 100;
+const MIN_VOLUME = 20;
+const MAX_VOLUME = 120;
+
+const strainsContainer = document.getElementById("strains");
+const resultsBox = document.getElementById("results");
+const resultContent = document.getElementById("result-content");
+const errorBox = document.getElementById("error");
+
+let strainCount = 0;
+
+function addStrain() {
+    strainCount += 1;
+
+    const block = document.createElement("section");
+    block.className = "strain-block";
+    block.dataset.strain = strainCount;
+
+    block.innerHTML = `
+        <div class="strain-header">
+            <h3>Strain ${strainCount}</h3>
+            <input class="strain-name" type="text"
+                   placeholder="e.g. WT"
+                   aria-label="Strain name">
+            ${strainCount > 1
+                ? '<button type="button" class="remove-button">Remove strain</button>'
+                : ''}
+        </div>
+
+        <div class="colony-grid">
+            ${Array.from({length: 12}, (_, i) => `
+                <div class="colony-row">
+                    <label for="strain-${strainCount}-colony-${i + 1}">
+                        Colony ${i + 1}
+                    </label>
+                    <input
+                        id="strain-${strainCount}-colony-${i + 1}"
+                        class="concentration"
+                        type="number"
+                        min="0"
+                        step="any"
+                        placeholder="cells/mL">
+                </div>
+            `).join("")}
+        </div>
+    `;
+
+    const removeButton = block.querySelector(".remove-button");
+    if (removeButton) {
+        removeButton.addEventListener("click", () => {
+            block.remove();
+            renumberStrains();
+        });
+    }
+
+    strainsContainer.appendChild(block);
+}
+
+function renumberStrains() {
+    const blocks = [...strainsContainer.querySelectorAll(".strain-block")];
+    blocks.forEach((block, index) => {
+        const number = index + 1;
+        block.dataset.strain = number;
+        block.querySelector("h3").textContent = `Strain ${number}`;
+
+        block.querySelectorAll("input.concentration").forEach((input, i) => {
+            input.id = `strain-${number}-colony-${i + 1}`;
+        });
+    });
+
+    strainCount = blocks.length;
+}
+
+function formatNumber(value) {
+    if (!Number.isFinite(value)) return "—";
+    if (value >= 1000) {
+        return value.toLocaleString("en-US", {
+            maximumFractionDigits: 1
+        });
+    }
+    return value.toFixed(1);
+}
+
+function dilutionText(factor) {
+    if (factor === 1) return "1× (no dilution)";
+    if (factor === 2) return "2× (1:2)";
+    if (factor === 5) return "5× (1:5)";
+    if (factor === 10) return "10× (1:10)";
+
+    const power = Math.log10(factor);
+    if (Number.isInteger(power)) {
+        const n = Math.round(power);
+        return `${factor.toLocaleString("en-US")}× (1:10 × ${n})`;
+    }
+
+    if (factor % 10 === 0 && factor / 10 >= 2) {
+        const tenPart = factor / 10;
+        return `${factor.toLocaleString("en-US")}× (1:10 + 1:${tenPart})`;
+    }
+
+    return `${factor.toLocaleString("en-US")}×`;
+}
+
+function chooseDilution(target, concentration) {
+    const directVolume = target / concentration * 1000;
+
+    if (directVolume >= MIN_VOLUME && directVolume <= MAX_VOLUME) {
+        return {
+            factor: 1,
+            directVolume,
+            finalVolume: directVolume,
+            possible: true
+        };
+    }
+
+    if (directVolume > MAX_VOLUME) {
+        return {
+            factor: 1,
+            directVolume,
+            finalVolume: directVolume,
+            possible: false
+        };
+    }
+
+    // Prefer powers of ten, as requested.
+    const preferred = [];
+    for (let power = 1; power <= 7; power++) {
+        preferred.push(Math.pow(10, power));
+    }
+
+    for (const factor of preferred) {
+        const volume = directVolume * factor;
+        if (volume >= MIN_VOLUME && volume <= MAX_VOLUME) {
+            return {
+                factor,
+                directVolume,
+                finalVolume: volume,
+                possible: true
+            };
+        }
+    }
+
+    // If a power of ten does not fit, try 5× and 2× series.
+    const alternatives = [];
+    for (let power = 0; power <= 6; power++) {
+        const base = Math.pow(10, power);
+        alternatives.push(5 * base, 2 * base);
+    }
+
+    for (const factor of alternatives) {
+        const volume = directVolume * factor;
+        if (volume >= MIN_VOLUME && volume <= MAX_VOLUME) {
+            return {
+                factor,
+                directVolume,
+                finalVolume: volume,
+                possible: true
+            };
+        }
+    }
+
+    return {
+        factor: 1,
+        directVolume,
+        finalVolume: directVolume,
+        possible: false
+    };
+}
+
+function fillConcentrations() {
+    const text = document.getElementById("bulk-concentrations").value.trim();
+    const values = text.split(/[,\s;]+/).filter(Boolean);
+
+    if (values.length !== 12) {
+        errorBox.textContent = `Please paste exactly 12 concentration values. You entered ${values.length}.`;
+        errorBox.style.display = "block";
+        return;
+    }
+
+    const numbers = values.map(value => Number(value));
+    if (numbers.some(value => !Number.isFinite(value) || value <= 0)) {
+        errorBox.textContent = "All 12 concentration values must be positive numbers.";
+        errorBox.style.display = "block";
+        return;
+    }
+
+    const firstStrain = strainsContainer.querySelector(".strain-block");
+    if (!firstStrain) {
+        addStrain();
+    }
+
+    const inputs = strainsContainer.querySelector(".strain-block").querySelectorAll(".concentration");
+    numbers.forEach((value, index) => {
+        inputs[index].value = value;
+    });
+
+    errorBox.style.display = "none";
+    errorBox.textContent = "";
+}
+
+function calculate() {
+    errorBox.style.display = "none";
+    errorBox.textContent = "";
+
+    const blocks = [...strainsContainer.querySelectorAll(".strain-block")];
+
+    if (!blocks.length) {
+        errorBox.textContent = "Please add at least one strain.";
+        errorBox.style.display = "block";
+        return;
+    }
+
+    const allResults = [];
+
+    for (const block of blocks) {
+        const nameInput = block.querySelector(".strain-name");
+        const name = nameInput.value.trim() || `Strain ${block.dataset.strain}`;
+
+        const concentrations = [...block.querySelectorAll(".concentration")];
+        const strainResults = [];
+
+        for (let i = 0; i < concentrations.length; i++) {
+            const value = parseFloat(concentrations[i].value);
+
+            if (!Number.isFinite(value) || value <= 0) {
+                errorBox.textContent =
+                    `Please enter a positive concentration for ${name}, colony ${i + 1}.`;
+                errorBox.style.display = "block";
+                return;
+            }
+
+            const foa = chooseDilution(TARGET_FOA, value);
+            const yes = chooseDilution(TARGET_YES, value);
+
+            strainResults.push({
+                colony: i + 1,
+                concentration: value,
+                foa,
+                yes
+            });
+        }
+
+        allResults.push({
+            name,
+            colonies: strainResults
+        });
+    }
+
+    resultContent.innerHTML = allResults.map(strain => `
+        <div class="result-strain">
+            <h3>${escapeHtml(strain.name)}</h3>
+
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>Colony</th>
+                        <th>Culture concentration<br>(cells/mL)</th>
+                        <th>YES + 5-FOA<br>100,000 cells</th>
+                        <th>YES control<br>100 cells</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${strain.colonies.map(item => `
+                        <tr>
+                            <td>${item.colony}</td>
+                            <td>${formatNumber(item.concentration)}</td>
+
+                            <td>
+                                ${item.foa.possible
+                                    ? `<span class="dilution">${dilutionText(item.foa.factor)}</span><br>
+                                       Plate ${formatNumber(item.foa.finalVolume)} µL`
+                                    : `<strong>Direct:</strong> ${formatNumber(item.foa.finalVolume)} µL
+                                       <div class="warning">
+                                           Volume is above ${MAX_VOLUME} µL.
+                                           Dilution cannot reduce the plating volume;
+                                           the culture would need to be more concentrated.
+                                       </div>`
+                                }
+                            </td>
+
+                            <td>
+                                ${item.yes.possible
+                                    ? `<span class="dilution">${dilutionText(item.yes.factor)}</span><br>
+                                       Plate ${formatNumber(item.yes.finalVolume)} µL`
+                                    : `<strong>Direct:</strong> ${formatNumber(item.yes.finalVolume)} µL
+                                       <div class="warning">
+                                           Volume is above ${MAX_VOLUME} µL.
+                                           Dilution cannot reduce the plating volume;
+                                           the culture would need to be more concentrated.
+                                       </div>`
+                                }
+                            </td>
+                        </tr>
+                    `).join("")}
+                </tbody>
+            </table>
+        </div>
+    `).join("");
+
+    resultsBox.style.display = "block";
+    resultsBox.scrollIntoView({behavior: "smooth", block: "start"});
+}
+
+function escapeHtml(text) {
+    return text.replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    }[char]));
+}
+
+document.getElementById("add-strain").addEventListener("click", addStrain);
+document.getElementById("calculate").addEventListener("click", calculate);
+document.getElementById("fill-concentrations").addEventListener("click", fillConcentrations);
+
+addStrain();
+</script>
+
+</body>
+</html>
