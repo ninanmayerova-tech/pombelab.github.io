@@ -72,6 +72,15 @@ th{background:#d9e5dc}
 <p>Calculate ura4 loss frequency from paired YES and YES + 5-FOA colony counts, normalized to plating survival. Each independently plated culture is entered as one paired observation. The calculator also summarizes optional eviction/conversion characterization and allows user-defined statistical comparisons between strains.</p>
 </div>
 
+<h2>CALCULATION LOGIC</h2>
+<div class="card">
+<p class="help">The ura4 loss frequency is calculated by correcting the number of colonies growing on YES + 5-FOA for the survival/plating efficiency measured on YES plates.</p>
+<p class="help"><strong>1. Survival:</strong> YES colonies / 100</p>
+<p class="help"><strong>2. Survival-corrected 5-FOA colonies:</strong> 5-FOA colonies / survival</p>
+<p class="help"><strong>3. Ura4 loss frequency:</strong> survival-corrected 5-FOA colonies / 100,000 × 100</p>
+<p class="help">The <strong>Eviction / Conversion Characterization</strong> is calculated separately and describes the composition of the ura4-loss events; it does not affect the ura4 loss frequency or the statistical comparisons.</p>
+</div>
+
 <h2>COLONY COUNT INPUT</h2>
 <div class="card">
 <p class="help">Paste one count per line into each box. The YES and 5-FOA lists must contain the same number of values. <strong>0 is a valid measurement.</strong></p>
@@ -87,6 +96,19 @@ th{background:#d9e5dc}
 </div>
 
 
+<h2>STATISTICAL COMPARISONS</h2>
+<div class="card">
+<p class="help">Define only the biological comparisons you want to test. The statistics apply to ura4-loss frequency only. Eviction/conversion data are not used for statistical testing.</p>
+<div id="comparisons"></div>
+<button type="button" class="secondary" id="addComparisonButton">+ Add comparison</button>
+</div>
+
+<h2>EVICTION / CONVERSION CHARACTERIZATION</h2>
+<div class="card">
+<p class="help">Optional. Enter the number of characterized colonies for each strain. Leave blank when these data are not available. Blank means missing data; it is not treated as zero.</p>
+<div id="characterization"></div>
+</div>
+
 <h2>URA4 LOSS FREQUENCY GRAPH</h2>
 <div class="card">
 <p class="help">The graph shows mean ura4-loss frequency for each strain with SD error bars. When eviction/conversion data are available, each column is divided according to their proportions. The total column height remains the mean ura4-loss frequency.</p>
@@ -100,19 +122,6 @@ th{background:#d9e5dc}
     <div class="legend-item"><span class="legend-box" style="background:#78AA8A"></span>Frequency without characterization</div>
   </div>
 </div>
-</div>
-
-<h2>STATISTICAL COMPARISONS</h2>
-<div class="card">
-<p class="help">Define only the biological comparisons you want to test. The statistics apply to ura4-loss frequency only. Eviction/conversion data are not used for statistical testing.</p>
-<div id="comparisons"></div>
-<button type="button" class="secondary" id="addComparisonButton">+ Add comparison</button>
-</div>
-
-<h2>EVICTION / CONVERSION CHARACTERIZATION</h2>
-<div class="card">
-<p class="help">Optional. Enter the number of characterized colonies for each strain. Leave blank when these data are not available. Blank means missing data; it is not treated as zero.</p>
-<div id="characterization"></div>
 </div>
 
 <div class="card">
@@ -626,67 +635,7 @@ document.getElementById("downloadButton").addEventListener("click",async()=>{
   wsChar["!cols"]=[{wch:22},{wch:20},{wch:20},{wch:12},{wch:15},{wch:17}];
   XLSX.utils.book_append_sheet(wb,wsChar,"Eviction conversion");
 
-  const graphRows=[["Strain","Mean frequency (%)","SD","Eviction portion (%)","Conversion portion (%)","Frequency without characterization (%)"]];
-  state.strains.forEach(s=>{
-    const vals=strainFrequencies(s),m=mean(vals),d=sd(vals);
-    const e=s.eviction===""?null:Number(s.eviction), c=s.conversion===""?null:Number(s.conversion);
-    const total=Number.isFinite(e)&&Number.isFinite(c)?e+c:null;
-    const evictionPortion=total>0?m*(e/total):null;
-    const conversionPortion=total>0?m*(c/total):null;
-    const uncharacterized=total>0?Math.max(0,m-evictionPortion-conversionPortion):m;
-    graphRows.push([
-      s.name,m,d,evictionPortion,conversionPortion,uncharacterized
-    ]);
-  });
-  const wsGraph=XLSX.utils.aoa_to_sheet(graphRows);
-  wsGraph["!cols"]=[{wch:22},{wch:22},{wch:12},{wch:22},{wch:23}];
-  XLSX.utils.book_append_sheet(wb,wsGraph,"Graph data");
-
-  const chart=buildExcelChartSheet(wb,graphRows);
-  if(chart) XLSX.utils.book_append_sheet(wb,chart,"Graph");
-
-  // SheetJS Community Edition writes the workbook data but not native Excel charts.
-  // Add the actual Excel chart with Office Kit after the workbook has been generated.
-  try {
-    const bytes=XLSX.write(wb,{type:"array",bookType:"xlsx"});
-    const [{loadWorkbook,fromArrayBuffer,workbookToBytes},{getSheet},{makeBarChart,makeBarSeries,makeChartSpace},{addChartAt}]=await Promise.all([
-      import("https://esm.sh/@office-kit/xlsx@0.21.1/io"),
-      import("https://esm.sh/@office-kit/xlsx@0.21.1/workbook"),
-      import("https://esm.sh/@office-kit/xlsx@0.21.1/chart"),
-      import("https://esm.sh/@office-kit/xlsx@0.21.1/drawing")
-    ]);
-
-    const officeWorkbook=await loadWorkbook(fromArrayBuffer(bytes));
-    const graphSheet=getSheet(officeWorkbook,"Graph");
-    if(graphSheet){
-      const categories=graphRows.slice(1).map(r=>r[0]);
-
-      const excelChart=makeBarChart({
-        barDir:"col",
-        grouping:"stacked",
-        series:[
-          makeBarSeries({idx:0,tx:{kind:"literal",value:"Eviction"},cat:{ref:"'Graph'!$A$5:$A$${4+categories.length}"},val:{ref:"'Graph'!$D$5:$D$${4+categories.length}"}}),
-          makeBarSeries({idx:1,tx:{kind:"literal",value:"Conversion"},cat:{ref:"'Graph'!$A$5:$A$${4+categories.length}"},val:{ref:"'Graph'!$E$5:$E$${4+categories.length}"}}),
-          makeBarSeries({idx:2,tx:{kind:"literal",value:"Frequency without characterization"},cat:{ref:"'Graph'!$A$5:$A$${4+categories.length}"},val:{ref:"'Graph'!$F$5:$F$${4+categories.length}"}})
-        ]
-      });
-      const space=makeChartSpace({plotArea:{chart:excelChart},title:"Ura4 loss frequency",legend:{position:"b"}});
-      addChartAt(graphSheet,"G2",{space},{widthPx:700,heightPx:420});
-    }
-
-    const finalBytes=await workbookToBytes(officeWorkbook);
-    const blob=new Blob([finalBytes],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement("a");
-    a.href=url;
-    a.download="ura4-loss-frequency-results.xlsx";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  } catch(err) {
-    console.error("Excel chart generation failed",err);
-    XLSX.writeFile(wb,"ura4-loss-frequency-results.xlsx");
+  XLSX.writeFile(wb,"ura4-loss-frequency-results.xlsx");
   }
 });
 
