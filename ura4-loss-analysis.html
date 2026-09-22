@@ -247,7 +247,18 @@ function renderStrains(){
   box.querySelectorAll(".strain-name-input").forEach(el=>{
     el.addEventListener("input",()=>{
       const s=state.strains.find(x=>x.id===el.dataset.id);
-      if(s){s.name=el.value;renderAll();}
+      if(!s)return;
+      s.name=el.value;
+
+      // Do not re-render the strain card while the user is typing.
+      // Re-rendering would replace the input element and make it lose focus
+      // after the first character.
+      const card=el.closest("[data-strain-card]");
+      const title=card ? card.querySelector(".strain-name") : null;
+      if(title) title.textContent=el.value || ("Strain "+(state.strains.indexOf(s)+1));
+
+      renderComparisons();
+      renderCharacterization();
     });
   });
 
