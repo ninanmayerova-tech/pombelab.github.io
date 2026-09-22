@@ -3,119 +3,651 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ura4 Loss Frequency Calculator | Pombe Lab</title>
+<title>URA4 Loss Frequency Calculator | Pombe Lab</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#e5e5e5;font-family:Arial,Helvetica,sans-serif;color:#333;font-size:14px}
-.page{max-width:1050px;margin:0 auto;padding:45px 28px}
-h1{font-family:Georgia,serif;text-align:center;font-size:40px;margin:0 0 12px}
-h2{font-family:Georgia,serif;color:#52705d;font-size:24px;margin:35px 0 12px}
-h3{font-family:Georgia,serif;color:#52705d;font-size:19px;margin:0 0 10px}
-p{line-height:1.55;text-align:justify}.description{max-width:850px;margin:0 auto 28px}
-.card{background:#fff;border-radius:15px;padding:20px;margin:16px 0;box-shadow:0 3px 8px rgba(0,0,0,.09)}
-.info{background:#eef5f0;border-left:4px solid #78AA8A;padding:11px 13px;margin:14px 0;line-height:1.5}
-.field{display:flex;flex-direction:column;gap:5px}.field label{font-weight:bold;font-size:13px}
-input,textarea,select{width:100%;padding:9px 10px;border:1px solid #c9c9c9;border-radius:7px;background:white;font-size:13px;font-family:Arial,Helvetica,sans-serif}
+.page{max-width:1100px;margin:0 auto;padding:42px 28px 55px}
+h1{font-family:Georgia,serif;text-align:center;font-size:42px;margin:0 0 12px}
+h2{font-family:Georgia,serif;color:#52705d;font-size:23px;margin:34px 0 12px}
+h3{font-family:Georgia,serif;color:#52705d;font-size:18px;margin:0 0 10px}
+p{line-height:1.5;text-align:justify}
+.description{max-width:850px;margin:0 auto 28px}
+.card{background:#f4f4f4;border-radius:15px;padding:20px;margin:15px 0;box-shadow:0 3px 8px rgba(0,0,0,.09)}
+.strain-card{background:#fff;border:1px solid #d8d8d8;border-radius:13px;padding:17px;margin:14px 0}
+.strain-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.strain-name{font-family:Georgia,serif;color:#52705d;font-size:20px}
+.strain-number{font-size:11px;color:#777;margin-bottom:2px}
+.field{display:flex;flex-direction:column;gap:5px}
+label{font-weight:bold;font-size:13px}
+input,textarea,select{width:100%;padding:9px 10px;border:1px solid #c9c9c9;border-radius:7px;background:#fff;font-size:13px;font-family:Arial,Helvetica,sans-serif}
+textarea{min-height:110px;resize:vertical;line-height:1.45}
 input:focus,textarea:focus,select:focus{outline:none;border-color:#78AA8A;box-shadow:0 0 0 2px rgba(120,170,138,.15)}
-textarea{min-height:115px;resize:vertical}
-.strain-card{background:#f4f4f4;border-radius:14px;padding:18px;margin:15px 0;box-shadow:0 2px 7px rgba(0,0,0,.07)}
-.strain-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.strain-name{max-width:420px}
-.count-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
-.count-panel{background:#fff;border:1px solid #ddd;border-radius:11px;padding:13px}.count-panel h3{margin-bottom:7px}
-.fast-label{font-size:12px;color:#666;margin:5px 0 7px;line-height:1.4}
-.colony-head{display:flex;justify-content:space-between;align-items:center;margin:14px 0 7px}.colony-table{width:100%;border-collapse:collapse}.colony-table th,.colony-table td{padding:7px;border-bottom:1px solid #ddd;font-size:12px}.colony-table th{background:#d9e5dc;text-align:left}.colony-table input{padding:7px}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:14px}
+.input-panel{background:#f7f7f7;border:1px solid #e0e0e0;border-radius:10px;padding:13px}
+.input-panel h4{font-family:Georgia,serif;color:#52705d;font-size:17px;margin:0 0 5px}
+.help{color:#666;font-size:12px;line-height:1.45;margin:4px 0}
+.fast-note{background:#eef5f0;border-left:4px solid #78AA8A;padding:9px 11px;margin:10px 0 0;font-size:12px;line-height:1.45}
+.button-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
 button{border:none;border-radius:8px;padding:9px 13px;font-size:12px;font-weight:bold;cursor:pointer;font-family:Arial,Helvetica,sans-serif}
-.add-button{background:#78AA8A;color:white}.add-button:hover{background:#5F8069}.secondary-button{background:#d9e5dc;color:#333}.remove-button{background:transparent;color:#777;padding:5px}.remove-button:hover{color:#a34f45}.excel-button{background:#52705d;color:white;margin-top:15px}.excel-button:hover{background:#3f5948}
-.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.warning{background:#f3eee0;border-left:4px solid #b18a4a;padding:10px 12px;border-radius:7px;font-size:12px;line-height:1.45}.error{background:#f3e8e6;border-left:4px solid #a34f45;padding:10px 12px;border-radius:7px;font-size:12px;line-height:1.45}
-.summary-wrap{overflow-x:auto}.summary{width:100%;border-collapse:collapse;background:white}.summary th,.summary td{padding:9px;border-bottom:1px solid #ddd;text-align:left;font-size:12px}.summary th{background:#d9e5dc}.summary td.num{text-align:right}.subtle{color:#666;font-size:12px}
-.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.comparison-card{background:#f4f4f4;border-radius:11px;padding:14px;margin-top:10px}.comparison-result{margin-top:10px;padding:10px;background:#fff;border:1px solid #ddd;border-radius:8px;font-size:12px;line-height:1.5}
-.back{display:block;text-align:center;margin-top:35px;color:#52705d;text-decoration:none;font-size:16px}.back:hover{text-decoration:underline}
-@media(max-width:700px){.page{padding:28px 15px}h1{font-size:30px}.count-grid,.compare-grid{grid-template-columns:1fr}.strain-head{flex-direction:column}.strain-name{max-width:none}}
+.primary{background:#78AA8A;color:#fff}.primary:hover{background:#5F8069}
+.secondary{background:#d9e5dc;color:#333}.secondary:hover{background:#c6d8cb}
+.remove{background:transparent;color:#777;padding:4px 7px;font-size:11px}.remove:hover{color:#a34f45}
+.table-wrap{overflow-x:auto;margin-top:15px}
+table{width:100%;border-collapse:collapse;background:#fff}
+th,td{padding:8px;border-bottom:1px solid #ddd;text-align:left;font-size:11px}
+th{background:#d9e5dc}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}
+.stat{background:#fff;border:1px solid #ddd;border-radius:9px;padding:10px}
+.stat-label{font-size:10px;color:#666}
+.stat-value{font-family:Georgia,serif;font-size:17px;font-weight:bold;margin-top:3px}
+.empty{color:#777;font-style:italic;font-size:12px}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
+.comparison{background:#fff;border:1px solid #ddd;border-radius:10px;padding:13px;margin:10px 0}
+.comparison-title{font-family:Georgia,serif;color:#52705d;font-size:16px;margin-bottom:9px}
+.characterization-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:9px;align-items:end}
+.back{display:block;text-align:center;margin-top:35px;color:#52705d;text-decoration:none;font-size:16px}
+.back:hover{text-decoration:underline}
+
+.graph-card{background:#fff;border:1px solid #d8d8d8;border-radius:13px;padding:18px;margin:14px 0}
+.graph-wrap{width:100%;overflow-x:auto}
+#frequencyGraph{display:block;width:100%;min-width:620px;height:390px}
+.graph-empty{padding:55px 20px;text-align:center;color:#777;font-size:13px}
+.legend{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:#555}
+.legend-item{display:flex;align-items:center;gap:6px}
+.legend-box{width:13px;height:13px;border-radius:2px;border:1px solid #bbb}
+
+@media(max-width:700px){
+.page{padding:28px 15px 45px}h1{font-size:30px}
+.input-grid,.compare-grid,.characterization-grid,.summary-grid{grid-template-columns:1fr}
+.strain-head{align-items:flex-start}
+}
 </style>
 </head>
 <body>
 <div class="page">
 <h1>URA4 LOSS FREQUENCY CALCULATOR</h1>
+
 <div class="description">
-<p>This calculator determines ura4 loss frequency from paired YES and YES + 5-FOA colony counts. The 5-FOA count is normalized to the survival measured on the corresponding YES plate, so differences in plating/survival efficiency are taken into account.</p>
-<div class="info"><strong>Calculation:</strong> survival = YES colonies / 100. Survival-corrected 5-FOA colonies = 5-FOA colonies / survival. Ura4 loss frequency (%) = survival-corrected 5-FOA colonies / 100,000 × 100. Zero is a valid measurement and is retained in the analysis.</div>
+<p>Calculate ura4 loss frequency from paired YES and YES + 5-FOA colony counts, normalized to plating survival. Each independently plated culture is entered as one paired observation. The calculator also summarizes optional eviction/conversion characterization and allows user-defined statistical comparisons between strains.</p>
 </div>
 
-<h2>COLONY COUNTS</h2>
+<h2>COLONY COUNT INPUT</h2>
 <div class="card">
-<p class="subtle">Enter one paired YES and 5-FOA count for each independently plated culture. You can paste an unlimited number of values into either fast-input box. The YES and 5-FOA lists must contain the same number of values.</p>
+<p class="help">Paste one count per line into each box. The YES and 5-FOA lists must contain the same number of values. <strong>0 is a valid measurement.</strong></p>
 <div id="strains"></div>
-<button type="button" class="add-button" id="addStrain">+ Add strain</button>
+<div class="button-row">
+<button type="button" class="primary" id="addStrainButton">+ Add strain</button>
+</div>
 </div>
 
-<h2>URA4 LOSS FREQUENCY SUMMARY</h2>
+<h2>FINAL RESULTS</h2>
 <div class="card">
 <div id="summary"></div>
 </div>
 
 <h2>STATISTICAL COMPARISONS</h2>
 <div class="card">
-<p class="subtle">Define only the biological comparisons you want to test. The calculator uses the individual colony frequencies for a Welch two-sample t-test. Welch’s test does not assume equal variances between groups; the statistical units should be independent biological replicates. Eviction/conversion data are not used in these statistical tests.</p>
+<p class="help">Define only the biological comparisons you want to test. The statistics apply to ura4-loss frequency only. Eviction/conversion data are not used for statistical testing.</p>
 <div id="comparisons"></div>
-<button type="button" class="add-button" id="addComparison">+ Add comparison</button>
+<button type="button" class="secondary" id="addComparisonButton">+ Add comparison</button>
 </div>
 
 <h2>EVICTION / CONVERSION CHARACTERIZATION</h2>
 <div class="card">
-<p class="subtle">Optional descriptive data. Enter the number of characterized 5-FOA colonies classified as eviction or conversion for each strain. Blank fields mean that data are not available; zero means that zero colonies were observed.</p>
-<div class="summary-wrap"><table class="summary"><thead><tr><th>Strain</th><th>Eviction</th><th>Conversion</th><th>Total characterized</th><th>Eviction %</th><th>Conversion %</th></tr></thead><tbody id="characterization"></tbody></table></div>
+<p class="help">Optional. Enter the number of characterized colonies for each strain. Leave blank when these data are not available. Blank means missing data; it is not treated as zero.</p>
+<div id="characterization"></div>
+</div>
+
+<h2>URA4 LOSS FREQUENCY GRAPH</h2>
+<div class="card">
+<p class="help">The graph shows mean ura4-loss frequency for each strain with SD error bars. When eviction/conversion data are available, each column is divided according to their proportions. The total column height remains the mean ura4-loss frequency.</p>
+<div class="graph-card">
+  <div class="graph-wrap">
+    <svg id="frequencyGraph" viewBox="0 0 900 390" role="img" aria-label="Ura4 loss frequency graph"></svg>
+  </div>
+  <div class="legend">
+    <div class="legend-item"><span class="legend-box" style="background:#8FBEA1"></span>Eviction</div>
+    <div class="legend-item"><span class="legend-box" style="background:#C8D8CC"></span>Conversion</div>
+    <div class="legend-item"><span class="legend-box" style="background:#78AA8A"></span>Frequency without characterization</div>
+  </div>
+</div>
 </div>
 
 <div class="card">
-<strong>Excel output</strong>
-<p class="subtle">Download the complete analysis, including individual measurements, summary statistics, statistical comparisons, eviction/conversion data, and a simple graph.</p>
-<button type="button" class="excel-button" id="downloadExcel">Download results as Excel</button>
+<h2 style="margin-top:0">DOWNLOAD</h2>
+<p class="help">Download the complete results, individual measurements, statistical comparisons, characterization data, and graph as an Excel workbook.</p>
+<button type="button" class="primary" id="downloadButton">Download results as Excel</button>
 </div>
 
-<a class="back" href="calculations.html">← Back to Calculations</a>
+<a class="back" href="calculations.html">← Back to calculations</a>
 </div>
 
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <script>
-const state={strains:[newStrain("Strain 1")],comparisons:[]};
-function id(){return "i"+Math.random().toString(36).slice(2)+Date.now().toString(36)}
-function newStrain(name){return {id:id(),name,colonies:[{yes:"",foa:""}],eviction:"",conversion:""}}
-function esc(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
-function num(v){return v!==""&&Number.isFinite(Number(v))?Number(v):null}
-function frequency(yes,foa){if(yes===null||foa===null||yes<0||foa<0||yes===0)return null;const survival=yes/100;return (foa/survival)/100000*100}
-function mean(a){return a.length?a.reduce((x,y)=>x+y,0)/a.length:null}
-function sd(a){if(a.length<2)return null;const m=mean(a);return Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/(a.length-1))}
-function fmt(v,d=4){return Number.isFinite(v)?v.toFixed(d).replace(/0+$/,'').replace(/\.$/,''):"—"}
-function renderStrains(){const box=document.getElementById('strains');box.innerHTML=state.strains.map((s,si)=>`<div class="strain-card"><div class="strain-head"><div class="strain-name field"><label>Strain name</label><input class="strain-name-input" data-s="${s.id}" value="${esc(s.name)}" placeholder="e.g. wild type"></div><button class="remove-button remove-strain" data-s="${s.id}" type="button">× Remove strain</button></div><div class="count-grid"><div class="count-panel"><h3>YES plates</h3><div class="fast-label">Fast input — paste one colony count per line. The order is preserved.</div><textarea class="fast-yes" data-s="${s.id}" placeholder="83\n95\n78\n..."></textarea></div><div class="count-panel"><h3>YES + 5-FOA plates</h3><div class="fast-label">Fast input — paste the paired 5-FOA counts in the same order as the YES values.</div><textarea class="fast-foa" data-s="${s.id}" placeholder="4\n1\n2\n..."></textarea></div></div><div class="colony-head"><strong style="font-size:13px">Paired colony data</strong><button class="secondary-button add-colony" data-s="${s.id}" type="button">+ Add colony</button></div><div class="summary-wrap"><table class="colony-table"><thead><tr><th>Colony</th><th>YES colonies</th><th>5-FOA colonies</th><th>Ura4 loss frequency (%)</th><th></th></tr></thead><tbody>${s.colonies.map((c,ci)=>`<tr><td>${ci+1}</td><td><input type="number" min="0" step="1" class="count-input" data-s="${s.id}" data-c="${ci}" data-k="yes" value="${esc(c.yes)}"></td><td><input type="number" min="0" step="1" class="count-input" data-s="${s.id}" data-c="${ci}" data-k="foa" value="${esc(c.foa)}"></td><td>${fmt(frequency(num(c.yes),num(c.foa)),6)}</td><td><button class="remove-button remove-colony" data-s="${s.id}" data-c="${ci}" type="button">×</button></td></tr>`).join('')}</tbody></table></div></div>`).join('');
-box.querySelectorAll('.strain-name-input').forEach(x=>x.addEventListener('input',()=>{findS(x.dataset.s).name=x.value;renderComparisons();update()}));
-box.querySelectorAll('.count-input').forEach(x=>x.addEventListener('input',()=>{findS(x.dataset.s).colonies[+x.dataset.c][x.dataset.k]=x.value;update()}));
-box.querySelectorAll('.add-colony').forEach(x=>x.addEventListener('click',()=>{findS(x.dataset.s).colonies.push({yes:"",foa:""});renderStrains();update()}));
-box.querySelectorAll('.remove-colony').forEach(x=>x.addEventListener('click',()=>{const s=findS(x.dataset.s);if(s.colonies.length>1)s.colonies.splice(+x.dataset.c,1);renderStrains();update()}));
-box.querySelectorAll('.remove-strain').forEach(x=>x.addEventListener('click',()=>{if(state.strains.length>1){state.strains=state.strains.filter(s=>s.id!==x.dataset.s);state.comparisons=state.comparisons.filter(c=>c.a!==x.dataset.s&&c.b!==x.dataset.s);renderStrains();renderComparisons();update()}}));
-box.querySelectorAll('.fast-yes,.fast-foa').forEach(x=>x.addEventListener('input',()=>fastPaste(x)));
-}
-function fastPaste(x){const s=findS(x.dataset.s);const vals=x.value.trim()?x.value.trim().split(/[\s,;]+/).map(Number).filter(v=>Number.isFinite(v)&&v>=0):[];if(x.classList.contains('fast-yes')){while(s.colonies.length<vals.length)s.colonies.push({yes:"",foa:""});vals.forEach((v,i)=>s.colonies[i].yes=v)}else{while(s.colonies.length<vals.length)s.colonies.push({yes:"",foa:""});vals.forEach((v,i)=>s.colonies[i].foa=v)}renderStrains();update()}
-function findS(x){return state.strains.find(s=>s.id===x)}
-function vals(s){return s.colonies.map(c=>frequency(num(c.yes),num(c.foa))).filter(v=>Number.isFinite(v))}
-function renderSummary(){const rows=state.strains.map(s=>{const v=vals(s),m=mean(v),d=sd(v),se=d!==null?d/Math.sqrt(v.length):null;return `<tr><td>${esc(s.name||'Unnamed strain')}</td><td class="num">${v.length}</td><td class="num">${fmt(m,6)}</td><td class="num">${fmt(d,6)}</td><td class="num">${fmt(se,6)}</td></tr>`}).join('');document.getElementById('summary').innerHTML=`<div class="summary-wrap"><table class="summary"><thead><tr><th>Strain</th><th>n</th><th>Mean ura4 loss frequency (%)</th><th>SD</th><th>SEM</th></tr></thead><tbody>${rows}</tbody></table></div>`}
-function renderComparisons(){const box=document.getElementById('comparisons');if(!state.comparisons.length){box.innerHTML='<p class="subtle">No statistical comparisons defined yet.</p>';return}box.innerHTML=state.comparisons.map((c,i)=>`<div class="comparison-card"><div class="compare-grid"><div class="field"><label>Control / reference</label><select class="cmp-a" data-i="${i}">${options(c.a)}</select></div><div class="field"><label>Strain to compare</label><select class="cmp-b" data-i="${i}">${options(c.b)}</select></div></div><div id="cmp-result-${i}" class="comparison-result">—</div><button class="remove-button remove-comparison" data-i="${i}" type="button">× Remove comparison</button></div>`).join('');box.querySelectorAll('.cmp-a,.cmp-b').forEach(x=>x.addEventListener('change',()=>{const c=state.comparisons[+x.dataset.i];if(x.classList.contains('cmp-a'))c.a=x.value;else c.b=x.value;update()}));box.querySelectorAll('.remove-comparison').forEach(x=>x.addEventListener('click',()=>{state.comparisons.splice(+x.dataset.i,1);renderComparisons();update()}));renderComparisonResults()}
-function options(selected){return state.strains.map(s=>`<option value="${s.id}" ${s.id===selected?'selected':''}>${esc(s.name||'Unnamed strain')}</option>`).join('')}
-function renderComparisonResults(){state.comparisons.forEach((c,i)=>{const a=findS(c.a),b=findS(c.b),av=vals(a||{colonies:[]}),bv=vals(b||{colonies:[]});const r=welch(av,bv);document.getElementById('cmp-result-'+i).innerHTML=r?`<strong>${esc(a.name)} vs ${esc(b.name)}</strong><br>Control: mean ${fmt(r.ma,6)}% (n=${r.na}) &nbsp; | &nbsp; Compared strain: mean ${fmt(r.mb,6)}% (n=${r.nb})<br>Welch t-test: t = ${fmt(r.t,4)}, df = ${fmt(r.df,2)}, p = ${fmtP(r.p)}`:'Enter at least 2 valid frequency values for each strain.'})}
-function renderCharacterization(){document.getElementById('characterization').innerHTML=state.strains.map(s=>{const e=num(s.eviction),c=num(s.conversion),total=e!==null&&c!==null?e+c:null;return `<tr><td>${esc(s.name||'Unnamed strain')}</td><td><input type="number" min="0" step="1" class="char-input" data-s="${s.id}" data-k="eviction" value="${esc(s.eviction)}"></td><td><input type="number" min="0" step="1" class="char-input" data-s="${s.id}" data-k="conversion" value="${esc(s.conversion)}"></td><td>${total===null?'—':total}</td><td>${total?fmt(e/total*100,2)+'%':'—'}</td><td>${total?fmt(c/total*100,2)+'%':'—'}</td></tr>`}).join('');document.querySelectorAll('.char-input').forEach(x=>x.addEventListener('input',()=>{findS(x.dataset.s)[x.dataset.k]=x.value;update()}))}
-function logGamma(z){const cof=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,.001208650973866179,-.000005395239384953];let x=z,y=x,tmp=x+5.5;tmp-=(x+.5)*Math.log(tmp);let ser=1.000000000190015;for(let j=0;j<cof.length;j++){y+=1;ser+=cof[j]/y}return -tmp+Math.log(2.5066282746310005*ser/x)}
-function betaCF(a,b,x){const maxIter=200,eps=3e-7,tiny=1e-30;let qab=a+b,qap=a+1,qam=a-1,c=1,d=1-qab*x/qap;if(Math.abs(d)<tiny)d=tiny;d=1/d;let h=d;for(let m=1;m<=maxIter;m++){let m2=2*m,aa=m*(b-m)*x/((qam+m2)*(a+m2));d=1+aa*d;if(Math.abs(d)<tiny)d=tiny;c=1+aa/c;if(Math.abs(c)<tiny)c=tiny;d=1/d;h*=d*c;aa=-(a+m)*(qab+m)*x/((a+m2)*(qap+m2));d=1+aa*d;if(Math.abs(d)<tiny)d=tiny;c=1+aa/c;if(Math.abs(c)<tiny)c=tiny;d=1/d;const del=d*c;h*=del;if(Math.abs(del-1)<eps)break}return h}
-function regBeta(x,a,b){if(x<=0)return 0;if(x>=1)return 1;const bt=Math.exp(logGamma(a+b)-logGamma(a)-logGamma(b)+a*Math.log(x)+b*Math.log(1-x));return x<(a+1)/(a+b+2)?bt*betaCF(a,b,x)/a:1-bt*betaCF(b,a,1-x)/b}
-function studentTCDF(t,df){if(!Number.isFinite(t)||!Number.isFinite(df)||df<=0)return NaN;if(t===0)return .5;const x=df/(df+t*t),ib=regBeta(x,df/2,.5);return t>0?1-.5*ib:.5*ib}
-function welch(a,b){if(a.length<2||b.length<2)return null;const ma=mean(a),mb=mean(b),va=sd(a)**2,vb=sd(b)**2,na=a.length,nb=b.length,se=Math.sqrt(va/na+vb/nb);if(!se)return {ma,mb,na,nb,t:0,df:na+nb-2,p:1};const t=(ma-mb)/se;const df=(va/na+vb/nb)**2/((va/na)**2/(na-1)+(vb/nb)**2/(nb-1));const cdf=studentTCDF(Math.abs(t),df);const p=2*(1-cdf);return {ma,mb,na,nb,t,df,p}}
-function fmtP(p){return p<.001?'<0.001':p.toFixed(3)}
-function update(){renderSummary();renderComparisonResults();renderCharacterization()}
-document.getElementById('addStrain').addEventListener('click',()=>{state.strains.push(newStrain('Strain '+(state.strains.length+1)));renderStrains();renderComparisons();update()});
-document.getElementById('addComparison').addEventListener('click',()=>{if(state.strains.length<2)return;state.comparisons.push({a:state.strains[0].id,b:state.strains[1].id});renderComparisons();update()});
-renderStrains();renderComparisons();update();
+(function(){
+"use strict";
 
-document.getElementById('downloadExcel').addEventListener('click',()=>{
-  const payload={strains:state.strains.map(s=>({name:s.name,colonies:s.colonies.map(c=>({yes:c.yes,foa:c.foa})),eviction:s.eviction,conversion:s.conversion})),comparisons:state.comparisons.map(c=>({a:findS(c.a)?.name||'',b:findS(c.b)?.name||''}))};
-  const blob=new Blob([JSON.stringify(payload)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ura4-loss-frequency-data.json';a.click();URL.revokeObjectURL(a.href);
+const state={
+  strains:[],
+  comparisons:[]
+};
+
+let nextId=1;
+
+function newStrain(){
+  return {id:"s"+(nextId++),name:"Strain "+(state.strains.length+1),yes:[],foa:[],eviction:"",conversion:""};
+}
+function newComparison(){
+  return {id:"c"+(nextId++),control:"",test:""};
+}
+function esc(v){
+  return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function nums(a){return a.filter(v=>Number.isFinite(v));}
+function mean(a){return a.length?a.reduce((x,y)=>x+y,0)/a.length:null;}
+function sd(a){
+  if(a.length<2)return null;
+  const m=mean(a);
+  return Math.sqrt(a.reduce((s,v)=>s+(v-m)**2,0)/(a.length-1));
+}
+function sem(a){
+  const s=sd(a);
+  return s!==null?s/Math.sqrt(a.length):null;
+}
+function fmt(v,d=4){
+  if(!Number.isFinite(v))return "—";
+  return Number(v).toFixed(d).replace(/0+$/,"").replace(/\.$/,"");
+}
+function fmtSci(v){
+  if(!Number.isFinite(v))return "—";
+  return v.toExponential(3).replace(/e\+?/,"e");
+}
+function parsePaste(text){
+  return text.trim().split(/\s+/).filter(Boolean).map(v=>Number(v.replace(/,/g,""))).filter(Number.isFinite);
+}
+function frequency(yes,foa){
+  if(!Number.isFinite(yes)||!Number.isFinite(foa)||yes<=0)return null;
+  const survival=yes/100;
+  const corrected=foa/survival;
+  return corrected/100000*100;
+}
+function strainFrequencies(s){
+  const n=Math.min(s.yes.length,s.foa.length);
+  const out=[];
+  for(let i=0;i<n;i++){
+    const f=frequency(s.yes[i],s.foa[i]);
+    if(Number.isFinite(f))out.push(f);
+  }
+  return out;
+}
+function tCDF(t,df){
+  if(df<=0)return null;
+  if(t===0)return .5;
+  const x=df/(df+t*t);
+  const p=.5*betai(x,df/2,.5);
+  return t>0?1-p:p;
+}
+function betacf(x,a,b){
+  let qab=a+b,qap=a+1,qam=a-1,c=1,d=1-qab*x/qap;
+  if(Math.abs(d)<3e-30)d=3e-30;
+  d=1/d;let h=d;
+  for(let m=1;m<=200;m++){
+    const m2=2*m;
+    let aa=m*(b-m)*x/((qam+m2)*(a+m2));
+    d=1+aa*d;if(Math.abs(d)<3e-30)d=3e-30;
+    c=1+aa/c;if(Math.abs(c)<3e-30)c=3e-30;
+    d=1/d;h*=d*c;
+    aa=-(a+m)*(qab+m)*x/((a+m2)*(qap+m2));
+    d=1+aa*d;if(Math.abs(d)<3e-30)d=3e-30;
+    c=1+aa/c;if(Math.abs(c)<3e-30)c=3e-30;
+    d=1/d;
+    const del=d*c;h*=del;
+    if(Math.abs(del-1)<3e-10)break;
+  }
+  return h;
+}
+function logGamma(z){
+  const cof=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,.001208650973866179,-5.395239384953e-6];
+  let x=z,y=x,tmp=x+5.5;
+  tmp-=(x+.5)*Math.log(tmp);
+  let ser=1.000000000190015;
+  for(let j=0;j<cof.length;j++)ser+=cof[j]/++y;
+  return -tmp+Math.log(2.5066282746310005*ser/x);
+}
+function betai(x,a,b){
+  if(x<=0)return 0;if(x>=1)return 1;
+  const bt=Math.exp(logGamma(a+b)-logGamma(a)-logGamma(b)+a*Math.log(x)+b*Math.log(1-x));
+  if(x<(a+1)/(a+b+2))return bt*betacf(x,a,b)/a;
+  return 1-bt*betacf(1-x,b,a)/b;
+}
+function tP(t,df){
+  if(df<=0)return null;
+  if(t===0)return 1;
+  const x=df/(df+t*t);
+  return Math.min(1,betai(x,df/2,.5));
+}
+function welch(a,b){
+  if(a.length<2||b.length<2)return null;
+  const ma=mean(a),mb=mean(b),sa=sd(a),sb=sd(b);
+  const va=sa*sa,vb=sb*sb;
+  const se2=va/a.length+vb/b.length;
+  if(se2===0)return {nA:a.length,nB:b.length,meanA:ma,meanB:mb,sdA:sa,sdB:sb,t:ma===mb?0:(ma>mb?Infinity:-Infinity),p:ma===mb?1:0};
+  const t=(ma-mb)/Math.sqrt(se2);
+  const df=(se2*se2)/((va*va)/(a.length*a.length*(a.length-1))+(vb*vb)/(b.length*b.length*(b.length-1)));
+  return {nA:a.length,nB:b.length,meanA:ma,meanB:mb,sdA:sa,sdB:sb,t,p:tP(t,df),df};
+}
+
+function renderStrains(){
+  const box=document.getElementById("strains");
+  box.innerHTML=state.strains.map((s,i)=>`
+    <div class="strain-card" data-strain-card="${s.id}">
+      <div class="strain-head">
+        <div>
+          <div class="strain-number">Strain ${i+1}</div>
+          <div class="strain-name">${esc(s.name)}</div>
+        </div>
+        ${state.strains.length>1?`<button type="button" class="remove remove-strain" data-id="${s.id}">× Remove strain</button>`:""}
+      </div>
+      <div class="field" style="margin-top:10px">
+        <label>Strain name</label>
+        <input type="text" class="strain-name-input" data-id="${s.id}" value="${esc(s.name)}" placeholder="e.g. WT">
+      </div>
+      <div class="input-grid">
+        <div class="input-panel">
+          <h4>YES plates</h4>
+          <p class="help">Number of colonies from the 100-cell plating.</p>
+          <textarea class="fast-input" data-id="${s.id}" data-type="yes" placeholder="83&#10;95&#10;78&#10;...">${s.yes.join("\n")}</textarea>
+        </div>
+        <div class="input-panel">
+          <h4>YES + 5-FOA plates</h4>
+          <p class="help">Number of colonies from the 100,000-cell plating.</p>
+          <textarea class="fast-input" data-id="${s.id}" data-type="foa" placeholder="4&#10;1&#10;2&#10;...">${s.foa.join("\n")}</textarea>
+        </div>
+      </div>
+      <div class="fast-note"><strong>Fast input:</strong> paste one number per line. Both columns must contain the same number of values.</div>
+      <div id="table-${s.id}"></div>
+    </div>`).join("");
+
+  box.querySelectorAll(".strain-name-input").forEach(el=>{
+    el.addEventListener("input",()=>{
+      const s=state.strains.find(x=>x.id===el.dataset.id);
+      if(!s)return;
+      s.name=el.value;
+
+      // Do not re-render the strain card while the user is typing.
+      // Re-rendering would replace the input element and make it lose focus
+      // after the first character.
+      const card=el.closest("[data-strain-card]");
+      const title=card ? card.querySelector(".strain-name") : null;
+      if(title) title.textContent=el.value || ("Strain "+(state.strains.indexOf(s)+1));
+
+      renderComparisons();
+      renderCharacterization();
+    });
+  });
+
+  box.querySelectorAll(".fast-input").forEach(el=>{
+    el.addEventListener("input",()=>{
+      const s=state.strains.find(x=>x.id===el.dataset.id);
+      if(!s)return;
+      s[el.dataset.type]=parsePaste(el.value);
+      renderTablesOnly();
+      renderSummary();
+      renderFrequencyGraph();
+      renderComparisons();
+    });
+  });
+
+  box.querySelectorAll(".remove-strain").forEach(el=>{
+    el.addEventListener("click",()=>{
+      if(state.strains.length<=1)return;
+      state.strains=state.strains.filter(s=>s.id!==el.dataset.id);
+      state.comparisons=state.comparisons.filter(c=>c.control!==el.dataset.id&&c.test!==el.dataset.id);
+      renderAll();
+    });
+  });
+
+  renderTablesOnly();
+}
+
+function renderTablesOnly(){
+  state.strains.forEach(s=>{
+    const box=document.getElementById("table-"+s.id);
+    if(!box)return;
+    const n=Math.max(s.yes.length,s.foa.length);
+    if(!n){box.innerHTML="";return;}
+    let rows="";
+    for(let i=0;i<n;i++){
+      const y=s.yes[i],f=s.foa[i],freq=frequency(y,f);
+      rows+=`<tr>
+        <td>${i+1}</td>
+        <td><input class="cell-edit" data-id="${s.id}" data-index="${i}" data-type="yes" type="number" min="0" step="1" value="${Number.isFinite(y)?y:""}"></td>
+        <td><input class="cell-edit" data-id="${s.id}" data-index="${i}" data-type="foa" type="number" min="0" step="1" value="${Number.isFinite(f)?f:""}"></td>
+        <td>${Number.isFinite(y)&&y>0&&Number.isFinite(f)?fmtSci(freq):"—"}</td>
+      </tr>`;
+    }
+    box.innerHTML=`<div class="table-wrap"><table>
+      <thead><tr><th>Colony</th><th>YES</th><th>YES + 5-FOA</th><th>Ura4 loss frequency (%)</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>`;
+    box.querySelectorAll(".cell-edit").forEach(el=>{
+      el.addEventListener("input",()=>{
+        const s=state.strains.find(x=>x.id===el.dataset.id);
+        if(!s)return;
+        const i=+el.dataset.index;
+        const v=el.value===""?null:Number(el.value);
+        if(el.dataset.type==="yes")s.yes[i]=v;else s.foa[i]=v;
+        renderTablesOnly();renderSummary();renderFrequencyGraph();renderComparisons();
+      });
+    });
+  });
+}
+
+function renderSummary(){
+  const box=document.getElementById("summary");
+  box.innerHTML=state.strains.map(s=>{
+    const a=strainFrequencies(s),m=mean(a),d=sd(a),se=sem(a);
+    const n=Math.min(s.yes.length,s.foa.length);
+    const mismatch=s.yes.length!==s.foa.length;
+    return `<div class="strain-card">
+      <div class="strain-name">${esc(s.name)}</div>
+      ${mismatch?`<p class="help" style="color:#8a5b20"><strong>Input mismatch:</strong> YES has ${s.yes.length} values and 5-FOA has ${s.foa.length}. Only paired values are used until the lists match.</p>`:""}
+      <div class="summary-grid">
+        <div class="stat"><div class="stat-label">Mean frequency (%)</div><div class="stat-value">${fmtSci(m)}</div></div>
+        <div class="stat"><div class="stat-label">SD</div><div class="stat-value">${fmtSci(d)}</div></div>
+        <div class="stat"><div class="stat-label">SEM</div><div class="stat-value">${fmtSci(se)}</div></div>
+        <div class="stat"><div class="stat-label">Paired colonies (n)</div><div class="stat-value">${n||"—"}</div></div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function renderComparisons(){
+  const box=document.getElementById("comparisons");
+  if(!state.comparisons.length){box.innerHTML='<p class="empty">No statistical comparisons defined.</p>';return;}
+  box.innerHTML=state.comparisons.map((c,i)=>{
+    const a=state.strains.find(s=>s.id===c.control),b=state.strains.find(s=>s.id===c.test);
+    const ra=a?strainFrequencies(a):[],rb=b?strainFrequencies(b):[];
+    const r=a&&b?welch(ra,rb):null;
+    return `<div class="comparison">
+      <div class="comparison-title">Comparison ${i+1}</div>
+      <div class="compare-grid">
+        <div class="field"><label>Control / reference</label><select class="comparison-select" data-id="${c.id}" data-type="control"><option value="">Select strain</option>${state.strains.map(s=>`<option value="${s.id}" ${c.control===s.id?"selected":""}>${esc(s.name)}</option>`).join("")}</select></div>
+        <div class="field"><label>Strain to compare</label><select class="comparison-select" data-id="${c.id}" data-type="test"><option value="">Select strain</option>${state.strains.map(s=>`<option value="${s.id}" ${c.test===s.id?"selected":""}>${esc(s.name)}</option>`).join("")}</select></div>
+      </div>
+      ${r?`<div class="summary-grid">
+        <div class="stat"><div class="stat-label">Control mean</div><div class="stat-value">${fmtSci(r.meanA)}</div></div>
+        <div class="stat"><div class="stat-label">Test mean</div><div class="stat-value">${fmtSci(r.meanB)}</div></div>
+        <div class="stat"><div class="stat-label">Welch t-test p</div><div class="stat-value">${Number.isFinite(r.p)?(r.p<.001?"<0.001":r.p.toFixed(3)):"—"}</div></div>
+        <div class="stat"><div class="stat-label">n</div><div class="stat-value">${r.nA} vs ${r.nB}</div></div>
+      </div>`:`<p class="help">Select two strains with at least two valid frequency measurements each.</p>`}
+      <button type="button" class="remove remove-comparison" data-id="${c.id}">× Remove comparison</button>
+    </div>`;
+  }).join("");
+  box.querySelectorAll(".comparison-select").forEach(el=>{
+    el.addEventListener("change",()=>{
+      const c=state.comparisons.find(x=>x.id===el.dataset.id);
+      if(c)c[el.dataset.type]=el.value;
+      renderComparisons();
+    });
+  });
+  box.querySelectorAll(".remove-comparison").forEach(el=>{
+    el.addEventListener("click",()=>{
+      state.comparisons=state.comparisons.filter(c=>c.id!==el.dataset.id);
+      renderComparisons();
+    });
+  });
+}
+
+function renderCharacterization(){
+  const box=document.getElementById("characterization");
+  box.innerHTML=`<div class="table-wrap"><table>
+    <thead><tr><th>Strain</th><th>Eviction colonies</th><th>Conversion colonies</th><th>Total</th><th>Eviction %</th><th>Conversion %</th></tr></thead>
+    <tbody>${state.strains.map(s=>{
+      const e=s.eviction===""?null:Number(s.eviction),c=s.conversion===""?null:Number(s.conversion);
+      const total=Number.isFinite(e)&&Number.isFinite(c)?e+c:null;
+      return `<tr>
+        <td><strong>${esc(s.name)}</strong></td>
+        <td><input class="char-input" data-id="${s.id}" data-type="eviction" type="text" inputmode="numeric" pattern="[0-9]*" value="${esc(s.eviction)}"></td>
+        <td><input class="char-input" data-id="${s.id}" data-type="conversion" type="text" inputmode="numeric" pattern="[0-9]*" value="${esc(s.conversion)}"></td>
+        <td>${total!==null?total:"—"}</td>
+        <td>${total>0?fmt(e/total*100,2)+"%":"—"}</td>
+        <td>${total>0?fmt(c/total*100,2)+"%":"—"}</td>
+      </tr>`;
+    }).join("")}</tbody>
+  </table></div>`;
+  box.querySelectorAll(".char-input").forEach(el=>{
+    el.addEventListener("input",()=>{
+      const s=state.strains.find(x=>x.id===el.dataset.id);
+      if(!s)return;
+
+      s[el.dataset.type]=el.value.replace(/[^0-9]/g,"");
+
+      // Do not re-render the table while the user is typing.
+      // Re-rendering replaces the input element and would lose focus
+      // after the first digit.
+      const row=el.closest("tr");
+      if(!row)return;
+
+      const e=s.eviction===""?null:Number(s.eviction);
+      const c=s.conversion===""?null:Number(s.conversion);
+      const total=Number.isFinite(e)&&Number.isFinite(c)?e+c:null;
+
+      const cells=row.querySelectorAll("td");
+      cells[3].textContent=total!==null?total:"—";
+      cells[4].textContent=total>0?fmt(e/total*100,2)+"%":"—";
+      cells[5].textContent=total>0?fmt(c/total*100,2)+"%":"—";
+      renderFrequencyGraph();
+    });
+  });
+}
+
+function renderAll(){
+  renderStrains();
+  renderSummary();
+  renderComparisons();
+  renderCharacterization();
+  renderFrequencyGraph();
+}
+
+document.getElementById("addStrainButton").addEventListener("click",()=>{
+  state.strains.push(newStrain());
+  renderAll();
+  const cards=document.querySelectorAll("[data-strain-card]");
+  cards[cards.length-1]?.scrollIntoView({behavior:"smooth",block:"center"});
 });
+
+document.getElementById("addComparisonButton").addEventListener("click",()=>{
+  state.comparisons.push(newComparison());
+  renderComparisons();
+});
+
+
+function renderFrequencyGraph(){
+  const svg=document.getElementById("frequencyGraph");
+  if(!svg)return;
+
+  const rows=state.strains.map(s=>{
+    const vals=strainFrequencies(s),m=mean(vals),d=sd(vals);
+    const e=s.eviction===""?null:Number(s.eviction), c=s.conversion===""?null:Number(s.conversion);
+    const total=Number.isFinite(e)&&Number.isFinite(c)?e+c:null;
+    return {
+      name:s.name||"Unnamed",
+      mean:m, sd:d,
+      eviction:total>0?m*(e/total):null,
+      conversion:total>0?m*(c/total):null
+    };
+  }).filter(r=>Number.isFinite(r.mean));
+
+  if(!rows.length){
+    svg.innerHTML='<foreignObject x="0" y="0" width="900" height="390"><div xmlns="http://www.w3.org/1999/xhtml" class="graph-empty">Enter paired YES and 5-FOA counts to display the graph.</div></foreignObject>';
+    return;
+  }
+
+  const W=900,H=390,left=75,right=25,top=25,bottom=75;
+  const plotW=W-left-right,plotH=H-top-bottom;
+  const maxVal=Math.max(...rows.map(r=>r.mean+(Number.isFinite(r.sd)?r.sd:0)),0);
+  const yMax=maxVal>0?maxVal*1.18:1;
+  const y=v=>top+plotH-(v/yMax)*plotH;
+  const barW=Math.min(95,plotW/rows.length*.58);
+  const gap=plotW/rows.length;
+  let out="";
+
+  // Axes and grid
+  for(let i=0;i<=5;i++){
+    const v=yMax*i/5, yy=y(v);
+    out+=`<line x1="${left}" y1="${yy}" x2="${W-right}" y2="${yy}" stroke="#dddddd" stroke-width="1"/>`;
+    out+=`<text x="${left-10}" y="${yy+4}" text-anchor="end" font-family="Arial" font-size="11" fill="#555">${fmtSci(v)}</text>`;
+  }
+  out+=`<line x1="${left}" y1="${top}" x2="${left}" y2="${top+plotH}" stroke="#888" stroke-width="1"/>`;
+  out+=`<line x1="${left}" y1="${top+plotH}" x2="${W-right}" y2="${top+plotH}" stroke="#888" stroke-width="1"/>`;
+  out+=`<text x="18" y="${top+plotH/2}" transform="rotate(-90 18 ${top+plotH/2})" text-anchor="middle" font-family="Arial" font-size="12" fill="#444">Ura4 loss frequency (%)</text>`;
+
+  rows.forEach((r,i)=>{
+    const cx=left+gap*(i+.5), x=cx-barW/2;
+    let cumulative=0;
+    const segments=[];
+    if(Number.isFinite(r.eviction)){
+      segments.push({v:r.eviction,fill:"#8FBEA1"});
+      segments.push({v:r.conversion,fill:"#C8D8CC"});
+    }else{
+      segments.push({v:r.mean,fill:"#78AA8A"});
+    }
+    segments.forEach(seg=>{
+      const rectY=y(cumulative+seg.v);
+      const baseY=y(cumulative);
+      const h=Math.max(0,baseY-rectY);
+      out+=`<rect x="${x}" y="${rectY}" width="${barW}" height="${h}" rx="2" fill="${seg.fill}"/>`;
+      cumulative+=seg.v;
+    });
+    const err=Number.isFinite(r.sd)?r.sd:0;
+    if(err>0){
+      const yy=y(r.mean+err), yb=y(Math.max(0,r.mean-err));
+      out+=`<line x1="${cx}" y1="${yy}" x2="${cx}" y2="${yb}" stroke="#555" stroke-width="1.5"/>`;
+      out+=`<line x1="${cx-7}" y1="${yy}" x2="${cx+7}" y2="${yy}" stroke="#555" stroke-width="1.5"/>`;
+      out+=`<line x1="${cx-7}" y1="${yb}" x2="${cx+7}" y2="${yb}" stroke="#555" stroke-width="1.5"/>`;
+    }
+    out+=`<text x="${cx}" y="${top+plotH+22}" text-anchor="middle" font-family="Arial" font-size="12" fill="#333">${esc(r.name)}</text>`;
+    out+=`<text x="${cx}" y="${Math.max(top+12,y(r.mean)-7)}" text-anchor="middle" font-family="Arial" font-size="10" fill="#444">${fmtSci(r.mean)}</text>`;
+  });
+
+  svg.innerHTML=out;
+}
+
+function buildExcelChartSheet(wb,rows){
+  if(typeof XLSX==="undefined" || !XLSX.utils.aoa_to_sheet)return null;
+  // Keep chart data in the workbook even if a particular Excel renderer
+  // does not preserve the chart object. The main downloadable workbook
+  // therefore always contains the exact values used for the graph.
+  const ws=XLSX.utils.aoa_to_sheet([
+    ["The Excel workbook contains the graph data on the 'Graph data' sheet."],
+    ["The web calculator displays the graph live from the same values."],
+    [],
+    ...rows
+  ]);
+  ws["!cols"]=[{wch:95}];
+  return ws;
+}
+
+document.getElementById("downloadButton").addEventListener("click",()=>{
+  if(typeof XLSX==="undefined"){
+    alert("The Excel export library could not be loaded. Please check your internet connection and try again.");
+    return;
+  }
+
+  const wb=XLSX.utils.book_new();
+
+  const summaryRows=[
+    ["Strain","n","Mean ura4-loss frequency (%)","SD","SEM","Eviction %","Conversion %"]
+  ];
+
+  state.strains.forEach(s=>{
+    const vals=strainFrequencies(s), m=mean(vals), d=sd(vals), se=sem(vals);
+    const e=s.eviction===""?null:Number(s.eviction);
+    const c=s.conversion===""?null:Number(s.conversion);
+    const total=Number.isFinite(e)&&Number.isFinite(c)?e+c:null;
+    summaryRows.push([
+      s.name, vals.length, m, d, se,
+      total>0?e/total*100:null,
+      total>0?c/total*100:null
+    ]);
+  });
+
+  const wsSummary=XLSX.utils.aoa_to_sheet(summaryRows);
+  wsSummary["!cols"]=[{wch:22},{wch:8},{wch:25},{wch:16},{wch:16},{wch:15},{wch:17}];
+  XLSX.utils.book_append_sheet(wb,wsSummary,"Summary");
+
+  const measurementRows=[
+    ["Strain","Colony","YES colonies","YES + 5-FOA colonies","Survival","Corrected 5-FOA colonies","Ura4 loss frequency (%)"]
+  ];
+  state.strains.forEach(s=>{
+    const n=Math.max(s.yes.length,s.foa.length);
+    for(let i=0;i<n;i++){
+      const y=s.yes[i], f=s.foa[i];
+      const survival=Number.isFinite(y)&&y>0?y/100:null;
+      const corrected=Number.isFinite(y)&&y>0&&Number.isFinite(f)?f/survival:null;
+      const freq=Number.isFinite(corrected)?corrected/100000*100:null;
+      measurementRows.push([s.name,i+1,y,f,survival,corrected,freq]);
+    }
+  });
+  const wsMeasurements=XLSX.utils.aoa_to_sheet(measurementRows);
+  wsMeasurements["!cols"]=[{wch:22},{wch:10},{wch:16},{wch:25},{wch:14},{wch:28},{wch:25}];
+  XLSX.utils.book_append_sheet(wb,wsMeasurements,"Individual measurements");
+
+  const comparisonRows=[
+    ["Control / reference","Strain compared","Control n","Test n","Control mean (%)","Test mean (%)","Control SD","Test SD","Welch t statistic","Degrees of freedom","p-value"]
+  ];
+  state.comparisons.forEach(c=>{
+    const a=state.strains.find(s=>s.id===c.control), b=state.strains.find(s=>s.id===c.test);
+    const ra=a?strainFrequencies(a):[], rb=b?strainFrequencies(b):[];
+    const r=a&&b?welch(ra,rb):null;
+    comparisonRows.push([
+      a?a.name:"", b?b.name:"",
+      r?r.nA:null,r?r.nB:null,r?r.meanA:null,r?r.meanB:null,
+      r?r.sdA:null,r?r.sdB:null,r?r.t:null,r?r.df:null,r?r.p:null
+    ]);
+  });
+  const wsComp=XLSX.utils.aoa_to_sheet(comparisonRows);
+  wsComp["!cols"]=[{wch:22},{wch:22},{wch:12},{wch:10},{wch:20},{wch:18},{wch:14},{wch:14},{wch:18},{wch:20},{wch:12}];
+  XLSX.utils.book_append_sheet(wb,wsComp,"Statistical comparisons");
+
+  const charRows=[["Strain","Eviction colonies","Conversion colonies","Total","Eviction %","Conversion %"]];
+  state.strains.forEach(s=>{
+    const e=s.eviction===""?null:Number(s.eviction), c=s.conversion===""?null:Number(s.conversion);
+    const total=Number.isFinite(e)&&Number.isFinite(c)?e+c:null;
+    charRows.push([s.name,e,c,total,total>0?e/total*100:null,total>0?c/total*100:null]);
+  });
+  const wsChar=XLSX.utils.aoa_to_sheet(charRows);
+  wsChar["!cols"]=[{wch:22},{wch:20},{wch:20},{wch:12},{wch:15},{wch:17}];
+  XLSX.utils.book_append_sheet(wb,wsChar,"Eviction conversion");
+
+  const graphRows=[["Strain","Mean frequency (%)","SD","Eviction portion (%)","Conversion portion (%)"]];
+  state.strains.forEach(s=>{
+    const vals=strainFrequencies(s),m=mean(vals),d=sd(vals);
+    const e=s.eviction===""?null:Number(s.eviction), c=s.conversion===""?null:Number(s.conversion);
+    const total=Number.isFinite(e)&&Number.isFinite(c)?e+c:null;
+    graphRows.push([
+      s.name,m,d,
+      total>0?m*(e/total):null,
+      total>0?m*(c/total):null
+    ]);
+  });
+  const wsGraph=XLSX.utils.aoa_to_sheet(graphRows);
+  wsGraph["!cols"]=[{wch:22},{wch:22},{wch:12},{wch:22},{wch:23}];
+  XLSX.utils.book_append_sheet(wb,wsGraph,"Graph data");
+
+  const chart=buildExcelChartSheet(wb,graphRows);
+  if(chart) XLSX.utils.book_append_sheet(wb,chart,"Graph");
+
+  XLSX.writeFile(wb,"ura4-loss-frequency-results.xlsx");
+});
+
+// Start with one strain. No hidden dependency on any other section.
+state.strains.push(newStrain());
+renderAll();
+
+})();
 </script>
 </body>
 </html>
