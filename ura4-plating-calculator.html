@@ -120,6 +120,12 @@
             color: #555;
         }
 
+        .input-unit {
+            margin: 0 0 12px;
+            font-size: 14px;
+            color: #555;
+        }
+
         input {
             width: 100%;
             padding: 11px 12px;
@@ -133,47 +139,6 @@
         textarea:focus {
             outline: 2px solid #B8D8C0;
             border-color: #52705d;
-        }
-
-        .fast-input {
-            background: white;
-            border-radius: 12px;
-            padding: 18px 20px;
-            margin-bottom: 18px;
-            border: 1px solid #ddd;
-        }
-
-        .fast-input label {
-            display: block;
-            margin-bottom: 6px;
-            color: #52705d;
-        }
-
-        .fast-input p {
-            margin: 0 0 12px;
-            font-size: 14px;
-            color: #555;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 11px 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 15px;
-            font-family: Arial, Helvetica, sans-serif;
-            resize: vertical;
-        }
-
-        .paste-button {
-            background: #B8D8C0;
-            color: #333;
-            margin-top: 10px;
-            padding: 10px 16px;
-        }
-
-        .paste-button:hover {
-            background: #8FBEA1;
         }
 
         .button-row {
@@ -268,9 +233,10 @@
             color: #8a5a00;
             background: #fff7e6;
             border-radius: 8px;
-            padding: 10px 12px;
-            margin-top: 10px;
-            font-size: 14px;
+            padding: 7px 9px;
+            margin-top: 8px;
+            font-size: 11px;
+            line-height: 1.35;
         }
 
         .error {
@@ -280,22 +246,6 @@
             padding: 12px;
             margin-top: 15px;
             display: none;
-        }
-
-        .references {
-            margin-top: 35px;
-            padding: 25px;
-            background: #eeeeee;
-            border-radius: 12px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .references h2 {
-            font-family: Georgia, serif;
-            font-size: 23px;
-            margin-top: 0;
-            color: #52705d;
         }
 
         .back {
@@ -397,17 +347,6 @@
 
     <div class="calculator">
 
-        <div class="fast-input">
-            <label for="bulk-concentrations"><strong>Fast input — paste 12 concentrations</strong></label>
-            <p>Copy the 12 cell concentrations from Excel and paste them here, one per line or separated by tabs/spaces. The values will be placed into Colony 1–12 automatically.</p>
-            <textarea id="bulk-concentrations" rows="4" placeholder="e.g.
-5.72E+06
-6.10E+06
-...
-12 values total"></textarea>
-            <button type="button" class="paste-button" id="fill-concentrations">Fill 12 colonies</button>
-        </div>
-
         <div id="strains"></div>
 
         <div class="button-row">
@@ -426,14 +365,6 @@
     <div id="results" class="results-card" style="display:none;">
         <h2>RESULTS</h2>
         <div id="result-content"></div>
-    </div>
-
-    <div class="references">
-        <h2>References</h2>
-        <p>
-            Calculation targets and dilution approach are based on the
-            laboratory Ura4 Loss Assay spreadsheet provided for this calculator.
-        </p>
     </div>
 
     <a href="calculations.html" class="back">
@@ -472,6 +403,8 @@ function addStrain() {
                 ? '<button type="button" class="remove-button">Remove strain</button>'
                 : ''}
         </div>
+
+        <p class="input-unit"><strong>Culture concentration (cells/mL)</strong></p>
 
         <div class="colony-grid">
             ${Array.from({length: 12}, (_, i) => `
@@ -613,37 +546,6 @@ function chooseDilution(target, concentration) {
     };
 }
 
-function fillConcentrations() {
-    const text = document.getElementById("bulk-concentrations").value.trim();
-    const values = text.split(/[,\s;]+/).filter(Boolean);
-
-    if (values.length !== 12) {
-        errorBox.textContent = `Please paste exactly 12 concentration values. You entered ${values.length}.`;
-        errorBox.style.display = "block";
-        return;
-    }
-
-    const numbers = values.map(value => Number(value));
-    if (numbers.some(value => !Number.isFinite(value) || value <= 0)) {
-        errorBox.textContent = "All 12 concentration values must be positive numbers.";
-        errorBox.style.display = "block";
-        return;
-    }
-
-    const firstStrain = strainsContainer.querySelector(".strain-block");
-    if (!firstStrain) {
-        addStrain();
-    }
-
-    const inputs = strainsContainer.querySelector(".strain-block").querySelectorAll(".concentration");
-    numbers.forEach((value, index) => {
-        inputs[index].value = value;
-    });
-
-    errorBox.style.display = "none";
-    errorBox.textContent = "";
-}
-
 function calculate() {
     errorBox.style.display = "none";
     errorBox.textContent = "";
@@ -759,7 +661,6 @@ function escapeHtml(text) {
 
 document.getElementById("add-strain").addEventListener("click", addStrain);
 document.getElementById("calculate").addEventListener("click", calculate);
-document.getElementById("fill-concentrations").addEventListener("click", fillConcentrations);
 
 addStrain();
 </script>
