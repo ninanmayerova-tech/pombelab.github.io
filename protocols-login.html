@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocols — Pombe Lab</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: #e5e5e5;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #333;
+        }
+        .page {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+        h1 {
+            font-family: Georgia, serif;
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        .login-card {
+            max-width: 500px;
+            margin: 45px auto 0;
+            padding: 30px;
+            background: #eeeeee;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .login-card p {
+            line-height: 1.6;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: #78AA8A;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover { background: #5F8069; }
+        .error {
+            color: #a33;
+            margin-top: 12px;
+            min-height: 1.2em;
+        }
+        .back {
+            display: block;
+            margin-top: 30px;
+            text-align: center;
+            color: #52705d;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <h1>PROTOCOLS</h1>
+        <section class="login-card">
+            <p>Enter the password to access the laboratory protocols.</p>
+            <input type="password" id="password" placeholder="Password" autocomplete="off">
+            <button onclick="checkPassword()">Enter</button>
+            <div class="error" id="error"></div>
+        </section>
+        <a class="back" href="index.html">← Back to home</a>
+    </main>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById("password").value;
+            if (password === "protocols-2026") {
+                sessionStorage.setItem("protocolsAccess", "granted");
+                window.location.href = "protocols.html";
+            } else {
+                document.getElementById("error").textContent = "Incorrect password.";
+            }
+        }
+
+        document.getElementById("password").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") checkPassword();
+        });
+    </script>
+</body>
+</html>
