@@ -227,6 +227,25 @@
         <div class="step"><strong>11.</strong> Add 1 mL of Lysis solution 2 (freshly prepared).</div>
         <div class="step"><strong>12.</strong> Incubate at 37 °C for at least 2 hours (preferably overnight) on a rotating wheel at 4 rpm.</div>
 
+        <div class="calculator">
+            <h3>Cell count calculator</h3>
+            <div class="calc-row">
+                <div class="field">
+                    <label for="cellConc">Cell concentration (cells/mL)</label>
+                    <input id="cellConc" type="number" min="0" step="any" placeholder="e.g. 2 × 10⁷">
+                </div>
+                <div class="field">
+                    <label for="targetCells">Target number of cells</label>
+                    <select id="targetCells">
+                        <option value="160000000">1.6 × 10⁸ cells</option>
+                        <option value="300000000">3 × 10⁸ cells</option>
+                    </select>
+                </div>
+            </div>
+            <div id="calcResult" class="calc-result">Enter the cell concentration to calculate the required volume.</div>
+            <div class="small-note">Use the measured culture concentration to determine how much culture to collect for the selected target cell number.</div>
+        </div>
+
         <h2>DAY 2</h2>
         <div class="step"><strong>13.</strong> Wash the agarose plugs twice with 1 mL of 50 mM EDTA (pH 8).</div>
         <div class="step"><strong>14.</strong> Add 1 mL of Proteinase solution (freshly prepared).</div>
