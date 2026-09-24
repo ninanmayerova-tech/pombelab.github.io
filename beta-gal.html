@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>β-Galactosidase Assay</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #e5e5e5;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        color: #333;
+    }
+
+    .page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 55px 30px 60px;
+    }
+
+    h1 {
+        font-family: Georgia, serif;
+        text-align: center;
+        font-size: 42px;
+        margin: 0 0 12px;
+        color: #333;
+    }
+
+    .subtitle {
+        text-align: center;
+        font-family: Georgia, serif;
+        font-size: 24px;
+        color: #52705d;
+        margin-bottom: 45px;
+    }
+
+    h2 {
+        font-family: Georgia, serif;
+        font-size: 25px;
+        margin: 38px 0 18px;
+        color: #52705d;
+    }
+
+    h3 {
+        font-family: Georgia, serif;
+        font-size: 20px;
+        margin: 30px 0 15px;
+        color: #333;
+    }
+
+    p {
+        font-size: 13px;
+        line-height: 1.7;
+        text-align: justify;
+        margin: 0 0 14px;
+    }
+
+    ol {
+        margin: 0 0 20px 25px;
+        padding-left: 20px;
+    }
+
+    ol > li {
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 9px;
+        padding-left: 5px;
+    }
+
+    ul {
+        margin: 7px 0 12px 0;
+        padding-left: 25px;
+    }
+
+    ul li {
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 5px;
+    }
+
+    .principle {
+        background: #eeeeee;
+        border-radius: 12px;
+        padding: 18px 22px;
+        margin: 0 0 30px;
+        line-height: 1.6;
+    }
+
+    .principle p {
+        margin: 0;
+    }
+
+    .note {
+        background: #eeeeee;
+        border-radius: 12px;
+        padding: 18px 22px;
+        margin: 25px 0;
+        line-height: 1.6;
+    }
+
+    .solution-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0 30px;
+        background: white;
+        font-size: 13px;
+    }
+
+    .solution-table th,
+    .solution-table td {
+        border: 1px solid #ccc;
+        padding: 9px 11px;
+        text-align: left;
+        vertical-align: top;
+        line-height: 1.5;
+    }
+
+    .solution-table th {
+        background: #B8D8C0;
+        font-family: Georgia, serif;
+        font-weight: normal;
+    }
+
+    .solution-table td:first-child {
+        white-space: nowrap;
+        width: 1%;
+    }
+
+    .formula {
+        background: #eeeeee;
+        border-radius: 10px;
+        padding: 15px 18px;
+        margin: 20px 0 30px;
+        text-align: center;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+
+    .calculator {
+        background: #eeeeee;
+        border-radius: 12px;
+        padding: 20px 24px;
+        margin: 25px 0 30px;
+    }
+
+    .calculator h3 {
+        margin-top: 0;
+        margin-bottom: 16px;
+    }
+
+    .calc-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 14px;
+    }
+
+    .calc-field label {
+        display: block;
+        font-size: 13px;
+        margin-bottom: 6px;
+        color: #555;
+    }
+
+    .calc-field input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px 11px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+    }
+
+    .calc-result {
+        margin-top: 16px;
+        padding: 14px 16px;
+        background: white;
+        border-radius: 9px;
+        border: 1px solid #ddd;
+        min-height: 22px;
+        line-height: 1.5;
+    }
+
+    .calc-result strong {
+        color: #52705d;
+    }
+
+    .download-link {
+        color: #52705d;
+        font-size: 14px;
+        text-decoration: none;
+    }
+
+    .download-link:hover {
+        text-decoration: underline;
+    }
+
+    .back {
+        display: block;
+        text-align: center;
+        margin-top: 45px;
+        color: #52705d;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .back:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+        .page {
+            padding: 40px 20px 50px;
+        }
+
+        h1 {
+            font-size: 34px;
+        }
+
+        .subtitle {
+            font-size: 21px;
+        }
+
+        h2 {
+            font-size: 23px;
+        }
+
+        .solution-table {
+            font-size: 12px;
+        }
+        .calc-row {
+            grid-template-columns: 1fr;
+        }
+
+    }
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <h1>β-GALACTOSIDASE ASSAY</h1>
+    <div class="subtitle">β-galactosidase activity assay</div>
+
+
+    <h2>Principle</h2>
+
+    <div class="principle">
+        <p>
+            β-galactosidase activity is measured using ONPG as a substrate.
+            The reaction produces a yellow product, which is measured
+            spectrophotometrically at 420 nm. Protein concentration is
+            determined separately using the Bradford assay and is used
+            to normalize the β-galactosidase activity.
+        </p>
+    </div>
+
+
+    <h2>Pellet Preparation</h2>
+
+    <ol>
+        <li>Plate strains on YES plates.</li>
+
+        <li>
+            Incubate O/N in 4 mL liquid YES at 30 °C.
+        </li>
+
+        <li>
+            Refresh overnight cultures by inoculating to OD<sub>600</sub> = 0.35
+            in 25 mL liquid YES.
+        </li>
+
+        <li>
+            Grow until OD<sub>600</sub> = 0.8–0.85.
+        </li>
+
+        <li>
+            Centrifuge cells (~2650 rpm, 6 min) and discard the medium.
+        </li>
+
+        <li>
+            Wash in 1 mL dH<sub>2</sub>O, discard the supernatant,
+            and freeze the pellets at −80 °C.
+        </li>
+    </ol>
+
+
+    <h2>Cell Lysis + β-Galactosidase Assay</h2>
+
+    <ol>
+        <li>
+            Resuspend cells in 250 µL breaking buffer.
+        </li>
+
+        <li>
+            Add glass beads (until the liquid reaches the meniscus).
+        </li>
+
+        <li>
+            Add 12.5 µL PMSF.
+        </li>
+
+        <li>
+            Vortex 3 × 2 min at top speed, with chilling on ice between
+            vortexing steps.
+        </li>
+
+        <li>
+            Add 250 µL of breaking buffer and mix well.
+        </li>
+
+        <li>
+            Transfer lysed cells (supernatant) to new microtubes,
+            avoiding the transfer of glass beads.
+        </li>
+
+        <li>
+            Centrifuge for 15 min at 4 °C.
+        </li>
+
+        <li>
+            Transfer the supernatant to new microtubes
+            (store at −20 °C).
+        </li>
+
+        <li>
+            Determine the protein concentration using the Bradford assay.
+        </li>
+
+        <li>
+            Mix 100–250 µL of cell extract with Z buffer
+            (total volume of 1 mL).
+        </li>
+
+        <li>
+            Preincubate the mixture for 5 min at 28 °C in a water bath.
+        </li>
+
+        <li>
+            Add 0.2 mL of ONPG (note the time!) — reaction initiation.
+        </li>
+
+        <li>
+            Wait ~1 h until the mixture gains a pale yellow colour.
+        </li>
+
+        <li>
+            Stop the reaction by adding 0.5 mL of Na<sub>2</sub>CO<sub>3</sub>
+            (note the time!).
+        </li>
+
+        <li>
+            Measure at OD<sub>420</sub>.
+        </li>
+    </ol>
+
+
+    <div class="formula">
+        <strong>Calculation:</strong><br>
+        (OD<sub>420</sub> × 1.7) /
+        (0.0045 × 1 × protein concentration × time in min)
+    </div>
+
+    <div class="calculator">
+        <h3>β-Galactosidase activity calculator</h3>
+
+        <div class="calc-row">
+            <div class="calc-field">
+                <label for="od420">OD<sub>420</sub></label>
+                <input id="od420" type="number" min="0" step="any" placeholder="e.g. 0.85">
+            </div>
+
+            <div class="calc-field">
+                <label for="proteinConc">Protein concentration (mg/mL)</label>
+                <input id="proteinConc" type="number" min="0" step="any" placeholder="e.g. 1.2">
+            </div>
+
+            <div class="calc-field">
+                <label for="reactionTime">Reaction time (min)</label>
+                <input id="reactionTime" type="number" min="0" step="any" placeholder="e.g. 60">
+            </div>
+        </div>
+
+        <div id="betaGalResult" class="calc-result">
+            Enter OD<sub>420</sub>, protein concentration, and reaction time to calculate activity.
+        </div>
+    </div>
+
+
+    <h2>Bradford Assay – Protein Concentration</h2>
+
+    <h3>Standard + Sample Preparation</h3>
+
+    <ol>
+        <li>
+            Dilute the Bradford reagent fivefold in dH<sub>2</sub>O
+            (1 Bradford : 4 dH<sub>2</sub>O).
+            <ul>
+                <li>This assay uses Coomassie Brilliant Blue.</li>
+            </ul>
+        </li>
+
+        <li>
+            Prepare standards by serial dilution:
+            0; 0.125; 0.25; 0.5; 0.75; 1 mg of BSA in 1 mL
+            of diluted Bradford dye.
+            <ul>
+                <li>BSA is diluted in breaking buffer (assay buffer).</li>
+            </ul>
+        </li>
+
+        <li>
+            Prepare samples by adding 10–20 µL of the sample to 1 mL
+            of diluted Bradford dye and mix.
+        </li>
+
+        <li>
+            Incubate for a couple of minutes at RT.
+        </li>
+
+        <li>
+            Measure at OD<sub>595</sub> nm (blank – breaking buffer
+            (assay buffer)).
+            <ul>
+                <li>Calculate the calibration curve.</li>
+                <li>Determine protein concentration.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <div class="note">
+        <ul>
+            <li>
+                Incompatible with detergents in buffer (e.g. SDS, Triton X-100, Tween).
+            </li>
+            <li>
+                Incompatible with common reducing agents (like DTT or
+                β-mercaptoethanol).
+            </li>
+            <li>
+                Limitations concerning amino-acid composition (check).
+            </li>
+        </ul>
+    </div>
+
+
+    <h2>Solution Composition</h2>
+
+    <table class="solution-table">
+
+        <thead>
+            <tr>
+                <th>Solution</th>
+                <th>Composition</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>Breaking buffer (100 mL)</td>
+                <td>
+                    100 mM Tris-HCl (pH 8): 10 mL;<br>
+                    1 mM DTT: 100 µL (stock 1 M);<br>
+                    20% glycerol: 40 mL + 49.9 mL dH<sub>2</sub>O.
+                </td>
+            </tr>
+
+            <tr>
+                <td>PMSF stock (0.1 M)</td>
+                <td>
+                    17.4 mg PMSF (100 mM); 1 mL 2-isopropanol.<br>
+                    <strong>Toxic!</strong> Store at −20 °C.
+                </td>
+            </tr>
+
+            <tr>
+                <td>DTT (1 M)</td>
+                <td>
+                    1.54 g in 10 mL sterile ddH<sub>2</sub>O.<br>
+                    Filter-sterilise using a 0.2 µm filter.
+                    Store at −20 °C (should always be fresh – not stable).
+                </td>
+            </tr>
+
+            <tr>
+                <td>Z buffer (100 mL)</td>
+                <td>
+                    60 mM Na<sub>2</sub>HPO<sub>4</sub> × 7H<sub>2</sub>O:
+                    0.8 g;<br>
+                    40 mM NaH<sub>2</sub>PO<sub>4</sub> × 2H<sub>2</sub>O:
+                    0.62 g;<br>
+                    10 mM KCl: 500 µL (stock 2 M);<br>
+                    1 mM MgSO<sub>4</sub>: 50 µL (stock 2 M);<br>
+                    10% glycerol: 10 mL + dH<sub>2</sub>O to 100 mL;<br>
+                    pH 7.<br>
+                    Right before use, add 50 mM 2-mercaptoethanol: 270 µL.<br>
+                    Store at 4 °C.
+                </td>
+            </tr>
+
+            <tr>
+                <td>ONPG</td>
+                <td>
+                    4 mg/mL in Z buffer.<br>
+                    Store at −20 °C.
+                </td>
+            </tr>
+
+            <tr>
+                <td>1 M Na<sub>2</sub>CO<sub>3</sub></td>
+                <td>
+                    10.6 g in 100 mL dH<sub>2</sub>O.
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <div class="reference">
+        <h2>REFERENCE</h2>
+
+        <p>
+            <strong>Nitika, Zheng, B., Ruan, L., Kline, J. T., Omkar, S.,
+            Sikora, J., et al.</strong> (2022). Comprehensive characterization
+            of the Hsp70 interactome reveals novel client proteins and
+            interactions mediated by posttranslational modifications.
+            <em>PLoS Biology</em>, 20(10), e3001839.
+        </p>
+
+        <p>
+            <a href="https://doi.org/10.1371/journal.pbio.3001839"
+               target="_blank" rel="noopener noreferrer">
+                https://doi.org/10.1371/journal.pbio.3001839
+            </a>
+        </p>
+    </div>
+
+    <h2>Download</h2>
+
+    <div class="note">
+        <p>
+            <a class="download-link" href="Bradford analysis.xls" download>
+                ↓ Download Bradford analysis spreadsheet
+            </a>
+        </p>
+    </div>
+
+
+    <a class="back" href="../protocols.html">
+        ← Back to protocols
+    </a>
+
+</div>
+
+<script>
+(function () {
+    const od420 = document.getElementById('od420');
+    const proteinConc = document.getElementById('proteinConc');
+    const reactionTime = document.getElementById('reactionTime');
+    const result = document.getElementById('betaGalResult');
+
+    function calculate() {
+        const od = Number(od420.value);
+        const protein = Number(proteinConc.value);
+        const time = Number(reactionTime.value);
+
+        if (!Number.isFinite(od) || od < 0 ||
+            !Number.isFinite(protein) || protein <= 0 ||
+            !Number.isFinite(time) || time <= 0) {
+            result.innerHTML = 'Enter OD<sub>420</sub>, protein concentration, and reaction time to calculate activity.';
+            return;
+        }
+
+        const activity = (od * 1.7) / (0.0045 * 1 * protein * time);
+
+        result.innerHTML = '<strong>β-Galactosidase activity:</strong> ' +
+            activity.toFixed(4) + ' units/mg protein';
+    }
+
+    od420.addEventListener('input', calculate);
+    proteinConc.addEventListener('input', calculate);
+    reactionTime.addEventListener('input', calculate);
+})();
+</script>
+
+</body>
+</html>
