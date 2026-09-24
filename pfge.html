@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PFGE — Pombe Lab</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #e5e5e5;
+            font-family: 'Lato', Arial, Helvetica, sans-serif;
+            color: #333;
+        }
+
+        p { text-align: justify; line-height: 1.6; }
+
+        .page {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            text-align: center;
+            font-size: 42px;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #52705d;
+            font-family: Georgia, serif;
+            font-size: 24px;
+            margin: 0 0 40px;
+        }
+
+        h2 {
+            font-family: Georgia, serif;
+            font-size: 25px;
+            margin-top: 38px;
+            margin-bottom: 14px;
+            color: #52705d;
+        }
+
+        h3 {
+            font-family: Georgia, serif;
+            font-size: 20px;
+            margin-top: 28px;
+            margin-bottom: 10px;
+            color: #52705d;
+        }
+
+        .description {
+            font-size: 13px;
+            line-height: 1.7;
+            color: #444;
+            margin: 0 auto 35px;
+            max-width: 760px;
+            text-align: justify;
+        }
+
+        .note, .calculator {
+            background: #eeeeee;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 25px 0;
+            line-height: 1.6;
+        }
+
+        .step { margin: 0 0 22px; }
+        .protocol-bullets { margin: 8px 0 12px 22px; padding-left: 18px; }
+        .protocol-bullets li { margin-bottom: 7px; }
+        .step strong { color: #52705d; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0 28px;
+            background: #f4f4f4;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 11px 14px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        th {
+            background: #52705d;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:last-child td { border-bottom: none; }
+
+        .recipe {
+            background: #eeeeee;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 18px 0 28px;
+        }
+
+        .recipe p { margin: 7px 0; }
+
+        .calculator h3 { margin-top: 0; }
+
+        .calc-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            align-items: end;
+        }
+
+        .field label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        .field input, .field select {
+            width: 100%;
+            padding: 10px 11px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+        }
+
+        .calc-result {
+            margin-top: 16px;
+            padding: 14px 16px;
+            background: white;
+            border-radius: 9px;
+            border: 1px solid #ddd;
+            min-height: 48px;
+        }
+
+        .calc-result strong { color: #52705d; }
+
+        .small-note {
+            font-size: 13px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .back {
+            display: block;
+            margin-top: 35px;
+            text-align: center;
+            color: #52705d;
+            text-decoration: none;
+        }
+
+        .back:hover { text-decoration: underline; }
+
+        @media (max-width: 700px) {
+            .page { padding: 35px 20px; }
+            h1 { font-size: 34px; }
+            .subtitle { font-size: 21px; }
+            th, td { padding: 9px 10px; font-size: 14px; }
+            .calc-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+<main class="page">
+
+    <h1>PFGE</h1>
+    <p class="subtitle">Whole chromosomes + rDNA preparation</p>
+
+    <section class="description">
+
+        <h2>PRINCIPLE</h2>
+        <p>PFGE (pulsed-field gel electrophoresis) is used to separate and visualize the chromosomes of fission yeast. Agarose plugs are prepared from intact cells so that genomic DNA remains protected from shearing, followed by enzymatic treatment and electrophoresis of whole chromosomes or rDNA.</p>
+
+        <h2>CELL PREPARATION</h2>
+
+        <div class="step"><strong>1.</strong> Grow cells to stationary phase (on a plate for one week or in liquid medium for an appropriate time).
+            <ul class="protocol-bullets"><li>Check the phase by microscopy: cells should be small and round.</li></ul>
+        </div>
+
+        <div class="step"><strong>2.</strong> Grow cells to exponential phase in liquid medium.
+            <ul class="protocol-bullets"><li>Check the phase by microscopy: cells should be longer.</li></ul>
+        </div>
+
+        <div class="step"><strong>3.</strong> Synchronize cells into meiosis.</div>
+
+        <h2>DAY 1</h2>
+
+        <div class="step"><strong>2.</strong> Prepare 1.2% low melting point agarose in EDTA (pH 8), dissolve at 80 °C, and keep at 56 °C until use.</div>
+        <div class="step"><strong>3.</strong> Collect 1.6 × 10⁸ cells by centrifugation and remove the supernatant.<br>
+            <strong>Alternatively:</strong> collect 3 × 10⁸ cells → approximately 4 good plugs (1.6 × 10⁸ cells → approximately 2 good plugs).</div>
+        <div class="step"><strong>4.</strong> Wash the pellets once with 1 M EDTA (pH 8).</div>
+        <div class="step"><strong>5.</strong> Resuspend the cells in 50 µL of Lysis solution 1 (freshly prepared).
+            <ul class="protocol-bullets"><li>If using 3 × 10⁸ cells → 100 µL of Lysis solution 1.</li></ul>
+        </div>
+        <div class="step"><strong>6.</strong> Add 30 µL of 1 M sorbitol + 0.1 M EDTA (pH 8).
+            <ul class="protocol-bullets"><li>If using 3 × 10⁸ cells → 30 µL of 1 M sorbitol + 0.1 M EDTA (pH 8).</li></ul>
+        </div>
+        <div class="step"><strong>7.</strong> Gently mix the suspension with an equal volume of low melting point agarose.
+            <ul class="protocol-bullets"><li>Measure the volume before adding agarose.</li></ul>
+        </div>
+        <div class="step"><strong>8.</strong> Transfer the mixture into the gel plug mold (2–5 plugs per strain).
+            <ul class="protocol-bullets"><li>Use tape to prevent leaking (single use).</li></ul>
+        </div>
+        <div class="step"><strong>9.</strong> Incubate at 4 °C for at least 15 minutes.</div>
+        <div class="step"><strong>10.</strong> Transfer the agarose plugs into 2 mL Eppendorf tubes, ideally using a small, narrow spatula.</div>
+        <div class="step"><strong>11.</strong> Add 1 mL of Lysis solution 2 (freshly prepared).</div>
+        <div class="step"><strong>12.</strong> Incubate at 37 °C for at least 2 hours (preferably overnight) on a rotating wheel at 4 rpm.</div>
+
+        <h2>DAY 2</h2>
+        <div class="step"><strong>13.</strong> Wash the agarose plugs twice with 1 mL of 50 mM EDTA (pH 8).</div>
+        <div class="step"><strong>14.</strong> Add 1 mL of Proteinase solution (freshly prepared).</div>
+        <div class="step"><strong>15.</strong> Incubate overnight at 37 °C on a rotating wheel at 4 rpm.</div>
+
+        <h2>DAY 3</h2>
+        <div class="step"><strong>16.</strong> Wash the agarose plugs twice with 1 mL of 50 mM EDTA (pH 8); store at 4 °C (plugs are good for 3 months).</div>
+        <ul class="protocol-bullets">
+            <li><strong>Whole chromosomes:</strong> the plugs are now ready to use; before use, equilibrate them as described in step 17.</li>
+            <li><strong>For rDNA:</strong> transfer 2 plugs to new microtubes with 1 mL of 50 mM EDTA (pH 8) and continue to step 18.</li>
+        </ul>
+        <div class="step"><strong>17.</strong> Just before use, equilibrate agarose plugs in 1 mL 1× TE at 37 °C for 1 hour with gentle rotation.</div>
+        <div class="step"><strong>18.</strong> Incubate each plug twice with 10× V<sub>plug</sub> (or 500 µL): 10 mM Tris-HCl (pH 8) + 1 mM EDTA (pH 8) for 1 hour at 37 °C on a rotating wheel at 4 rpm.
+            <ul class="protocol-bullets"><li>Wash the plugs several times with Tris-HCl (pH 8).</li></ul>
+        </div>
+        <div class="step"><strong>19.</strong> Incubate with 1× restriction-enzyme reaction buffer for 1 hour at 37 °C on a rotating wheel; repeat to equilibrate twice.
+            <ul class="protocol-bullets"><li>For 8–10 plugs, use 1.8 mL of 1× buffer in a 2 mL microtube.</li><li>For 2 plugs, approximately 0.5 mL buffer should suffice.</li></ul>
+        </div>
+        <div class="step"><strong>20.</strong> Remove the buffer and add a new volume: 2–3 plugs in 0.4 mL of 1× buffer (minimum 0.4 mL) in a 2 mL microtube.</div>
+        <div class="step"><strong>21.</strong> Add 200–300 U of ScaI (20 µL at 10 U/µL) per sample and incubate during the day at 37 °C with light shaking.
+            <ul class="protocol-bullets"><li>In the evening, add 100 µL of 1× buffer + 10 µL of ScaI.</li><li><strong>Do not use FD enzyme!</strong></li><li>Start: 13:00; end: next day at 08:00.</li></ul>
+        </div>
+
+        <h2>DAY 4</h2>
+        <div class="step"><strong>22.</strong> Equilibrate as described in step 17.</div>
+
+        <h2>SOLUTION PREPARATION</h2>
+        <div class="table-wrap"><table>
+            <thead>
+                <tr><th>Solution</th><th>Preparation</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>2 M sorbitol — 250 mL</td><td>91 g sorbitol, dissolve in 200 mL dH₂O, adjust to 250 mL with dH₂O, sterilize by autoclaving.</td></tr>
+                <tr><td>Lysis solution 1 — 1 mL</td><td>2:1 zymolyase:lyticase; 2.5 mg/mL lyticase, 2.5 mg/mL zymolyase. 5 mg zymolyase 20T, 2.5 mg lyticase, adjust to 1 mL with dH₂O.</td></tr>
+                <tr><td>1 M sorbitol + 0.1 M EDTA — 50 mL</td><td>25 mL 2 M sorbitol, 5 mL 1 M EDTA (pH 8), adjust to 50 mL with dH₂O.</td></tr>
+                <tr><td>Lysis solution 2 — 10 mL</td><td>1 M sorbitol, 20 mM EDTA (pH 8), 1 mg/mL zymolyase, 1 mg/mL lyticase. 5 mL 2 M sorbitol, 0.2 mL 1 M EDTA (pH 8), 10 mg zymolyase 20T, 10 mg lyticase.</td></tr>
+                <tr><td>50 mM EDTA — 50 mL</td><td>2.5 mL 1 M EDTA (pH 8), adjust to 50 mL with dH₂O.</td></tr>
+                <tr><td>Proteinase solution — 10 mL</td><td>50 mM EDTA (pH 8), 10 mM Tris-HCl (pH 8), 1% N-laurylsarcosine, 0.2% sodium deoxycholate, 1 mg/mL Proteinase K, 0.1 mg/mL RNase A. 0.5 mL 1 M EDTA (pH 8), 0.1 mL 1 M Tris-HCl (pH 8), 0.1 g sarcosine, 0.02 g sodium deoxycholate, 0.5 mL Proteinase K, 0.1 mL RNase A, adjust to 10 mL with dH₂O.</td></tr>
+                <tr><td>1 M EDTA (pH 8) — 250 mL</td><td>73.06 g EDTA, 125 mL dH₂O, adjust pH by adding NaOH pellets and dH₂O, filter sterilize.<ul class="protocol-bullets"><li>Addition of NaOH increases temperature, be careful; increased temperature decreases pH.</li><li>EDTA starts dissolving when pH is nearly 8.</li><li>Increased temperature causes EDTA to solidify (?), use force to shake it into liquid state.</li></ul></td></tr>
+            </tbody>
+        </table></div>
+
+        <h2>PFGE GEL AND APERTURE PREPARATION</h2>
+        <h3>Pulsaphor Unit (LKB)</h3>
+
+        <h3>Gel preparation</h3>
+        <div class="step"><strong>1.</strong> Keep the remaining LMPA gel at 48 °C.</div>
+        <div class="step"><strong>2.</strong> Prepare a 0.8% agarose gel — 150 mL 0.5× TBE (1.2 g of the agarose designated for PFGE) and allow it to cool (if it is warmer, it will run out of the mold more easily).</div>
+        <div class="step"><strong>3.</strong> Pour the gel onto a transparent support, in the center, forming a square.</div>
+        <div class="step"><strong>4.</strong> Wet the rubber seal only from underneath at the protrusion, then gently and evenly press it onto the support (use the tray to help).</div>
+        <div class="step"><strong>5.</strong> Align the teeth so that the lower protrusions touch the support.</div>
+        <div class="step"><strong>6.</strong> Slowly pour the cooled gel into the mold, starting from the lower edge and checking that the mold does not leak.</div>
+        <div class="step"><strong>7.</strong> Run the tip through the wells; after the gel solidifies, this creates retaining feet, and remove bubbles from the gel.</div>
+        <div class="step"><strong>8.</strong> Insert the comb and allow the gel to solidify.</div>
+        <div class="step"><strong>9.</strong> Optional: place the solidified gel in the refrigerator for 10 min.</div>
+
+        <h3>Preparing plugs for the gel</h3>
+        <div class="step"><strong>1.</strong> Pour a small amount of buffer onto the gel.</div>
+        <div class="step"><strong>2.</strong> Prepare a burner, spatula, scalpel (the thinner, the better), and a beaker with buffer. Sterilize and cool the spatula and scalpel after each sample.</div>
+        <div class="step"><strong>3.</strong> Cut the plugs so that they fit into the wells; finally, press them down to the bottom of the wells.</div>
+        <div class="step"><strong>4.</strong> Concentrate the samples in the center; leave the wells at the edges empty to avoid possible bending of the lanes.</div>
+        <div class="step"><strong>5.</strong> Pipette liquid LMPA gel and seal the plugs (2 drops into each well, including empty wells).</div>
+        <div class="step"><strong>6.</strong> Transfer the gel together with the support into the apparatus.</div>
+        <div class="step"><strong>7.</strong> Connect the apparatus, including the frame, and start program 9.</div>
+
+        <h3>Gel staining and imaging</h3>
+        <div class="step"><strong>1.</strong> Pour EtBr (500 mL, 0.5 µL/mL in dH₂O) into an opaque container with a lid.</div>
+        <div class="step"><strong>2.</strong> Remove the support with the gel from the apparatus and place it on paper towels.</div>
+        <div class="step"><strong>3.</strong> Run the scalpel underneath the gel and smoothly cut off the feet (the gel will be released).</div>
+        <div class="step"><strong>4.</strong> Use a square plate to lift the gel and transfer it to the opaque container with a lid. Place the plate next to the support and slide the gel onto it; handle the gel only from the sides.</div>
+        <div class="step"><strong>5.</strong> Make sure the gel is floating and wash/agitate it for 1 h with gentle shaking.</div>
+        <div class="step"><strong>6.</strong> Remove the feet from the support with a scalpel, rinse the support from the buffer, and flush the holes with the wash bottle.</div>
+        <div class="step"><strong>7.</strong> After 1 h, use a funnel to pour the EtBr into the bottle (remove the stopper from the container). Pour carefully so that the gel does not block the outlet or become deformed.</div>
+        <div class="step"><strong>8.</strong> Rinse the gel with dH₂O.</div>
+        <div class="step"><strong>9.</strong> Add dH₂O to the container so that the gel is covered and floating.</div>
+        <div class="step"><strong>10.</strong> Wash the gel for 1 h (destaining) with gentle shaking.</div>
+        <div class="step"><strong>11.</strong> Transfer the gel in the container and photograph it using VisionWorks. Remove the gel using the plate, align it with a ruler, use the ruler as the focus point and zoom onto the gel; remove excess water with a paper towel so the gel does not float in the imaging chamber; adjust aperture and exposure parameters for a better image.</div>
+        <div class="step"><strong>12.</strong> Dispose of the gel in the waste bin and clean everything used.</div>
+
+        <h3>RNase treatment (band cleanup)</h3>
+        <div class="step"><strong>1.</strong> Mix 350 mL dH₂O + 700 µL 0.5 M EDTA (pH 8) + 17.5 µL RNase A (20 mg/mL).</div>
+        <div class="step"><strong>2.</strong> Pour into the container with the gel.</div>
+        <div class="step"><strong>3.</strong> Wash the gel several times and check that it is floating.</div>
+        <div class="step"><strong>4.</strong> Place the gel in the container in the refrigerator for the weekend.</div>
+
+        <h3>SAV MCh — gel preparation, plugs and program</h3>
+        <div class="step"><strong>1.</strong> Prepare 3 L 1× TAE (300 mL 10× TAE / 60 mL 50× TAE + dH₂O).</div>
+        <div class="step"><strong>2.</strong> Pour 2.2 L into the apparatus and switch on the cooling with the pump.</div>
+        <div class="step"><strong>3.</strong> Correctly and firmly screw the gel mold together.</div>
+        <div class="step"><strong>4.</strong> Prepare 150 mL of 0.8% agarose gel (1.2 g LMP agarose), pour it into the mold, leaving a little for sealing.</div>
+        <div class="step"><strong>5.</strong> Add the comb and allow the gel to solidify. After solidification, place it in the refrigerator for 15 min.</div>
+        <div class="step"><strong>6.</strong> Remove the comb, pour in a little buffer, and place the plugs. Use a scalpel and spatula (ideally a burner for flaming); after each plug, wash in ethanol and cool in buffer.</div>
+        <div class="step"><strong>7.</strong> Seal using the remaining liquid gel (2–3 drops with a large tip into each well, including wells without samples).</div>
+        <div class="step"><strong>8.</strong> Remove the buffer, unscrew the mold, and transfer the gel into the apparatus.</div>
+        <div class="step"><strong>9.</strong> Start the program and clean up afterwards.</div>
+
+        <h3>Switching off the apparatus and staining</h3>
+        <div class="step"><strong>1.</strong> After the program has finished, discard the buffer (use it a maximum of twice, and even then according to judgment).</div>
+        <div class="step"><strong>2.</strong> Run the pump with dH₂O only for cleaning, then discard the water.</div>
+        <div class="step"><strong>3.</strong> Clean the tubing with dH₂O (there is a device for this in the sink).</div>
+        <div class="step"><strong>4.</strong> Wipe the apparatus and clean up afterwards.</div>
+        <div class="step"><strong>5.</strong> Transfer the gel in buffer/dH₂O to an opaque container with a lid and bring it to Silvia.</div>
+        <div class="step"><strong>6.</strong> Pour off the liquid and add EtBr (500 mL, 0.5 µL/mL in dH₂O).</div>
+        <div class="step"><strong>7.</strong> Make sure the gel is floating and wash/agitate for 1 h with gentle shaking. If this is not possible, simply leave it standing.</div>
+        <div class="step"><strong>8.</strong> After 1 h, use a funnel to pour the EtBr into the bottle. Pour carefully so that the gel does not block the outlet or become deformed.</div>
+        <div class="step"><strong>9.</strong> Rinse the gel with dH₂O.</div>
+        <div class="step"><strong>10.</strong> Add dH₂O to the container so that the gel is covered and floating.</div>
+        <div class="step"><strong>11.</strong> Wash the gel for 1 h (destaining) with gentle shaking. If this is not possible, simply leave it standing.</div>
+        <div class="step"><strong>12.</strong> Photograph the gel; handle the gel carefully.</div>
+        <div class="step"><strong>13.</strong> Dispose of the gel in the waste bin and clean everything used.</div>
+
+        <h2>PROGRAMS — WHOLE CHROMOSOMES</h2>
+        <table>
+            <thead><tr><th>Program</th><th>Buffer</th><th>Agarose</th><th>Temperature</th><th>Time</th><th>Angle</th><th>Switch time</th><th>Voltage</th><th>Ramping</th></tr></thead>
+            <tbody>
+                <tr><td>Pulsaphor Unit (LKB) program 9</td><td>0.5× TBE, 3 L</td><td>0.8%</td><td>9 °C (real 14 °C)</td><td>72 h</td><td>120°</td><td>20 min / 60 min</td><td>54 V</td><td>Not linear</td></tr>
+                <tr><td>Chef DR III — our program</td><td>1× TAE, 2.5 L</td><td>0.8%</td><td>14 °C</td><td>72 h</td><td>106°</td><td>20 min / 60 min</td><td>2 V/cm</td><td>Linear</td></tr>
+                <tr><td>Chef DR III — recommended</td><td>1× TAE</td><td>0.8%</td><td>14 °C</td><td>72 h</td><td>106°</td><td>30 min</td><td>1.5 V/cm</td><td>Linear</td></tr>
+            </tbody>
+        </table>
+
+        <h2>PROGRAMS — rDNA</h2>
+        <table>
+            <thead><tr><th>Program</th><th>Buffer</th><th>Agarose</th><th>Temperature</th><th>Time</th><th>Angle</th><th>Switch time</th><th>Voltage</th><th>Ramping</th></tr></thead>
+            <tbody>
+                <tr><td>Pulsaphor Unit (LKB) program 7</td><td>0.5× TBE, 3 L</td><td>0.8%</td><td>9 °C (real 14 °C)</td><td>24 h</td><td>120°</td><td>60 s / 85 s</td><td>162 V</td><td>Not linear</td></tr>
+            </tbody>
+        </table>
+
+        <a class="back" href="protocols.html">← Back to Protocols</a>
+
+    </section>
+</main>
+
+<script>
+(function () {
+    const concentration = document.getElementById('cellConc');
+    const target = document.getElementById('targetCells');
+    const result = document.getElementById('calcResult');
+
+    function calculate() {
+        const c = Number(concentration.value);
+        const cells = Number(target.value);
+
+        if (!Number.isFinite(c) || c <= 0) {
+            result.textContent = 'Enter the cell concentration to calculate the required volume.';
+            return;
+        }
+
+        const ml = cells / c;
+        const ul = ml * 1000;
+        result.innerHTML = '<strong>Required volume:</strong> ' + ml.toFixed(3).replace(/0+$/, '').replace(/\.$/, '') + ' mL (' + ul.toFixed(1) + ' µL)';
+    }
+
+    concentration.addEventListener('input', calculate);
+    target.addEventListener('change', calculate);
+})();
+</script>
+</body>
+</html>
