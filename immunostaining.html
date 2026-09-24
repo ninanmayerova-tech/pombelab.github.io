@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Immunostaining</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #e5e5e5;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        color: #333;
+    }
+
+    .page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 55px 30px 60px;
+    }
+
+    h1 {
+        font-family: Georgia, serif;
+        text-align: center;
+        font-size: 42px;
+        margin: 0 0 12px;
+        color: #333;
+    }
+
+    .subtitle {
+        text-align: center;
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 45px;
+    }
+
+    h2 {
+        font-family: Georgia, serif;
+        font-size: 25px;
+        margin: 38px 0 18px;
+        color: #52705d;
+    }
+
+    h3 {
+        font-family: Georgia, serif;
+        font-size: 20px;
+        margin: 30px 0 15px;
+        color: #333;
+    }
+
+    p {
+        font-size: 13px;
+        line-height: 1.7;
+        text-align: justify;
+        margin: 0 0 14px;
+    }
+
+    ol {
+        margin: 0 0 20px 25px;
+        padding-left: 20px;
+    }
+
+    ol > li {
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 9px;
+        padding-left: 5px;
+    }
+
+    ul {
+        margin: 7px 0 12px 0;
+        padding-left: 25px;
+    }
+
+    ul li {
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 5px;
+    }
+
+    .note {
+        background: #eeeeee;
+        border-radius: 12px;
+        padding: 18px 22px;
+        margin: 25px 0;
+        line-height: 1.6;
+    }
+
+    .note ul {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .solution-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0 30px;
+        background: white;
+        font-size: 13px;
+    }
+
+    .solution-table th,
+    .solution-table td {
+        border: 1px solid #ccc;
+        padding: 9px 11px;
+        text-align: left;
+        vertical-align: top;
+        line-height: 1.5;
+    }
+
+    .solution-table th {
+        background: #B8D8C0;
+        font-family: Georgia, serif;
+        font-weight: normal;
+    }
+
+    .solution-table td:first-child {
+        white-space: nowrap;
+        width: 1%;
+    }
+
+    .back {
+        display: block;
+        text-align: center;
+        margin-top: 45px;
+        color: #52705d;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .back:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+        .page {
+            padding: 40px 20px 50px;
+        }
+
+        h1 {
+            font-size: 34px;
+        }
+
+        h2 {
+            font-size: 23px;
+        }
+
+        .solution-table {
+            font-size: 12px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <h1>IMMUNOSTAINING</h1>
+    <div class="subtitle">Immunostaining of yeast cells</div>
+
+    <h2>Immunostaining</h2>
+
+    <p><strong>Prepare cell pellets.</strong></p>
+
+    <p>
+        All centrifugation steps are performed for 3 min at 5,000 rpm.
+    </p>
+
+    <ol>
+        <li>
+            Resuspend cell pellets in 0.6 mL YES + 1.2 M sorbitol.
+        </li>
+
+        <li>
+            Add 60 µL PFA and mix by inverting the microtube.
+        </li>
+
+        <li>
+            Incubate at RT for 45 min.
+        </li>
+
+        <li>
+            Centrifuge and wash 3× with 0.5 mL PEMS.
+            <ul>
+                <li>
+                    Leave the samples in the last wash and freeze at −20 °C.
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            Centrifuge, remove the supernatant, and resuspend in 0.5 mL PEMS
+            + zymolyase (0.5 mg/mL, freshly prepared).
+        </li>
+
+        <li>
+            Incubate at 37 °C for 90 min. Gentle shaking is allowed.
+            <ul>
+                <li>
+                    Check the cells under the microscope. Cells without cell walls
+                    will appear lighter.
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            Centrifuge, remove the supernatant, and resuspend in 0.5 mL PEMS.
+        </li>
+
+        <li>
+            Centrifuge, remove the supernatant, and resuspend in 0.2 mL PEMS.
+        </li>
+
+        <li>
+            Add 0.2 mL PEMS + 2% Triton and mix by inverting the microtube.
+        </li>
+
+        <li>
+            Incubate for 2 min.
+        </li>
+
+        <li>
+            Centrifuge and wash 3× with 0.5 mL PEM.
+        </li>
+
+        <li>
+            Centrifuge, remove the supernatant, and resuspend the cells in
+            0.1 mL PEMBAL.
+        </li>
+
+        <li>
+            Incubate on a rotating wheel (4 rpm) for 1 h.
+        </li>
+
+        <li>
+            Centrifuge, remove the supernatant, and resuspend the cells in
+            50–100 µL PEMBAL + 1st antibody.
+        </li>
+
+        <li>
+            Incubate overnight (O/N) at RT on a rotating wheel (4 rpm).
+        </li>
+
+        <li>
+            Centrifuge, remove the supernatant, and wash 3× with 0.1 mL PEMBAL.
+        </li>
+
+        <li>
+            Centrifuge, remove the supernatant, and resuspend the cells in
+            50–100 µL PEMBAL + 2nd antibody.
+        </li>
+
+        <li>
+            Incubate for 5–6 h at RT on a rotating wheel (4 rpm).
+            <ul>
+                <li>
+                    Light-sensitive! Keep the samples covered.
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            Centrifuge and wash 3× with 0.1 mL PEM.
+        </li>
+
+        <li>
+            Centrifuge, remove the supernatant, and resuspend in 0.1 mL 1× PBS.
+        </li>
+
+        <li>
+            Store covered at 4 °C.
+        </li>
+    </ol>
+
+
+    <h2>Solution Composition</h2>
+
+    <table class="solution-table">
+        <thead>
+            <tr>
+                <th>Solution</th>
+                <th>Composition</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>PFA</td>
+                <td>
+                    380 mg PFA + 700 µL PEM; vortex; 1 min at 65 °C; vortex;
+                    add 48 µL 5 M NaOH; vortex; incubate at 65 °C; vortex after
+                    each minute. After 2–3 min, PFA should be dissolved.
+                    <br><strong>Super toxic!</strong>
+                </td>
+            </tr>
+
+            <tr>
+                <td>PEM (0.75 L)</td>
+                <td>
+                    22.68 g PIPES; 0.2853 g EGTA; 375 µL 2 M MgSO₄;
+                    +400 mL dH₂O; adjust with NaOH to pH 6.9; add dH₂O
+                    up to 750 mL; filter sterilise.
+                </td>
+            </tr>
+
+            <tr>
+                <td>PEMS (0.3 L)</td>
+                <td>
+                    65.12 g sorbitol; adjust to 300 mL with PEM;
+                    filter sterilise.
+                </td>
+            </tr>
+
+            <tr>
+                <td>Sorbitol 2 M (0.25 L)</td>
+                <td>
+                    45.5425 g sorbitol; adjust to 250 mL with dH₂O;
+                    filter sterilise/autoclave.
+                </td>
+            </tr>
+
+            <tr>
+                <td>PEMS + 2% Triton (10 mL)</td>
+                <td>
+                    200 µL 100% Triton; adjust to 10 mL with PEMS.
+                </td>
+            </tr>
+
+            <tr>
+                <td>PEMBAL (50 mL)</td>
+                <td>
+                    730 mg lysine (100 mM final), dissolve in PEM;
+                    add 500 mg BSA (1% final) and dissolve;
+                    add 0.5 mL of 10% NaN₃ (0.1% final; NaN₃ is super toxic);
+                    adjust to 50 mL with PEM.
+                </td>
+            </tr>
+
+            <tr>
+                <td>YES + 1.2 M sorbitol (50 mL)</td>
+                <td>
+                    30 mL 2 M sorbitol + 20 mL YES.
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <a class="back" href="../protocols.html">← Back to protocols</a>
+
+</div>
+
+</body>
+</html>
