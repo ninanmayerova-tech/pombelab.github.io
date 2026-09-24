@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Y2H</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #e5e5e5;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        color: #333;
+    }
+
+    .page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 55px 30px 60px;
+    }
+
+    h1 {
+        font-family: Georgia, serif;
+        text-align: center;
+        font-size: 42px;
+        margin: 0 0 12px;
+        color: #333;
+    }
+
+    .subtitle {
+        text-align: center;
+        font-family: Georgia, serif;
+        font-size: 24px;
+        color: #52705d;
+        margin-bottom: 45px;
+    }
+
+    h2 {
+        font-family: Georgia, serif;
+        font-size: 25px;
+        margin: 38px 0 18px;
+        color: #52705d;
+    }
+
+    h3 {
+        font-family: Georgia, serif;
+        font-size: 20px;
+        margin: 30px 0 15px;
+        color: #333;
+    }
+
+    p {
+        font-size: 13px;
+        line-height: 1.7;
+        text-align: justify;
+        margin: 0 0 14px;
+    }
+
+    ol {
+        margin: 0 0 20px 25px;
+        padding-left: 20px;
+    }
+
+    ol > li {
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 9px;
+        padding-left: 5px;
+    }
+
+    ul {
+        margin: 7px 0 12px 0;
+        padding-left: 25px;
+    }
+
+    ul li {
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 5px;
+    }
+
+    .principle {
+        background: #eeeeee;
+        border-radius: 12px;
+        padding: 18px 22px;
+        margin: 0 0 30px;
+        line-height: 1.6;
+    }
+
+    .principle p {
+        margin: 0 0 10px;
+    }
+
+    .principle p:last-child {
+        margin-bottom: 0;
+    }
+
+    .note {
+        background: #eeeeee;
+        border-radius: 12px;
+        padding: 18px 22px;
+        margin: 25px 0;
+        line-height: 1.6;
+    }
+
+    .note ul {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .solution-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0 30px;
+        background: white;
+        font-size: 13px;
+    }
+
+    .solution-table th,
+    .solution-table td {
+        border: 1px solid #ccc;
+        padding: 9px 11px;
+        text-align: left;
+        vertical-align: top;
+        line-height: 1.5;
+    }
+
+    .solution-table th {
+        background: #B8D8C0;
+        font-family: Georgia, serif;
+        font-weight: normal;
+    }
+
+    .solution-table td:first-child {
+        white-space: nowrap;
+        width: 1%;
+    }
+
+    .back {
+        display: block;
+        text-align: center;
+        margin-top: 45px;
+        color: #52705d;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .back:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+        .page {
+            padding: 40px 20px 50px;
+        }
+
+        h1 {
+            font-size: 34px;
+        }
+
+        .subtitle {
+            font-size: 21px;
+        }
+
+        h2 {
+            font-size: 23px;
+        }
+
+        .solution-table {
+            font-size: 12px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <h1>Y2H</h1>
+    <div class="subtitle">Yeast two-hybrid</div>
+
+
+    <h2>Principle</h2>
+
+    <div class="principle">
+
+        <p>
+            The yeast two-hybrid (Y2H) system is used to detect protein–protein
+            interactions. The system is based on two separate domains of a
+            transcription factor: the <strong>DNA-binding domain (BD)</strong>
+            and the <strong>activation domain (AD)</strong>.
+        </p>
+
+        <p>
+            One protein of interest is fused to the BD, while the second protein
+            is fused to the AD. If the two proteins interact, the BD and AD are
+            brought together, allowing transcription of reporter genes and
+            detection of the interaction.
+        </p>
+
+    </div>
+
+
+    <h2>Yeast Transformation</h2>
+
+    <ol>
+
+        <li>
+            Inoculate a fresh yeast strain into 10 mL YPD and cultivate
+            O/N at 28–30 °C with shaking.
+        </li>
+
+        <li>
+            In the morning, refresh the culture into 100 mL YPD,
+            OD<sub>600</sub> = 0.2.
+
+            <ul>
+                <li>V<sub>min</sub> = 2 mL (1 transformation)</li>
+            </ul>
+        </li>
+
+        <li>
+            Cultivate at 28–30 °C with shaking until OD<sub>600</sub> = 0.5–1.
+        </li>
+
+        <li>
+            Prepare pDNA (250–500 ng) in 1.5 mL Eppendorf microtubes.
+        </li>
+
+        <li>
+            Prepare solutions for 10 mL:
+
+            <ul>
+                <li>
+                    TE → 1 mL 10× TE + 9 mL milliQ dH<sub>2</sub>O
+                </li>
+
+                <li>
+                    TE + LiAc → 1 mL 10× TE + 1 mL LiAc 1 M
+                    + 8 mL milliQ dH<sub>2</sub>O
+                </li>
+
+                <li>
+                    TE + LiAc + PEG → 1 mL 10× TE + 1 mL LiAc 1 M
+                    + 8 mL PEG 50% (mix well)
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            Centrifuge cells in 50 mL Falcon tubes for 5 min at 2600 rpm, RT.
+
+            <ul>
+                <li>
+                    Centrifuge the cells needed for transformation
+                    (2 mL per transformation).
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            Remove the supernatant and wash the cells in 10 mL
+            milliQ dH<sub>2</sub>O. Centrifuge for 5 min at 2600 rpm, RT.
+        </li>
+
+        <li>
+            Remove the supernatant, resuspend the pellet in 1 mL TE + LiAc,
+            and vortex briefly.
+        </li>
+
+        <li>
+            Transfer the suspension into 2 mL Eppendorf microtubes and
+            centrifuge for 3 min at 5000 rpm, RT.
+        </li>
+
+        <li>
+            Remove the supernatant and resuspend the pellet in TE + LiAc
+            + volume according to the number of transformations.
+
+            <ul>
+                <li>50 µL per transformation</li>
+            </ul>
+        </li>
+
+        <li>
+            Aliquot 50 µL of cell suspension into microtubes containing
+            the prepared DNA.
+        </li>
+
+        <li>
+            Add 300 µL of TE + LiAc + PEG and mix well/vortex.
+        </li>
+
+        <li>
+            Incubate the transformations for 30 min at 30 °C with shaking.
+        </li>
+
+        <li>
+            Heat shock for 15 min at 42 °C with vigorous shaking.
+
+            <ul>
+                <li>PEG sediments.</li>
+            </ul>
+        </li>
+
+        <li>
+            Short spin for 5 s (not more!) and remove the supernatant.
+        </li>
+
+        <li>
+            Gently resuspend the cells in 50 µL TE.
+        </li>
+
+        <li>
+            Plate 25 µL of the transformation reaction onto an SD-LW plate
+            (2 transformations per plate are OK).
+        </li>
+
+    </ol>
+
+
+    <div class="note">
+
+        <ul>
+
+            <li>
+                To be safe, store the rest of the transformation at 4 °C
+                if it needs to be replicated.
+            </li>
+
+            <li>
+                Do not forget to transform single proteins with the opposite
+                empty vector domain (e.g. Rad51-BD + EV-AD / Rad51-AD + EV-BD).
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <h2>Spot Test</h2>
+
+    <ol>
+
+        <li>
+            After transformation, replate grown colonies on SD-LW
+            (2 days growth).
+        </li>
+
+        <li>
+            Inoculate colonies into 4 mL YPD and cultivate O/N at 28–30 °C
+            with shaking.
+        </li>
+
+        <li>
+            Count cells in a Bürker chamber.
+        </li>
+
+        <li>
+            Spot cells in 5×10 dilutions, from a maximum of 10<sup>5</sup>
+            cells to a minimum of 10<sup>1</sup> cells, on SD-LW,
+            SD-LWH, and SD-LWA plates. Consider using 3-AT;
+            its use is recommended.
+        </li>
+
+        <li>
+            Grow spots for 3–4 days at 28–30 °C.
+        </li>
+
+    </ol>
+
+
+    <h2>3-AT</h2>
+
+    <p>
+        3-AT is used in Y2H to reduce background growth caused by basal
+        activation of the HIS3 reporter. It can be added to the selection
+        medium to increase the stringency of the interaction assay.
+    </p>
+
+    <table class="solution-table">
+
+        <thead>
+            <tr>
+                <th>Chemical</th>
+                <th>Final concentration</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>3-AT</td>
+
+                <td>
+                    0.25 mM; 0.5 mM; 1 mM; 5 mM; 10 mM; 20 mM
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <h2>Media Composition</h2>
+
+    <table class="solution-table">
+
+        <thead>
+            <tr>
+                <th>Medium</th>
+                <th>Composition</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>YPD (1 L)</td>
+
+                <td>
+                    Bacto peptone 0.2% (w/v); yeast extract 0.1% (w/v);
+                    glucose 0.2% (w/v); agar 2% (w/v).
+
+                    <br><br>
+
+                    Bacto peptone 20 g; yeast extract 10 g; glucose 20 g;
+                    agar 20 g.
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>SD-LW (1 L)</td>
+
+                <td>
+                    Glucose 0.2% (w/v); yeast nitrogen base without amino acids
+                    0.067% (w/v); uracil 0.0004% (w/v); lysine 0.0004% (w/v);
+                    methionine 0.0004% (w/v); adenine 0.0004% (w/v);
+                    agar 2% (w/v).
+
+                    <br><br>
+
+                    Glucose 20 g; yeast nitrogen base without amino acids 6.7 g;
+                    uracil 0.04 g; lysine 0.04 g; methionine 0.04 g;
+                    adenine 0.04 g; agar 20 g.
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>SD-LWH (1 L)</td>
+
+                <td>
+                    Glucose 0.2% (w/v); yeast nitrogen base without amino acids
+                    0.067% (w/v); uracil 0.0004% (w/v); lysine 0.0004% (w/v);
+                    methionine 0.0004% (w/v); adenine 0.0004% (w/v);
+                    histidine 0.0004% (w/v); agar 2% (w/v).
+
+                    <br><br>
+
+                    Glucose 20 g; yeast nitrogen base without amino acids 6.7 g;
+                    uracil 0.04 g; lysine 0.04 g; methionine 0.04 g;
+                    adenine 0.04 g; histidine 0.04 g; agar 20 g.
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>SD-LWA (1 L)</td>
+
+                <td>
+                    Glucose 0.2% (w/v); yeast nitrogen base without amino acids
+                    0.067% (w/v); uracil 0.0004% (w/v); lysine 0.0004% (w/v);
+                    methionine 0.0004% (w/v); histidine 0.0004% (w/v);
+                    agar 2% (w/v).
+
+                    <br><br>
+
+                    Glucose 20 g; yeast nitrogen base without amino acids 6.7 g;
+                    uracil 0.04 g; lysine 0.04 g; methionine 0.04 g;
+                    histidine 0.04 g; agar 20 g.
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <h2>Plasmid Files</h2>
+
+    <div class="note">
+
+        <ul>
+
+            <li>
+                <a href="pGADT7 AD.dna" download>
+                    pGADT7 AD — empty vector
+                </a>
+            </li>
+
+            <li>
+                <a href="pGBKT7.dna" download>
+                    pGBKT7 — empty vector
+                </a>
+            </li>
+
+            <li>
+                <a href="sfr1 pGADT7.dna" download>
+                    Sfr1 pGADT7 — example
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <a class="back" href="../protocols.html">
+        ← Back to protocols
+    </a>
+
+</div>
+
+</body>
+</html>
