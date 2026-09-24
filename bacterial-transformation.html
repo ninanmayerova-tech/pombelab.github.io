@@ -1,0 +1,372 @@
+They are actually using the same body font family:
+Ura4 Loss Assay
+
+font-family: 'Lato', Arial, Helvetica, sans-serif;
+
+Its main body text is currently 17 px in .description (unless you make the 2 px change we just discussed, which would make it 15 px).
+PFGE
+
+font-family: 'Lato', Arial, Helvetica, sans-serif;
+
+Its .description is currently 13 px.
+
+So the important difference is not the font, but the font size:
+Page	Body font	Main body size
+Ura4 Loss Assay	Lato	17 px → 15 px after your change
+PFGE	Lato	13 px
+
+The headings are Georgia on both pages.
+
+So if your goal is for the two protocols to look consistent, we should probably decide whether you want both body texts at 15 px, or both at 13 px.
+
+along the way, we have lost the cell calculator from pfge protocol. how? it was not in instructions. please reincporporate it and dont change anything else
+
+You're right — the calculator markup had disappeared while the JavaScript and its styling were still there. That was an unintended change.
+
+I have reincorporated the cell calculator into the PFGE protocol, with the existing functionality:
+
+    enter cell concentration (cells/mL)
+
+    choose 1.6 × 10⁸ or 3 × 10⁸ cells
+
+    automatically calculate the required culture volume
+
+    same calculator styling that was already present
+
+I did not change anything else in the PFGE file.
+
+Bacterial transformation.docx
+Document
+please prepare the code for bacterial transformatio protocol. check and improve english without changing the meaning
+
+Absolutely. I kept the procedure and all numerical values exactly as in your original document, and only improved the English, grammar, terminology, and readability. I also kept the unnumbered items as bullet points rather than turning them into additional numbered steps.
+
+Here is the HTML code in the same clean style as the other protocol pages:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bacterial Transformation</title>
+
+<style>
+    body {
+        margin: 0;
+        background: #e5e5e5;
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        color: #333;
+    }
+
+    .page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 55px 30px 60px;
+    }
+
+    h1 {
+        font-family: Georgia, serif;
+        text-align: center;
+        font-size: 42px;
+        margin: 0 0 12px;
+        color: #333;
+    }
+
+    .subtitle {
+        text-align: center;
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 45px;
+    }
+
+    h2 {
+        font-family: Georgia, serif;
+        font-size: 25px;
+        margin: 38px 0 18px;
+        color: #52705d;
+    }
+
+    h3 {
+        font-family: Georgia, serif;
+        font-size: 20px;
+        margin: 30px 0 15px;
+        color: #333;
+    }
+
+    p {
+        font-size: 13px;
+        line-height: 1.7;
+        text-align: justify;
+        margin: 0 0 14px;
+    }
+
+    ol {
+        margin: 0 0 20px 25px;
+        padding-left: 20px;
+    }
+
+    ol > li {
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 9px;
+        padding-left: 5px;
+    }
+
+    ul {
+        margin: 7px 0 12px 0;
+        padding-left: 25px;
+    }
+
+    ul li {
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 5px;
+    }
+
+    .note {
+        background: #eeeeee;
+        border-radius: 12px;
+        padding: 18px 22px;
+        margin: 25px 0;
+        line-height: 1.6;
+    }
+
+    .note ul {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .solution-section {
+        margin-top: 35px;
+    }
+
+    .solution-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0 30px;
+        background: white;
+        font-size: 13px;
+    }
+
+    .solution-table th,
+    .solution-table td {
+        border: 1px solid #ccc;
+        padding: 9px 11px;
+        text-align: left;
+        vertical-align: top;
+        line-height: 1.5;
+    }
+
+    .solution-table th {
+        background: #B8D8C0;
+        font-family: Georgia, serif;
+        font-weight: normal;
+    }
+
+    .solution-table td:first-child {
+        white-space: nowrap;
+        width: 1%;
+    }
+
+    .back {
+        display: block;
+        text-align: center;
+        margin-top: 45px;
+        color: #52705d;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .back:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+        .page {
+            padding: 40px 20px 50px;
+        }
+
+        h1 {
+            font-size: 34px;
+        }
+
+        h2 {
+            font-size: 23px;
+        }
+
+        .solution-table {
+            font-size: 12px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <h1>BACTERIAL TRANSFORMATION</h1>
+    <div class="subtitle">Transformation of competent bacterial cells</div>
+
+    <h2>Transformation</h2>
+
+    <p><strong>Sterile technique</strong></p>
+
+    <ol>
+        <li>Thaw competent bacterial cells from the −80 °C freezer on ice.</li>
+
+        <li>
+            In a 1.5 mL Eppendorf tube, mix 50–100 µL of bacterial cells with the vector
+            (ligation mix).
+            <ul>
+                <li>1/10 V → newly constructed plasmids</li>
+                <li>0.5–1 µL → basic/verified plasmids</li>
+                <li>+ control sample (cells without plasmid)</li>
+            </ul>
+        </li>
+
+        <li>Incubate the ligation mix for 30 min on ice.</li>
+
+        <li>
+            Heat shock for 90 s at 42 °C
+            (specific cells require a specific heat-shock condition – check beforehand!).
+        </li>
+
+        <li>Allow the mix to cool for 2–10 min on ice.</li>
+
+        <li>Add 1 mL of liquid medium and resuspend the mix.</li>
+
+        <li>Incubate the cells for 45 min–1 h at 37 °C with moderate shaking.</li>
+
+        <li>Centrifuge the suspension for 30 s–1 min at 8000 rpm.</li>
+
+        <li>Discard the supernatant, leaving a volume of 50–100 µL.</li>
+
+        <li>
+            Resuspend the pellet and plate it on solid medium containing the appropriate
+            antibiotic(s).
+            <ul>
+                <li>10 µL + 90 µL / 10 µL + 40 µL</li>
+                <li>50 µL if Gibson assembly was used to prepare the vector</li>
+            </ul>
+        </li>
+
+        <li>Grow the cells overnight at 37 °C.</li>
+
+        <li>
+            The next morning, inoculate one bacterial colony into 4 mL of liquid 2×TY
+            (+4 µL of ampicillin).
+            <ul>
+                <li>Prepare multiple colonies.</li>
+            </ul>
+        </li>
+
+        <li>Incubate the cell cultures overnight at 37 °C in a shaker.</li>
+
+        <li>
+            The next morning, isolate pDNA.
+            <ul>
+                <li>Plasmid DNA isolation → GeneJET Miniprep Kit</li>
+            </ul>
+        </li>
+
+        <li>
+            Plasmid verification:
+            <ul>
+                <li>Restriction analysis (endonucleases)</li>
+                <li>PCR amplification</li>
+            </ul>
+        </li>
+    </ol>
+
+    <div class="note">
+        <ul>
+            <li>
+                After transformant colonies have grown, verify the pDNA by colony PCR.
+                After successful verification, prepare overnight cultures and isolate
+                pDNA the following morning.
+            </li>
+
+            <li>
+                Overgrown bacterial colonies form satellite colonies due to antibiotic
+                degradation, which makes picking a single colony more difficult.
+            </li>
+
+            <li>
+                Ampicillin degrades after 16–20 h – plan your experiments accordingly.
+            </li>
+        </ul>
+    </div>
+
+    <h2>Media Composition</h2>
+
+    <table class="solution-table">
+        <thead>
+            <tr>
+                <th>Medium</th>
+                <th>Composition</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>LB (1 L)</td>
+                <td>
+                    10 g tryptone; 5 g yeast extract; 10 g NaCl.
+                    Dissolve in 950 mL of distilled water; adjust the pH to 7.0
+                    (optional); bring the volume to 1 L; and autoclave to sterilize.
+                    Solid plates + 2% agar.
+                </td>
+            </tr>
+
+            <tr>
+                <td>2×TY (1 L)</td>
+                <td>
+                    16 g tryptone; 10 g yeast extract; and 5 g NaCl.
+                    Dissolve in 950 mL of distilled water; bring the volume to 1 L;
+                    and autoclave to sterilize.
+                    Solid plates + 2% agar.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Antibiotics</h2>
+
+    <table class="solution-table">
+        <thead>
+            <tr>
+                <th>Antibiotic</th>
+                <th>Stock concentration</th>
+                <th>Final concentration</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Ampicillin</td>
+                <td>100 mg/mL</td>
+                <td>100 µg/mL</td>
+            </tr>
+
+            <tr>
+                <td>Kanamycin</td>
+                <td>50 mg/mL</td>
+                <td>50 µg/mL</td>
+            </tr>
+
+            <tr>
+                <td>Chloramphenicol</td>
+                <td>34 mg/mL</td>
+                <td>34 µg/mL</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="back" href="../protocols.html">← Back to protocols</a>
+
+</div>
+
+</body>
+</html>
