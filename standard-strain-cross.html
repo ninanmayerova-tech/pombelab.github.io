@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standard Strain Cross — Pombe Lab</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #e5e5e5;
+            font-family: 'Lato', Arial, Helvetica, sans-serif;
+            color: #333;
+        }
+
+        p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            text-align: center;
+            font-size: 42px;
+            margin: 0 0 45px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-family: Georgia, serif;
+            font-size: 25px;
+            margin-top: 38px;
+            margin-bottom: 18px;
+            color: #52705d;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 32px 1fr;
+            gap: 8px;
+            margin-bottom: 18px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .step-number {
+            color: #52705d;
+            font-weight: bold;
+        }
+
+        .notes {
+            margin-top: 28px;
+            padding: 20px 24px;
+            background: #eeeeee;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .note {
+            margin-bottom: 10px;
+        }
+
+        .note:last-child {
+            margin-bottom: 0;
+        }
+
+        .figure {
+            margin: 38px auto;
+            text-align: center;
+        }
+
+        .figure img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        .back {
+            display: block;
+            margin-top: 35px;
+            text-align: center;
+            color: #52705d;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 700px) {
+            .page {
+                padding: 35px 20px;
+            }
+
+            h1 {
+                font-size: 32px;
+                margin-bottom: 35px;
+            }
+
+            .step {
+                grid-template-columns: 27px 1fr;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="page">
+
+    <h1>STANDARD STRAIN CROSS</h1>
+
+    <div class="step">
+        <div class="step-number">1.</div>
+        <div>Prepare 30 µL mix of sterile dH<sub>2</sub>O and both strains (h- h+ 1:1; h90 h+/- 1:2).</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">2.</div>
+        <div>Plate the suspension on PMG-N and incubate for 3 days at 25 °C.</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">3.</div>
+        <div>Check sporulation in the microscope (look for zygotic asci).</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">4.</div>
+        <div>Incubate cells with lytic enzymes (final c = 2 mg/mL) in 500 µL → O/N, 32 °C + vigorous shake.</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">5.</div>
+        <div>Determine spore concentration by counting spores in Bürker chamber.</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">6.</div>
+        <div>Plate 200–500 spores onto YES plate + 1st antibiotic and incubate at 32 °C (aim for single colonies).</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">7.</div>
+        <div>Replate single colonies onto YES plate + 2nd antibiotic. Incubate at 32 °C.</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">8.</div>
+        <div>cPCR for both wild-type alleles.</div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">9.</div>
+        <div>Store freshly grown colonies in YES + 25% glycerol at −80 °C.</div>
+    </div>
+
+    <div class="notes">
+        <div class="note"><strong>10.</strong> After double mutant construction, let double mutant sporulate on PMG-N. If you observe azygotic asci, there are diploids in your strain mixture.</div>
+        <div class="note"><strong>11.</strong> Alternatively, make a plate containing all needed antibiotics.</div>
+        <div class="note"><strong>12.</strong> If crossing auxotrophic strains, prepare suitable selection media.</div>
+    </div>
+
+    <div class="figure">
+        <img src="/protocols/cross.png" alt="Standard strain cross scheme">
+    </div>
+
+    <div class="figure">
+        <img src="/protocols/a_zygotic-asci.png" alt="Zygotic and azygotic asci reference scheme">
+    </div>
+
+    <a class="back" href="protocols.html">
+        ← Back to protocols
+    </a>
+
+</main>
+
+</body>
+</html>
